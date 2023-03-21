@@ -13,7 +13,7 @@ public class SurvivorMovement : MonoBehaviour
         _rigidbody= GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_target != null)
         {
@@ -28,6 +28,6 @@ public class SurvivorMovement : MonoBehaviour
 
     private void Move()
     {
-        _rigidbody.AddForce(_target.position*_speedMovement*Time.deltaTime);
+        _rigidbody.MovePosition(_rigidbody.position+_target.position.normalized*_speedMovement*Time.deltaTime);
     }
 }

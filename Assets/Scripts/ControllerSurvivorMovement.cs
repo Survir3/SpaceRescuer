@@ -16,16 +16,16 @@ public class ControllerSurvivorMovement : MonoBehaviour
     {
         _survivorMovement.Add(survivorMovement);
 
-
-        if(_survivorMovement.Count==1)
+        if (_survivorMovement.Count==1)
         {
             survivorMovement.SetTarget(_player.transform);
+            Debug.Log("1___" + _survivorMovement.Count);
         }
         else
         {
-            Transform target = _survivorMovement[_survivorMovement.Count - 1].transform;
-            survivorMovement.SetTarget(_player.transform);
-
+            Transform target = _survivorMovement[_survivorMovement.Count-2].transform;
+            survivorMovement.SetTarget(target);
+            Debug.Log(">1___" + _survivorMovement.Count);
         }
     }
 }

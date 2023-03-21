@@ -16,6 +16,9 @@ public class CollisionPlayerHandler : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<CollisionSurvivorHandler>(out CollisionSurvivorHandler item))
         {
+            if (item.IsAdded)
+                return;
+
             item.IsAdded=true;
             TryAddToPlayer(other.gameObject);
             TryAddToSurvivorMovement(other.gameObject);
