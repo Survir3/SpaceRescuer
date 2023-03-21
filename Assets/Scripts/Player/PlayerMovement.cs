@@ -26,16 +26,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Vector2 direction = _playerInput.Player.Move.ReadValue<Vector2>();
-        Vector3 targetPosition = GetTargetPosition(direction);
-
-        Move(targetPosition);
+        Move();
     }
 
-    private void Move(Vector3 targetPosition)
+    private void Move()
     {
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.AddForce(targetPosition*_speedMovement);
+        Vector3 direction = transform.TransformDirection(Vector3.forward);
+        _rigidbody.AddForce(direction * _speedMovement*Time.deltaTime);
     }
 
     private Vector3 GetTargetPosition(Vector2 direction)
