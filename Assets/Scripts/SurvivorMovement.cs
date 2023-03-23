@@ -28,7 +28,6 @@ public class SurvivorMovement : MonoBehaviour
 
     private void Move()
     {
-        _rigidbody.MovePosition(_rigidbody.position + _target.position.normalized * _speedMovement * Time.deltaTime);
-        Debug.Log(_rigidbody.position);
+        _rigidbody.position= Vector3.MoveTowards(_rigidbody.position,_target.position, _speedMovement * Time.deltaTime);
     }
 }
