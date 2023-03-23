@@ -28,6 +28,7 @@ public class SurvivorMovement : MonoBehaviour
 
     private void Move()
     {
-        _rigidbody.MovePosition(_rigidbody.position+_target.position.normalized*_speedMovement*Time.deltaTime);
+        _rigidbody.MovePosition(_rigidbody.position + _target.position.normalized * _speedMovement * Time.deltaTime);
+        Debug.Log(_target.position.normalized);
     }
 }

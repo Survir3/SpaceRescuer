@@ -12,8 +12,9 @@ public class ArtificialGravityBody : MonoBehaviour
         _rigidbody= GetComponent<Rigidbody> ();
         _rigidbody.freezeRotation= true;
     }
-    private void Update()
+
+    private void FixedUpdate()
     {
-        _ground.Attract(_rigidbody, transform);
+        _ground.Attract(_rigidbody, transform);        
     }
 }
