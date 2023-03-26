@@ -5,7 +5,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speedMovement;
     [SerializeField] private float _speedRotation;
-    [SerializeField] private Transform _test;
 
     private PlayerInput _playerInput;
     private Rigidbody _rigidbody;
@@ -19,19 +18,17 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         _playerInput.Enable();
-        _playerInput.Player.Move.performed += ctx => OnRotate();
     }
 
     private void OnDisable()
     {
         _playerInput.Disable();
-        _playerInput.Player.Move.performed -= ctx => OnRotate();
     }
 
     private void FixedUpdate()
     {
         Move();
-        OnRotate();
+        Rotate();
     }
 
     private void Move()
@@ -40,15 +37,15 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.MovePosition(_rigidbody.position+ direction * _speedMovement*Time.deltaTime);
     }
 
-    private void OnRotate()
+    private void Rotate()
     {
-        Quaternion targetRotation = TryGetTargetRotation(_playerInput.Player.Move.ReadValue<float>());
+        Quaternion targetRotation = GetTargetRotation(_playerInput.Player.Move.ReadValue<float>());
         _rigidbody.rotation = Quaternion.Slerp(_rigidbody.rotation, targetRotation, _speedRotation * Time.deltaTime);
     }
 
-    private Quaternion TryGetTargetRotation(float direction)
+    private Quaternion GetTargetRotation(float direction)
     {
-        Vector3 targetPosition=(transform.position + transform.TransformDirection( new Vector3(direction, 0, 0)) - transform.position).normalized;
+        Vector3 targetPosition=transform.TransformDirection( new Vector3(direction, 0, 0));
         return Quaternion.FromToRotation(transform.forward, targetPosition) * _rigidbody.rotation;     
     }
 }
