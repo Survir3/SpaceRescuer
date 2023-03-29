@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent ((typeof(Player)), (typeof(PlayerMovement)), typeof(ControllerSurvivorMovement))]
+[RequireComponent ((typeof(Player)), (typeof(MovementPlayer)), typeof(ControllerSurvivorMovement))]
 public class CollisionPlayerHandler : MonoBehaviour
 {
     private Player _player;
@@ -20,16 +20,8 @@ public class CollisionPlayerHandler : MonoBehaviour
                 return;
 
             item.IsAdded=true;
+            _controllerSurvivorMovement.AddSurvivor(item.GetComponent<SurvivorMovement>());
             TryAddToPlayer(other.gameObject);
-            TryAddToSurvivorMovement(other.gameObject);
-        }
-    }
-
-    public void TryAddToSurvivorMovement(GameObject adderPlayer)
-    {
-        if (adderPlayer.TryGetComponent<SurvivorMovement>(out SurvivorMovement survivorMovement))
-        {
-            _controllerSurvivorMovement.AddSurvivors(survivorMovement);
         }
     }
 

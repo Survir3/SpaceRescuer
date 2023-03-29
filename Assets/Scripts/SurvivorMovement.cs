@@ -1,60 +1,17 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class SurvivorMovement : MonoBehaviour
+public class SurvivorMovement : Movement
 {
-    [SerializeField] private float _speedMovement;
-    [SerializeField] private float _distanceToTarget;
+    [SerializeField] Transform _mobel;
 
-    private Transform _target;
-    private Rigidbody _rigidbody;
-
-
-    private void Awake()
+    public void Move(Transform target)
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody.position = Vector3.MoveTowards(_rigidbody.position, target.position, _speedMovement * Time.deltaTime);
     }
 
-    private void FixedUpdate()
+    public void Rotate(Transform target)
     {
-        if (_target != null)
-        {
-            Move();
-            Rotate_transform();
-            // Rotate_MoveRotation();
-           // Rotate_rotation();
-        }
-    }
-
-    public void SetTarget(Transform target)
-    {
-        _target= target;
-    }
-
-    private void Move()
-    {
-        if (Vector3.Distance(_target.position, transform.position) >= _distanceToTarget)
-        {
-            Vector3 direction = _target.position - transform.position.normalized;
-            _rigidbody.position = Vector3.MoveTowards(_rigidbody.position, _target.position, _speedMovement * Time.deltaTime);
-        }
-    }
-
-    private void Rotate_rotation()
-    {
-        Quaternion rotation = Quaternion.FromToRotation(transform.forward, _target.position - transform.position);
-        _rigidbody.rotation= rotation*_rigidbody.rotation;
-    }
-
-    private void Rotate_MoveRotation()
-    {
-        Quaternion rotation = Quaternion.FromToRotation(transform.forward, _target.position - transform.position);
-        _rigidbody.MoveRotation(rotation);
-    }
-
-    private void Rotate_transform()
-    {
-        Quaternion rotation = Quaternion.FromToRotation(transform.forward, _target.position - transform.position);
-        transform.rotation = rotation * transform.rotation;
+        Quaternion rotation = Quaternion.FromToRotation(_mobel.forward, target.position - _mobel.position);
+        _mobel.rotation = rotation* _mobel.rotation;
     }
 }
