@@ -9,25 +9,32 @@ public class Player : MonoBehaviour
 
     public IReadOnlyList<Survivor> Survivors => _survivors;
     public int Points { get; private set; }
-
-    public event UnityAction AddSurvivors;
+   
+    public event UnityAction AddSurvivor;
+    public event UnityAction AddArtefact;
 
     public void TakeSurvivor(Survivor survivor)
     {
         _survivors.Add(survivor);
         AddPoint(survivor.Points);
-        AddSurvivors?.Invoke();
+        AddSurvivor?.Invoke();
     }
 
     public void TakeArtefact(Artefact artefacts)
     {
         _artefacts.Add(artefacts);
         AddPoint(artefacts.Points);
+        AddArtefact?.Invoke();
     }
 
     private void AddPoint(int point)
     {
         if(point>0)
             Points += point;
+    }
+
+    private void StartEffect()
+    {
+
     }
 }

@@ -1,15 +1,17 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Player), typeof(Rigidbody))]
+[RequireComponent(typeof(Player))]
 public class MovementPlayer : Movement
 {
-    [SerializeField, Range(0,1)] private float _durationDisableInput;
+    [SerializeField, Range(0, 1)] private float _durationDisableInput;
 
     private PlayerInput _playerInput;
     private Coroutine _currentCoretine;
     private float _directionRotation;
     private Quaternion _targetRotation;
+
+    public float SpeedMovenemt => _speedMovement;
 
     private void Awake()
     {
@@ -25,8 +27,8 @@ public class MovementPlayer : Movement
 
     private void OnDisable()
     {
-        _playerInput.Disable();
         _playerInput.Player.Move.performed -= ctx => GetTargetRotation();
+        _playerInput.Disable();
     }
 
     private void FixedUpdate()
@@ -57,18 +59,18 @@ public class MovementPlayer : Movement
 
     private void StartDisableInput()
     {
-        if(_currentCoretine!=null)
+        if (_currentCoretine != null)
         {
             StopCoroutine(_currentCoretine);
         }
 
-        _currentCoretine=StartCoroutine(DisableInput());
+        _currentCoretine = StartCoroutine(DisableInput());
     }
 
     private IEnumerator DisableInput()
     {
         _playerInput.Disable();
-        
+
         yield return new WaitForSeconds(_durationDisableInput);
 
         _playerInput.Enable();
