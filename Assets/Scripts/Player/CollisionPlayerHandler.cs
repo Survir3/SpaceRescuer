@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent ((typeof(Player)), (typeof(MovementPlayer)), typeof(ControllerSurvivorMovement))]
@@ -5,11 +7,13 @@ public class CollisionPlayerHandler : MonoBehaviour
 {
     private Player _player;
     private ControllerSurvivorMovement _controllerSurvivorMovement;
+    private ControllerArtefactEffect _controllerArtefactEffect;
     
     private void Awake()
     {
         _player= GetComponent<Player>();
         _controllerSurvivorMovement= GetComponent<ControllerSurvivorMovement>();
+        _controllerArtefactEffect = GetComponent<ControllerArtefactEffect>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -18,6 +22,7 @@ public class CollisionPlayerHandler : MonoBehaviour
         {
             if (survivor.IsAdded)
             {
+                _player.Dead();
                 return;
             }
             else
@@ -36,6 +41,7 @@ public class CollisionPlayerHandler : MonoBehaviour
             else
             {
                 artefact.AddInSnake();
+                _controllerArtefactEffect.AddArtefact(artefact.GetComponent<Artefact>());
                 TryAddToPlayer(other.gameObject);
             }
         }

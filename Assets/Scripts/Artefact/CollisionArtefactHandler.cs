@@ -5,4 +5,8 @@ using UnityEngine;
 public class CollisionArtefactHandler : CollisionHandler
 {
     [SerializeField] private Artefact _artefact;
+
+    protected override void CallAdd()
+    {
+    }
 }

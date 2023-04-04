@@ -1,4 +1,8 @@
+using UnityEngine;
+
 public abstract class Artefact : Item
 {
-    public abstract void Cast(Player player);
+    [SerializeField] private int _multiplier;
+
+    public int Multiplier => _multiplier;
 }

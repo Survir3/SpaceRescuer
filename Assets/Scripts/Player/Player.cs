@@ -4,11 +4,14 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Points _points;
+
     private List<Survivor> _survivors = new List<Survivor>();
     private List<Artefact> _artefacts= new List<Artefact>();
 
+    public Points Points => _points;
     public IReadOnlyList<Survivor> Survivors => _survivors;
-    public int Points { get; private set; }
+    public IReadOnlyList<Artefact> Artefacts=> _artefacts;
    
     public event UnityAction AddSurvivor;
     public event UnityAction AddArtefact;
@@ -16,25 +19,30 @@ public class Player : MonoBehaviour
     public void TakeSurvivor(Survivor survivor)
     {
         _survivors.Add(survivor);
-        AddPoint(survivor.Points);
+        Points.Add(survivor.Points);
         AddSurvivor?.Invoke();
     }
 
     public void TakeArtefact(Artefact artefacts)
     {
         _artefacts.Add(artefacts);
-        AddPoint(artefacts.Points);
+        Points.Add(artefacts.Points);
         AddArtefact?.Invoke();
     }
 
     private void AddPoint(int point)
     {
-        if(point>0)
-            Points += point;
+   //     if(point>0)
+          //  Points += point;
     }
 
     private void StartEffect()
     {
 
+    }
+
+    public void Dead()
+    {
+        Debug.Log("dead");
     }
 }

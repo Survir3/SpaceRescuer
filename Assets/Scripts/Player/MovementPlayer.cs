@@ -40,7 +40,7 @@ public class MovementPlayer : Movement
     public void Move()
     {
         Vector3 direction = transform.TransformDirection(Vector3.forward);
-        _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement * Time.deltaTime);
+        _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement*_multiplier * Time.deltaTime);
     }
 
     private void Rotate()

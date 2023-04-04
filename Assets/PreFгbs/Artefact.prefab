@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 5345105590819219857}
+  _artefact: {fileID: 0}
 --- !u!1001 &5345105591725043101
 PrefabInstance:
   m_ObjectHideFlags: 0

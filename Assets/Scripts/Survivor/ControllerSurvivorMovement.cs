@@ -31,7 +31,6 @@ public class ControllerSurvivorMovement : MonoBehaviour
 
         if (_survivorMovements.Count > 1)
         {
-
             for (int i = 1; i < _survivorMovements.Count; i++)
             {
                 Transform preveuPosition = _survivorMovements[i - 1]._anchor;
