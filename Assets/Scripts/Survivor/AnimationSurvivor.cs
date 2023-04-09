@@ -8,13 +8,13 @@ public class AnimationSurvivor : MonoBehaviour
 
     private void OnEnable()
     {
-        _survivorHandler.HasAdd += StartAninationFollow;
+        _survivorHandler.Added += StartAninationFollow;
         _shield.SetActive(false);
     }
 
     private void OnDisable()
     {
-        _survivorHandler.HasAdd -= StartAninationFollow;
+        _survivorHandler.Added -= StartAninationFollow;
 
     }
     private void StartAninationFollow()

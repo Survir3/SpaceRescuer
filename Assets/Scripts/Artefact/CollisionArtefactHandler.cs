@@ -5,8 +5,10 @@ using UnityEngine;
 public class CollisionArtefactHandler : CollisionHandler
 {
     [SerializeField] private Artefact _artefact;
+    [SerializeField] private Animation _animation;
 
-    protected override void CallAdd()
+    private void OnTriggerEnter(Collider other)
     {
+        _animation.Play();
     }
 }

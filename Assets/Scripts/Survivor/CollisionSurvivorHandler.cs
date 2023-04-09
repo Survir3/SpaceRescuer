@@ -1,13 +1,6 @@
 using UnityEngine;
-using UnityEngine.Events;
 
-[RequireComponent((typeof(IAdder)))]
+[RequireComponent ((typeof(Survivor)), (typeof(SurvivorMovement)))]
 public class CollisionSurvivorHandler : CollisionHandler
 {
-    public event UnityAction HasAdd;
-
-    protected override void CallAdd()
-    {
-        HasAdd?.Invoke();
-    }
 }

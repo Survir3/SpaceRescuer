@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [RequireComponent ((typeof(Player)), (typeof(MovementPlayer)), typeof(ControllerSurvivorMovement))]
@@ -18,49 +16,35 @@ public class CollisionPlayerHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<CollisionSurvivorHandler>(out CollisionSurvivorHandler survivor))
+        if (other.gameObject.TryGetComponent<CollisionSurvivorHandler>(out CollisionSurvivorHandler survivorHandler))
         {
-            if (survivor.IsAdded)
+            if (survivorHandler.IsAdded)
             {
                 _player.Dead();
                 return;
             }
             else
             {
-            survivor.AddInSnake();
-            _controllerSurvivorMovement.AddSurvivor(survivor.GetComponent<SurvivorMovement>());
-            TryAddToPlayer(other.gameObject);
+            survivorHandler.AddInSnake();
+
+                survivorHandler.GetComponent<Survivor>().GivePoints(_player.Points);
+            _controllerSurvivorMovement.AddSurvivor(survivorHandler.GetComponent<SurvivorMovement>());
             }
         }
-        else if(other.gameObject.TryGetComponent<CollisionArtefactHandler>(out CollisionArtefactHandler artefact))
+        else if(other.gameObject.TryGetComponent<CollisionArtefactHandler>(out CollisionArtefactHandler artefactHandler))
         {
-            if (artefact.IsAdded)
+            if (artefactHandler.IsAdded)
             {
                 return;
             }
             else
             {
-                artefact.AddInSnake();
-                _controllerArtefactEffect.AddArtefact(artefact.GetComponent<Artefact>());
-                TryAddToPlayer(other.gameObject);
+                artefactHandler.AddInSnake();
+
+                Artefact artefact = artefactHandler.GetComponent<Artefact>();
+                artefact.GivePoints(_player.Points);
+                _controllerArtefactEffect.TryGetEffect(artefact);
             }
-        }
-    }
-
-    private void TryAddToPlayer(GameObject adderPlayer)
-     {
-        adderPlayer.TryGetComponent<Item>(out Item item);
-
-        switch (item)
-        {     
-            case Survivor survivor:
-                _player.TakeSurvivor(survivor);
-                break;
-            case Artefact artefact:
-                _player.TakeArtefact(artefact);
-                break;
-            default: 
-                break;
         }
     }
 }

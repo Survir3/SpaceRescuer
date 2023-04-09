@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public abstract class Item : MonoBehaviour, IGiverPoints, IAdder
 {
@@ -7,10 +6,8 @@ public abstract class Item : MonoBehaviour, IGiverPoints, IAdder
 
     public int Points => _points;
 
-    public event UnityAction Added;
-
-    public void Add()
+    public void GivePoints(Points player)
     {
-        Added?.Invoke();
+        player.Add(_points);
     }
 }

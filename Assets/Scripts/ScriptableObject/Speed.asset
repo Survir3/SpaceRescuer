@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcbab0177fa7a4e468512e0cd26bfab4, type: 3}
   m_Name: Speed
   m_EditorClassIdentifier: 
-  _artefact: {fileID: 5345105590819219567, guid: 9a157f0a6d84a0d4485a5e5c7f2ea407, type: 3}
+  _mobel: {fileID: 5345105590819219567, guid: 9a157f0a6d84a0d4485a5e5c7f2ea407, type: 3}

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
 public class ControllerSurvivorMovement : MonoBehaviour
 {
     private MovementPlayer _player;
@@ -22,18 +23,26 @@ public class ControllerSurvivorMovement : MonoBehaviour
         _survivorMovements.Add(survivor);
     }
 
-    private void Move()
+    public void SetMultipliers(int multiplier)
+    {
+        foreach (var survivor in _survivorMovements)
+        {
+            survivor.SetMultiplier(multiplier);
+        }
+    }
+
+    public void Move()
     {
         if(_survivorMovements.Count>0)
         {
-            _survivorMovements[0].Move(_player._anchor);
+            _survivorMovements[0].Move(_player.Anchor);
         }
 
         if (_survivorMovements.Count > 1)
         {
             for (int i = 1; i < _survivorMovements.Count; i++)
             {
-                Transform preveuPosition = _survivorMovements[i - 1]._anchor;
+                Transform preveuPosition = _survivorMovements[i - 1].Anchor;
                 _survivorMovements[i].Move(preveuPosition);
             }
         }
@@ -43,7 +52,7 @@ public class ControllerSurvivorMovement : MonoBehaviour
     {
         if (_survivorMovements.Count > 0)
         {
-            _survivorMovements[0].Rotate(_player._anchor);
+            _survivorMovements[0].Rotate(_player.Anchor);
         }
 
         if (_survivorMovements.Count > 1)

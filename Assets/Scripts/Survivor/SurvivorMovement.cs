@@ -12,11 +12,4 @@ public class SurvivorMovement : Movement
         Quaternion rotation = Quaternion.FromToRotation(transform.forward, target.position- transform.position);
         transform.rotation = rotation* transform.rotation;
     }
-
-    public void SetPositionInSnake(Transform target)
-    {
-        gameObject.SetActive(false);
-        transform.position= target.position;
-        gameObject.SetActive(true);
-    }
 }

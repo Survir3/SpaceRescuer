@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent (typeof(Rigidbody))]
 public class ArtificialGravityAttractor : MonoBehaviour
 {
-    [SerializeField, Range(-1000, 0)] private float _powerGravity;
+    [SerializeField, Range(-20, 0)] private float _powerGravity;
     [SerializeField] private float _speedRotation;
 
     public void Attract(Rigidbody bodyAttracted, Transform body)

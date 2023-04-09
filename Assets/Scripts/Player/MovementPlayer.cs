@@ -1,12 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Player))]
+[RequireComponent (typeof(Player), typeof(ControllerSurvivorMovement))]
 public class MovementPlayer : Movement
 {
     [SerializeField, Range(0, 1)] private float _durationDisableInput;
 
     private PlayerInput _playerInput;
+    private ControllerSurvivorMovement _controllerSurvivorMovement;
     private Coroutine _currentCoretine;
     private float _directionRotation;
     private Quaternion _targetRotation;
@@ -17,6 +18,7 @@ public class MovementPlayer : Movement
     {
         _playerInput = new PlayerInput();
         _targetRotation = _rigidbody.rotation;
+        _controllerSurvivorMovement = GetComponent<ControllerSurvivorMovement>();
     }
 
     private void OnEnable()
@@ -41,6 +43,13 @@ public class MovementPlayer : Movement
     {
         Vector3 direction = transform.TransformDirection(Vector3.forward);
         _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement*_multiplier * Time.deltaTime);
+
+        _controllerSurvivorMovement.Move();
+    }
+
+    protected void SetMultiplierIComponents()
+    {
+        _controllerSurvivorMovement.SetMultipliers(_multiplier);
     }
 
     private void Rotate()

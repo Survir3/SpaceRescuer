@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
+using UnityEngine.UIElements;
 
+[RequireComponent(typeof(ArtificialGravityAttractor), typeof(SphereCollider))]
 public abstract class Spawner : MonoBehaviour
 {
     [SerializeField] protected ArtificialGravityBody _gravityBody;
@@ -48,15 +49,25 @@ public abstract class Spawner : MonoBehaviour
 
     private Vector3 GetSpawnedPosition()
     {
-        Vector3 newPosition = transform.position + Random.insideUnitSphere.normalized * _radius;
-        RaycastHit[] hits = Physics.BoxCastAll(newPosition, _scaleBody, Vector3.forward);
+        Vector3 newPosition = GetSpawnRandomPosition();
+        RaycastHit[] hits = GetAllObstacles(newPosition);
 
         while (hits.Length>1)
         {
-            newPosition = transform.position + Random.insideUnitSphere.normalized * _radius;
-            hits = Physics.BoxCastAll(newPosition, _scaleBody, Vector3.forward);
+            newPosition = GetSpawnRandomPosition();
+            hits = GetAllObstacles(newPosition);
         }
 
         return newPosition;
+    }
+
+    private Vector3 GetSpawnRandomPosition()
+    {
+       return transform.position + Random.insideUnitSphere.normalized * _radius;
+    }
+
+    private RaycastHit[] GetAllObstacles(Vector3 position)
+    {
+        return Physics.BoxCastAll(position, _scaleBody, Vector3.forward);
     }
 }

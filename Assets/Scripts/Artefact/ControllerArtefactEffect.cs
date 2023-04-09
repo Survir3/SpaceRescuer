@@ -5,7 +5,6 @@ public class ControllerArtefactEffect : MonoBehaviour
 {
     private MovementPlayer _playerMovement;
     private Player _player;
-    private List<Artefact> _artefacts = new List<Artefact>();
 
     private void Awake()
     {
@@ -13,21 +12,15 @@ public class ControllerArtefactEffect : MonoBehaviour
         _playerMovement= GetComponent<MovementPlayer>();
     }
 
-    public void AddArtefact(Artefact artefact)
-    {
-        _artefacts.Add(artefact);
-        TryGetEffect(artefact);
-    }
-
-    private void TryGetEffect(Artefact artefact)
+    public void TryGetEffect(Artefact artefact)
     {
         switch (artefact)
         {
             case BonusPointsArtefact bonusPoint:
-                _player.Points.SetMultiplier(bonusPoint.Multiplier);
+                bonusPoint.StartEffect(_player.Points);
                 break;
             case SpeedMovementArtefact speedMovement:
-                _playerMovement.SetMultiplier(speedMovement.Multiplier);
+                speedMovement.StartEffect(_playerMovement);
                 break;
             default:
                 break;
