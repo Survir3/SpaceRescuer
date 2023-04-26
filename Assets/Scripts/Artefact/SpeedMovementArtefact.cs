@@ -1,18 +1,27 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 public class SpeedMovementArtefact : Artefact
 {
     [SerializeField] private float _duration;
         
-    public override void StartEffect(IMultiplied multiplied)
+    public override void StartEffect(List<IMultiplied> multiplied)
     {
         StartCoroutine(Timer(multiplied));
     }
 
-    private IEnumerator Timer(IMultiplied multiplied)
+    private IEnumerator Timer(List<IMultiplied> multiplied)
     {
-        multiplied.SetMultiplier(_multiplier);
+        foreach (var item in multiplied)
+        {
+            item.SetMultiplier(_multiplier);
+        }
+
         yield return new WaitForSeconds(_duration);
-        multiplied.SetDefaultMultiplier();
+
+        foreach (var item in multiplied)
+        {
+            item.SetDefaultMultiplier();
+        }
     }
 }

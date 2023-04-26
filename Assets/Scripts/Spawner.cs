@@ -18,8 +18,16 @@ public abstract class Spawner : MonoBehaviour
     private void Awake()
     {
         _attractor = GetComponent<ArtificialGravityAttractor>();
-        _radius = GetComponent<Transform>().localScale.x/2;
+        _radius = transform.localScale.x/2;
         _scaleBody= _gravityBody.transform.localScale/2;
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            Spawned();
+        }
     }
 
     private void Update()

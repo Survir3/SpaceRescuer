@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent (typeof(Player), typeof(ControllerSurvivorMovement))]
@@ -24,12 +25,12 @@ public class MovementPlayer : Movement
     private void OnEnable()
     {
         _playerInput.Enable();
-        _playerInput.Player.Move.performed += ctx => GetTargetRotation();
+      //  _playerInput.Player.Move.performed += ctx => GetTargetRotation();
     }
 
     private void OnDisable()
     {
-        _playerInput.Player.Move.performed -= ctx => GetTargetRotation();
+      //  _playerInput.Player.Move.performed -= ctx => GetTargetRotation();
         _playerInput.Disable();
     }
 
@@ -39,31 +40,34 @@ public class MovementPlayer : Movement
         Rotate();
     }
 
-    public void Move()
+    public List<IMultiplied> GetAllMovementShake()
+    {
+        var newList = new List<IMultiplied>();
+        newList.Add(this);
+        newList.AddRange(_controllerSurvivorMovement.SurvivorMovements);
+
+        return newList;
+    }
+
+    protected override void Move()
     {
         Vector3 direction = transform.TransformDirection(Vector3.forward);
         _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement*_multiplier * Time.deltaTime);
-
-        _controllerSurvivorMovement.Move();
     }
 
-    protected void SetMultiplierIComponents()
+    protected override void Rotate()
     {
-        _controllerSurvivorMovement.SetMultipliers(_multiplier);
-    }
-
-    private void Rotate()
-    {
+        GetTargetRotation();
         _rigidbody.rotation = Quaternion.Slerp(_rigidbody.rotation, _targetRotation, _speedRotation * Time.deltaTime);
     }
 
     private void GetTargetRotation()
     {
         _directionRotation = _playerInput.Player.Move.ReadValue<float>();
-        Vector3 targetPosition = transform.TransformDirection(new Vector3(_directionRotation, 0, 0));
+        Vector3 targetPosition = transform.TransformDirection(new Vector3(_directionRotation, 0, 1));
         _targetRotation = Quaternion.FromToRotation(transform.forward, targetPosition) * _rigidbody.rotation;
 
-        StartDisableInput();
+      //  StartDisableInput();
     }
 
     private void StartDisableInput()

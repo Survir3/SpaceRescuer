@@ -6,6 +6,7 @@ public class ArtificialGravityBody : MonoBehaviour
     [SerializeField] private ArtificialGravityAttractor _ground;
     private Rigidbody _rigidbody;
 
+
     private void Awake()
     {
         _rigidbody= GetComponent<Rigidbody> ();
@@ -16,7 +17,7 @@ public class ArtificialGravityBody : MonoBehaviour
     {
         if (_ground != null)
         {
-        _ground.Attract(_rigidbody, transform);        
+            _ground.Attract(_rigidbody, transform);
         }
     }
 

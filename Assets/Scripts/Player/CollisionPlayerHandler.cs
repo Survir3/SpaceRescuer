@@ -25,10 +25,9 @@ public class CollisionPlayerHandler : MonoBehaviour
             }
             else
             {
-            survivorHandler.AddInSnake();
-
+                survivorHandler.AddInSnake();
                 survivorHandler.GetComponent<Survivor>().GivePoints(_player.Points);
-            _controllerSurvivorMovement.AddSurvivor(survivorHandler.GetComponent<SurvivorMovement>());
+                 _controllerSurvivorMovement.AddSurvivor(survivorHandler.GetComponent<SurvivorMovement>());
             }
         }
         else if(other.gameObject.TryGetComponent<CollisionArtefactHandler>(out CollisionArtefactHandler artefactHandler))

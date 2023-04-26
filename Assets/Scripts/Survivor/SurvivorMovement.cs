@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class SurvivorMovement : Movement
 {
-    public void Move(Transform target)
+    public void SetStart(Transform target)
     {
-        _rigidbody.position = Vector3.MoveTowards(_rigidbody.position, target.position, _speedMovement* _multiplier * Time.deltaTime);
+        _rigidbody.position= target.position;
+        _rigidbody.velocity = Vector3.zero;
     }
 
-    public void Rotate(Transform target)
+    public override void MoveToTarget(Rigidbody target)
     {
-        Quaternion rotation = Quaternion.FromToRotation(transform.forward, target.position- transform.position);
-        transform.rotation = rotation* transform.rotation;
+         Vector3 direction =  target.position- transform.position;
+         _rigidbody.MovePosition(_rigidbody.position + _multiplier * _speedMovement * Time.fixedDeltaTime * direction);
     }
 }

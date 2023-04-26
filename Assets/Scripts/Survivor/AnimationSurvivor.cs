@@ -19,7 +19,7 @@ public class AnimationSurvivor : MonoBehaviour
     }
     private void StartAninationFollow()
     {
-        _animator.SetTrigger(ConstantsAnimation.IsAdd);
         _shield.SetActive(true);
+        _animator.SetTrigger(ConstantsAnimation.IsAdd);
     }
 }

@@ -9,11 +9,12 @@ public class Points : MonoBehaviour, IMultiplied
 
     private int _defaulMultiplier = 1;
     private int _value;
-    private int _currentMultiplier = 1;
+    private int _currentMultiplier = 0;
     private Coroutine _timeComboPoints;
 
     public int Value=> _value;
     public int CurrentMultiplier => _currentMultiplier;
+    public float DurationSaveCombo => _durationSaveCombo;
 
     public event UnityAction<int> ChangeValue;
     public event UnityAction<int> ChangeMultiplier;
@@ -21,10 +22,10 @@ public class Points : MonoBehaviour, IMultiplied
 
     public void Add(int value)
     {
+        СollectCombo();
         _value += value* _currentMultiplier;
         ChangeValue?.Invoke(_value);
-
-        СollectCombo();
+        Debug.Log("add");
     }
 
     public void SetMultiplier(int multiplier)
@@ -48,7 +49,7 @@ public class Points : MonoBehaviour, IMultiplied
             StopCoroutine(_timeComboPoints);
         }
 
-        StartCoroutine(TimerCombo());
+        _timeComboPoints=StartCoroutine(TimerCombo());
     }
 
     private IEnumerator TimerCombo()

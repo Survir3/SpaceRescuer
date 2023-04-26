@@ -5,14 +5,15 @@ using UnityEngine;
 public class ControllerSurvivorMovement : MonoBehaviour
 {
     private MovementPlayer _player;
-    private List<SurvivorMovement> _survivorMovements = new List<SurvivorMovement>();
+
+    public readonly List<SurvivorMovement> SurvivorMovements = new List<SurvivorMovement>();
 
     private void Awake()
     {
         _player = GetComponent<MovementPlayer>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Move();
         Rotate();
@@ -20,49 +21,39 @@ public class ControllerSurvivorMovement : MonoBehaviour
 
     public void AddSurvivor(SurvivorMovement survivor)
     {
-        _survivorMovements.Add(survivor);
-    }
+        SurvivorMovements.Add(survivor);
 
-    public void SetMultipliers(int multiplier)
-    {
-        foreach (var survivor in _survivorMovements)
+        if(SurvivorMovements.Count==1)
         {
-            survivor.SetMultiplier(multiplier);
+            survivor.SetStart(_player.Anchor);
+        }
+        else
+        {
+            survivor.SetStart(SurvivorMovements[SurvivorMovements.Count - 2].Anchor);
         }
     }
 
     public void Move()
     {
-        if(_survivorMovements.Count>0)
-        {
-            _survivorMovements[0].Move(_player.Anchor);
-        }
+        if(SurvivorMovements.Count>0)
+         SurvivorMovements[0].MoveToTarget(_player.Rigidbody);
 
-        if (_survivorMovements.Count > 1)
+        for (int i = 1; i < SurvivorMovements.Count; i++)
         {
-            for (int i = 1; i < _survivorMovements.Count; i++)
-            {
-                Transform preveuPosition = _survivorMovements[i - 1].Anchor;
-                _survivorMovements[i].Move(preveuPosition);
-            }
+            Rigidbody preveuPosition = SurvivorMovements[i - 1].Rigidbody;
+            SurvivorMovements[i].MoveToTarget(preveuPosition);
         }
     }
 
-    private void Rotate()
+    public void Rotate()
     {
-        if (_survivorMovements.Count > 0)
-        {
-            _survivorMovements[0].Rotate(_player.Anchor);
-        }
+        if (SurvivorMovements.Count > 0)
+            SurvivorMovements[0].RotateToTarget(_player.LookAt);
 
-        if (_survivorMovements.Count > 1)
+        for (int i = 1; i < SurvivorMovements.Count; i++)
         {
-
-            for (int i = 1; i < _survivorMovements.Count; i++)
-            {
-                Transform preveuPosition = _survivorMovements[i - 1].transform;
-                _survivorMovements[i].Rotate(preveuPosition);
-            }
+            Transform preveuPosition = SurvivorMovements[i - 1].LookAt;
+            SurvivorMovements[i].RotateToTarget(preveuPosition);
         }
     }
 }

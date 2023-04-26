@@ -20,7 +20,7 @@ public class ControllerArtefactEffect : MonoBehaviour
                 bonusPoint.StartEffect(_player.Points);
                 break;
             case SpeedMovementArtefact speedMovement:
-                speedMovement.StartEffect(_playerMovement);
+                speedMovement.StartEffect(_playerMovement.GetAllMovementShake());
                 break;
             default:
                 break;

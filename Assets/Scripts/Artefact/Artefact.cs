@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Artefact : Item
@@ -6,5 +7,13 @@ public abstract class Artefact : Item
 
     public int Multiplier => _multiplier;
 
-    public abstract void StartEffect(IMultiplied multiplied);
+    public virtual void StartEffect(List<IMultiplied> multiplied)
+    {
+
+    }
+
+    public virtual void StartEffect(IMultiplied multiplied)
+    {
+
+    }
 }
