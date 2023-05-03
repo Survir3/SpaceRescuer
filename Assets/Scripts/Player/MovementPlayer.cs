@@ -52,7 +52,7 @@ public class MovementPlayer : Movement
     protected override void Move()
     {
         Vector3 direction = transform.TransformDirection(Vector3.forward);
-        _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement*_multiplier * Time.deltaTime);
+        _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement*_currentMultiplier * Time.deltaTime);
     }
 
     protected override void Rotate()

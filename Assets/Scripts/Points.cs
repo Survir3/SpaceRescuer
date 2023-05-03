@@ -25,7 +25,6 @@ public class Points : MonoBehaviour, IMultiplied
         СollectCombo();
         _value += value* _currentMultiplier;
         ChangeValue?.Invoke(_value);
-        Debug.Log("add");
     }
 
     public void SetMultiplier(int multiplier)

@@ -8,27 +8,28 @@ public abstract class Movement : MonoBehaviour, IMultiplied
     [SerializeField] protected Transform _anchor;
     [SerializeField] protected Transform _lookAt;
 
-    protected int _multiplier = 1;
+    protected int _currentMultiplier = 1;
 
     public int DefaulMultiplier { get; protected set; } = 1;
+    public int CurrentMultiplier =>_currentMultiplier;
     public Transform LookAt => _lookAt;
     public Rigidbody Rigidbody => _rigidbody;
     public Transform Anchor => _anchor;
 
     public void SetMultiplier(int multiplier)
     {
-        _multiplier= multiplier;
+        _currentMultiplier= multiplier;
     }
 
     public void SetDefaultMultiplier()
     {
-        _multiplier = DefaulMultiplier;
+        _currentMultiplier = DefaulMultiplier;
     }
 
     public virtual void MoveToTarget(Rigidbody target)
     {
         Vector3 direction = target.position - transform.position;
-        _rigidbody.MovePosition(_rigidbody.position + _multiplier * _speedMovement * Time.deltaTime * direction);
+        _rigidbody.MovePosition(_rigidbody.position + _currentMultiplier * _speedMovement * Time.deltaTime * direction);
     }
 
     public virtual void RotateToTarget(Transform target)

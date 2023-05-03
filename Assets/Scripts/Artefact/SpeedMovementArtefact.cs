@@ -7,21 +7,23 @@ public class SpeedMovementArtefact : Artefact
         
     public override void StartEffect(List<IMultiplied> multiplied)
     {
-        StartCoroutine(Timer(multiplied));
+        StartCoroutine(Effect(multiplied));
     }
 
-    private IEnumerator Timer(List<IMultiplied> multiplied)
+    private IEnumerator Effect(List<IMultiplied> multiplied)
     {
         foreach (var item in multiplied)
         {
             item.SetMultiplier(_multiplier);
         }
 
-        yield return new WaitForSeconds(_duration);
+        yield return new WaitForSeconds(_duration);    
 
         foreach (var item in multiplied)
         {
             item.SetDefaultMultiplier();
         }
+
+        DestroyAfterEffect();
     }
 }

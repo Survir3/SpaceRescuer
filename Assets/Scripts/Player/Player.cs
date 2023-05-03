@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent (typeof (Points))]
 public class Player : MonoBehaviour
@@ -7,6 +8,8 @@ public class Player : MonoBehaviour
 
     public Points Points => _points;
 
+    public event UnityAction IsDead;
+
     private void Awake()
     {
         _points= GetComponent<Points>();
@@ -14,6 +17,6 @@ public class Player : MonoBehaviour
 
     public void Dead()
     {
-        Debug.Log("dead");
+        IsDead.Invoke();
     }
 }

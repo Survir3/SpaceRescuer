@@ -1,66 +1,54 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(ArtificialGravityAttractor), typeof(SphereCollider))]
 public abstract class Spawner : MonoBehaviour
 {
-    [SerializeField] protected ArtificialGravityBody _gravityBody;
+    [SerializeField] protected List<ArtificialGravityBody> _prefabs;
     [SerializeField] protected float _delay;
     [SerializeField] protected int _maxCount;
 
-    private ArtificialGravityAttractor _attractor;
-    private Coroutine _currentCoroutine;
-    private int _currentCount;
-    private float _radius;
-    private Vector3 _scaleBody;
+    protected ArtificialGravityAttractor _attractor;
+    protected Coroutine _currentCoroutine;
+    protected int _currentCount;
+    protected float _radius;
+    protected Vector3 _scaleBody;
+    protected float _timerSpawn;
 
     private void Awake()
     {
         _attractor = GetComponent<ArtificialGravityAttractor>();
-        _radius = transform.localScale.x/2;
-        _scaleBody= _gravityBody.transform.localScale/2;
+        _radius = transform.localScale.x / 2;
+        _scaleBody = _prefabs[0].gameObject.transform.localScale / 2;
     }
 
-    private void Start()
+    protected void Spawned(ArtificialGravityBody prefab)
     {
-        for (int i = 0; i < 10; i++)
+        _timerSpawn += Time.deltaTime;
+
+        if (_timerSpawn >= _delay)
         {
-            Spawned();
+            Vector3 newPosition = GetSpawnedPosition();
+            ArtificialGravityBody newBody = Instantiate(prefab, newPosition, Quaternion.identity);
+            newBody.Init(_attractor);
+            CollisionHandler newHandler = newBody.GetComponentInChildren<CollisionHandler>();
+            newHandler.Added+= OnAdded;
+            _currentCount++;
+            _timerSpawn = 0;
         }
     }
 
-    private void Update()
+    protected ArtificialGravityBody GetRandomPrefab()
     {
-        if(_currentCoroutine==null && _currentCount<_maxCount)
-        {
-            _currentCoroutine=StartCoroutine(Timer());
-        }
+        return _prefabs[Random.Range(0, _prefabs.Count)];
     }
 
-    protected void Spawned()
-    {
-        Vector3 newPosition = GetSpawnedPosition();
-
-        ArtificialGravityBody newBody = Instantiate(_gravityBody, newPosition, Quaternion.identity);
-
-        newBody.Init(_attractor);
-        _currentCount++;
-    }
-
-    private IEnumerator Timer()
-    {
-        yield return new WaitForSeconds(_delay);
-        Spawned();
-        _currentCoroutine = null;
-    }
-
-    private Vector3 GetSpawnedPosition()
+    protected Vector3 GetSpawnedPosition()
     {
         Vector3 newPosition = GetSpawnRandomPosition();
         RaycastHit[] hits = GetAllObstacles(newPosition);
 
-        while (hits.Length>1)
+        while (hits.Length > 2)
         {
             newPosition = GetSpawnRandomPosition();
             hits = GetAllObstacles(newPosition);
@@ -71,11 +59,18 @@ public abstract class Spawner : MonoBehaviour
 
     private Vector3 GetSpawnRandomPosition()
     {
-       return transform.position + Random.insideUnitSphere.normalized * _radius;
+        return transform.position + Random.insideUnitSphere.normalized * _radius;
     }
 
     private RaycastHit[] GetAllObstacles(Vector3 position)
     {
         return Physics.BoxCastAll(position, _scaleBody, Vector3.forward);
     }
+
+    private void OnAdded(CollisionHandler collisionHandler)
+    {
+        _currentCount--;
+        collisionHandler.Added -= OnAdded;
+    }
+
 }

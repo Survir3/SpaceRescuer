@@ -16,4 +16,9 @@ public abstract class Artefact : Item
     {
 
     }
+
+    protected void DestroyAfterEffect()
+    {
+        Destroy(transform.parent.gameObject);
+    }
 }

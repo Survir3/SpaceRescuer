@@ -1,5 +1,9 @@
 using UnityEngine;
 
-public class SpawnerArtefact : MonoBehaviour
+public class SpawnerArtefact : Spawner
 {
+    private void Update()
+    {
+        Spawned(GetRandomPrefab());
+    }
 }

@@ -16,7 +16,12 @@ public class CollisionPlayerHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<CollisionSurvivorHandler>(out CollisionSurvivorHandler survivorHandler))
+        if(other.gameObject.TryGetComponent<CollisionEnemyHandler>(out CollisionEnemyHandler enemyHandler))
+        {
+            _player.Dead();
+            return;
+        }
+        else if (other.gameObject.TryGetComponent<CollisionSurvivorHandler>(out CollisionSurvivorHandler survivorHandler))
         {
             if (survivorHandler.IsAdded)
             {
@@ -40,7 +45,7 @@ public class CollisionPlayerHandler : MonoBehaviour
             {
                 artefactHandler.AddInSnake();
 
-                Artefact artefact = artefactHandler.GetComponent<Artefact>();
+                Artefact artefact = artefactHandler.GetComponentInParent<Artefact>();
                 artefact.GivePoints(_player.Points);
                 _controllerArtefactEffect.TryGetEffect(artefact);
             }

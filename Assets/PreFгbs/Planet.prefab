@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d0ec8876745ae4787f3e9c608a996c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _powerGravity: -5
+  _powerGravity: -10
   _speedRotation: 20
 --- !u!114 &485102873
 MonoBehaviour:
@@ -141,7 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a34f0d74ed6cd145a2e795a93cdb8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gravityBody: {fileID: 4144882776779484474, guid: 8390e547639bea4488f2ac01a4b34b6f, type: 3}
+  _prefabs:
+  - {fileID: 4144882776779484474, guid: 8390e547639bea4488f2ac01a4b34b6f, type: 3}
   _delay: 1
   _maxCount: 15
 --- !u!114 &485102879
@@ -156,3 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e75301d29a546c4bbfba8bfb5c39aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _prefabs:
+  - {fileID: 1171994432391885884, guid: 75161f6bcd360e448988562e48e38876, type: 3}
+  - {fileID: 5904390455505830207, guid: 4ab78230efb549742a53de82a5a0bdeb, type: 3}
+  _delay: 10
+  _maxCount: 2

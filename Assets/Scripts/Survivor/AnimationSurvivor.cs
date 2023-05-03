@@ -17,7 +17,7 @@ public class AnimationSurvivor : MonoBehaviour
         _survivorHandler.Added -= StartAninationFollow;
 
     }
-    private void StartAninationFollow()
+    private void StartAninationFollow(CollisionHandler collisionSurvivorHandler)
     {
         _shield.SetActive(true);
         _animator.SetTrigger(ConstantsAnimation.IsAdd);

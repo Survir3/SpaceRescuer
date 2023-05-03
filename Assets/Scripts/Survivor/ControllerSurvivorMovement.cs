@@ -25,11 +25,11 @@ public class ControllerSurvivorMovement : MonoBehaviour
 
         if(SurvivorMovements.Count==1)
         {
-            survivor.SetStart(_player.Anchor);
+            survivor.SetStart(_player.Anchor, _player.CurrentMultiplier);
         }
         else
         {
-            survivor.SetStart(SurvivorMovements[SurvivorMovements.Count - 2].Anchor);
+            survivor.SetStart(SurvivorMovements[SurvivorMovements.Count - 2].Anchor, _player.CurrentMultiplier);
         }
     }
 

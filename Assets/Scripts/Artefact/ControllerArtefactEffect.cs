@@ -23,6 +23,7 @@ public class ControllerArtefactEffect : MonoBehaviour
                 speedMovement.StartEffect(_playerMovement.GetAllMovementShake());
                 break;
             default:
+                Debug.Log("--");
                 break;
         }
     }

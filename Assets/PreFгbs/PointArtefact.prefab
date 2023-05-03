@@ -124,6 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _artefact: {fileID: 248264308686096655}
   _animation: {fileID: 248264308686096659}
+  _collider: {fileID: 5249572908723916585}
+  _rigidbody: {fileID: 5904390455505830080}
 --- !u!1 &2059018310932201465
 GameObject:
   m_ObjectHideFlags: 0

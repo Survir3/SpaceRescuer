@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class CollisionHandler : MonoBehaviour
+public class CollisionHandler : MonoBehaviour
 {
     protected IAdder _adderPlayer;
-    public bool IsAdded { get; private set; }
+    public bool IsAdded { get; protected set; }
     public IAdder AdderPlayer => _adderPlayer;
 
-    public event UnityAction Added;
+    public event UnityAction<CollisionHandler> Added;
 
     private void Awake()
     {
@@ -17,6 +17,6 @@ public abstract class CollisionHandler : MonoBehaviour
     public void AddInSnake()
     {
         IsAdded = true;
-        Added?.Invoke();
+        Added?.Invoke(this);
     }
 }

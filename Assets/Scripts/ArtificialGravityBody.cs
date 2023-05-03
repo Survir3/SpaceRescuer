@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody))]
-public class ArtificialGravityBody : MonoBehaviour
+public class ArtificialGravityBody : MonoBehaviour, ISpawned
 {
     [SerializeField] private ArtificialGravityAttractor _ground;
     private Rigidbody _rigidbody;
