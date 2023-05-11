@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using IJunior.TypedScenes;
 
-public class Points : MonoBehaviour, IMultiplied
+public class Points : MonoBehaviour, IMultiplied, ISceneLoadHandler<int>
 {
     [SerializeField] private float _durationSaveCombo;
     [SerializeField] private int _diminutionMultiplier;
@@ -20,6 +21,10 @@ public class Points : MonoBehaviour, IMultiplied
     public event UnityAction<int> ChangeMultiplier;
 
 
+    private void Start()
+    {
+        ChangeValue?.Invoke(_value);
+    }
     public void Add(int value)
     {
         СollectCombo();
@@ -62,5 +67,11 @@ public class Points : MonoBehaviour, IMultiplied
     public void SetDefaultMultiplier()
     {
         _currentMultiplier = _defaulMultiplier;
+    }
+
+    public void OnSceneLoaded(int argument)
+    {
+        _value += argument;
+        ChangeValue?.Invoke(_value);
     }
 }

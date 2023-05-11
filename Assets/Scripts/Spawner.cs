@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(ArtificialGravityAttractor), typeof(SphereCollider))]
 public abstract class Spawner : MonoBehaviour
@@ -7,6 +8,7 @@ public abstract class Spawner : MonoBehaviour
     [SerializeField] protected List<ArtificialGravityBody> _prefabs;
     [SerializeField] protected float _delay;
     [SerializeField] protected int _maxCount;
+    [SerializeField] protected LayerMask _layerMask;
 
     protected ArtificialGravityAttractor _attractor;
     protected Coroutine _currentCoroutine;
@@ -14,6 +16,8 @@ public abstract class Spawner : MonoBehaviour
     protected float _radius;
     protected Vector3 _scaleBody;
     protected float _timerSpawn;
+
+    public event UnityAction IsSpawnedFull;
 
     private void Awake()
     {
@@ -47,11 +51,19 @@ public abstract class Spawner : MonoBehaviour
     {
         Vector3 newPosition = GetSpawnRandomPosition();
         RaycastHit[] hits = GetAllObstacles(newPosition);
+        int countTry = 0;
+        int maxCountTry = 1000;
 
-        while (hits.Length > 2)
+        while (hits.Length > 1)
         {
+            if(countTry>=maxCountTry)
+            {
+                IsSpawnedFull.Invoke();
+            }
+
             newPosition = GetSpawnRandomPosition();
             hits = GetAllObstacles(newPosition);
+            countTry++;
         }
 
         return newPosition;
@@ -59,12 +71,16 @@ public abstract class Spawner : MonoBehaviour
 
     private Vector3 GetSpawnRandomPosition()
     {
-        return transform.position + Random.insideUnitSphere.normalized * _radius;
+        var rq= transform.position + Random.insideUnitSphere.normalized * _radius;
+        return rq;
     }
 
     private RaycastHit[] GetAllObstacles(Vector3 position)
     {
-        return Physics.BoxCastAll(position, _scaleBody, Vector3.forward);
+        float maxDistance = 0;
+        var halfBox = new Vector3(0.5f, 0.5f, 0.5f);
+
+        return Physics.BoxCastAll(position, halfBox, Vector3.forward, Quaternion.identity, maxDistance, _layerMask);
     }
 
     private void OnAdded(CollisionHandler collisionHandler)

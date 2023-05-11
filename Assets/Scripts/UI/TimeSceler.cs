@@ -1,0 +1,58 @@
+using UnityEngine;
+
+public class TimeSceler : MonoBehaviour
+{
+    [SerializeField] private Player _player;
+    [SerializeField] private Spawner[] _spawner;
+
+    private bool _isPause;
+
+    private void Awake()
+    {
+        PlayGame();
+        _isPause = false;
+    }
+
+    private void OnEnable()
+    {
+        _player.IsDie += PauseGame;
+
+        foreach (var spawn in _spawner)
+        {
+            spawn.IsSpawnedFull += PauseGame;
+        }
+    }
+
+    private void OnDisable()
+    {
+        _player.IsDie += PauseGame;
+
+        foreach (var spawn in _spawner)
+        {
+            spawn.IsSpawnedFull -= PauseGame;
+        }
+    }
+
+    public void OnClickPauseButton()
+    {
+        if (_player.IsDead)
+            return;
+
+        if (_isPause)
+            PlayGame();
+        else
+            PauseGame();
+
+        _isPause = !_isPause;
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void PlayGame()
+    {
+        Time.timeScale = 1;
+    }
+}

@@ -6,9 +6,10 @@ public class Player : MonoBehaviour
 {
     private Points _points;
 
+    public bool IsDead { get; private set; } = false;
     public Points Points => _points;
 
-    public event UnityAction IsDead;
+    public event UnityAction IsDie;
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
 
     public void Dead()
     {
-        IsDead.Invoke();
+        IsDead=true;
+        IsDie.Invoke();
     }
 }

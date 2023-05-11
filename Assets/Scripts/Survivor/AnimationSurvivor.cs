@@ -20,6 +20,6 @@ public class AnimationSurvivor : MonoBehaviour
     private void StartAninationFollow(CollisionHandler collisionSurvivorHandler)
     {
         _shield.SetActive(true);
-        _animator.SetTrigger(ConstantsAnimation.IsAdd);
+        _animator.SetTrigger(ConstantsString.AnimanionIsAdd);
     }
 }

@@ -6,12 +6,16 @@ using UnityEngine;
 public class MovementPlayer : Movement
 {
     [SerializeField, Range(0, 1)] private float _durationDisableInput;
+    [SerializeField] private DetecterOS _detecterOS;
 
     private PlayerInput _playerInput;
     private ControllerSurvivorMovement _controllerSurvivorMovement;
     private Coroutine _currentCoretine;
     private float _directionRotation;
     private Quaternion _targetRotation;
+
+    private delegate float ActionInput(float input);
+    private ActionInput _onCorrectInputForDevice;
 
     public float SpeedMovenemt => _speedMovement;
 
@@ -22,15 +26,21 @@ public class MovementPlayer : Movement
         _controllerSurvivorMovement = GetComponent<ControllerSurvivorMovement>();
     }
 
+    private void Start()
+    {
+        if (_detecterOS.Device == RuntimePlatform.Android || _detecterOS.Device == RuntimePlatform.IPhonePlayer)
+            _onCorrectInputForDevice = InputForTouchDevice;
+        else
+            _onCorrectInputForDevice = InputKeyboard;
+    }
+
     private void OnEnable()
     {
         _playerInput.Enable();
-      //  _playerInput.Player.Move.performed += ctx => GetTargetRotation();
     }
 
     private void OnDisable()
     {
-      //  _playerInput.Player.Move.performed -= ctx => GetTargetRotation();
         _playerInput.Disable();
     }
 
@@ -62,12 +72,46 @@ public class MovementPlayer : Movement
     }
 
     private void GetTargetRotation()
-    {
-        _directionRotation = _playerInput.Player.Move.ReadValue<float>();
+    {        
+        _directionRotation = _onCorrectInputForDevice(_playerInput.Player.Move.ReadValue<float>());
+
         Vector3 targetPosition = transform.TransformDirection(new Vector3(_directionRotation, 0, 1));
         _targetRotation = Quaternion.FromToRotation(transform.forward, targetPosition) * _rigidbody.rotation;
 
       //  StartDisableInput();
+    }
+
+    private float InputForTouchDevice(float value)
+    {
+        int touchTrue = 1;
+
+        if(_playerInput.Player.Touch.ReadValue<float>()!=touchTrue)
+        {
+            return 0;
+        }
+
+        float left = -1;
+        float right = 1;
+        float centrScreen = Screen.width / 2;        
+
+        if (_detecterOS.Device ==RuntimePlatform.Android || _detecterOS.Device == RuntimePlatform.IPhonePlayer)
+        {
+            if(value< centrScreen)
+            {
+                return left;
+            }
+            else 
+            {
+                return right;
+            }
+        }
+
+        return 0;
+    }
+
+    private float InputKeyboard(float value)
+    {
+        return value;
     }
 
     private void StartDisableInput()
@@ -78,6 +122,13 @@ public class MovementPlayer : Movement
         }
 
         _currentCoretine = StartCoroutine(DisableInput());
+    }
+
+    private void asdf()
+    {
+        Debug.Log("asdf");
+
+        _directionRotation = 0;
     }
 
     private IEnumerator DisableInput()
