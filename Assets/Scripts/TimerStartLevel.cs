@@ -1,30 +1,34 @@
 using UnityEngine;
 using TMPro;
-using System.Collections;
+using System;
 
-public class TimerStartLevel : MonoBehaviour
+public class TimerStartLevel : Timer
 {
     [SerializeField] private TMP_Text _scoreboard;
-    [SerializeField] private float _delayStart;
-    [SerializeField] private TimeSceler _timeSceler;
+    [SerializeField] private MovementPlayer _movementPlayer;
+    [SerializeField] private string _startText;
+
+    public event Action StartGame; 
 
     private void Start()
     {
-        StartCoroutine(Сountdown());
+        StartCoroutine(Countdown(ShowValue, CreateStartTimer, CreateEndTimer));
     }
 
-    private IEnumerator Сountdown() 
+    private void ShowValue(float value)
     {
-        _timeSceler.PauseGame();
+        _scoreboard.text = ((int)value).ToString();
+    }
 
-        while (_delayStart>0)
-        {
-            _delayStart -= Time.unscaledDeltaTime;
-            _scoreboard.text= ((int)_delayStart).ToString();
-            yield return new WaitForEndOfFrame();
-        }
+    private void CreateStartTimer()
+    {
+        _movementPlayer.enabled = false;
+    }
 
+    private void CreateEndTimer()
+    {
         _scoreboard.enabled = false;
-        _timeSceler.PlayGame();
+        _movementPlayer.enabled = true;
+        StartGame?.Invoke();
     }
 }

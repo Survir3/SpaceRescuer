@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DetecterOS : MonoBehaviour
+public class DetecterDevice : MonoBehaviour
 {
     public RuntimePlatform Device { get; private set; }
 

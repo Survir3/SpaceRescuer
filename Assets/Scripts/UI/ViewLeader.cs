@@ -10,7 +10,7 @@ public class ViewLeader : MonoBehaviour
 
     public void SetName(string name) => _name.text = name;
     public void SetScore(int score) => _score.text = score.ToString();
-    public void SetTexture(Texture texture) => _image.texture = texture;
+    public void SetTexture(Texture2D texture) => _image.texture = texture;
 
     public void InitWithTexture(LeaderPlayerInfo leaderPlayerInfo)
     {

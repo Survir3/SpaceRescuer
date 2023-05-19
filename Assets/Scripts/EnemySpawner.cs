@@ -5,9 +5,20 @@ public class EnemySpawner : Spawner
 {
     private void Start()
     {
-        for (int i = 0; i < _maxCount; i++)
+        Spawned();
+    }
+
+    protected override void Spawned()
+    {
+        while (TryGetObject(out GameObject gameObject))
         {
-            Instantiate(GetRandomPrefab(), GetSpawnedPosition(), Quaternion.identity).Init(_attractor);
+            Vector3 newPosition = GetSpawnedPosition();
+
+            gameObject.transform.position = newPosition;
+            gameObject.transform.parent = null;
+            gameObject.SetActive(true);
+            CollisionHandler newHandler = gameObject.GetComponentInChildren<CollisionHandler>();
+            newHandler.Added += OnAdded;
         }
     }
 }

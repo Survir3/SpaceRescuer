@@ -8,8 +8,6 @@ public class ConecterYandex : MonoBehaviour
 {
     [SerializeField] private int _indexMainMenuScene;
 
-    public event UnityAction<string> IsLoadYandexSdk;
-
     private void Awake()
     {
         YandexGamesSdk.CallbackLogging = true;
@@ -17,10 +15,6 @@ public class ConecterYandex : MonoBehaviour
 
     private IEnumerator Start()
     {
-        #if !UNITY_WEBGL || UNITY_EDITOR
-        yield break;
-        #endif
-
         yield return YandexGamesSdk.Initialize();
 
         PlayerAccount.Authorize(RequestPersonal);

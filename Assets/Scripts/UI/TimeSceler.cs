@@ -3,7 +3,7 @@ using UnityEngine;
 public class TimeSceler : MonoBehaviour
 {
     [SerializeField] private Player _player;
-    [SerializeField] private Spawner[] _spawner;
+    [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
 
     private bool _isPause;
 
@@ -16,21 +16,13 @@ public class TimeSceler : MonoBehaviour
     private void OnEnable()
     {
         _player.IsDie += PauseGame;
-
-        foreach (var spawn in _spawner)
-        {
-            spawn.IsSpawnedFull += PauseGame;
-        }
+        _spawnerSurvivor.IsAllAdded+= PauseGame;
     }
 
     private void OnDisable()
     {
-        _player.IsDie += PauseGame;
-
-        foreach (var spawn in _spawner)
-        {
-            spawn.IsSpawnedFull -= PauseGame;
-        }
+        _player.IsDie -= PauseGame;
+        _spawnerSurvivor.IsAllAdded -= PauseGame;
     }
 
     public void OnClickPauseButton()

@@ -17,8 +17,8 @@ public abstract class Artefact : Item
 
     }
 
-    protected void DestroyAfterEffect()
+    protected void DisableAfterEffect()
     {
-        Destroy(transform.parent.gameObject);
+        transform.parent.gameObject.SetActive(false);
     }
 }

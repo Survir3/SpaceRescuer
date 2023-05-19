@@ -46,4 +46,8 @@ public abstract class Movement : MonoBehaviour, IMultiplied
     {
     }
 
+    public void SetSpeedToStartLevel(float speed)
+    {
+        _speedMovement = speed;
+    }
 }

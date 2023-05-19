@@ -6,7 +6,6 @@ public class ArtificialGravityBody : MonoBehaviour, ISpawned
     [SerializeField] private ArtificialGravityAttractor _ground;
     private Rigidbody _rigidbody;
 
-
     private void Awake()
     {
         _rigidbody= GetComponent<Rigidbody> ();

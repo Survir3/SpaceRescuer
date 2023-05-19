@@ -18,14 +18,14 @@ namespace IJunior.TypedScenes
         
         private const string _sceneName = "MainMenu";
         
-        public static void Load(LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        public static void Load(LevelConfig argument, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
-            LoadScene(_sceneName, loadSceneMode);
+            LoadScene(_sceneName, loadSceneMode, argument);
         }
         
-        public static UnityEngine.AsyncOperation LoadAsync(LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        public static UnityEngine.AsyncOperation LoadAsync(LevelConfig argument, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
-            return LoadScene(_sceneName, loadSceneMode);
+            return LoadScene(_sceneName, loadSceneMode, argument);
         }
     }
 }

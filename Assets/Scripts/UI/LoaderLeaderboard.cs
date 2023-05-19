@@ -2,14 +2,14 @@ using Agava.YandexGames;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class LoaderLeaderboard : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private Player _player;    
 
+    private Texture2D _textureLeader;
     private List<LeaderPlayerInfo> _leaderPlayersInfo = new List<LeaderPlayerInfo>();
-    private Texture _loadedTexture;
+    private bool _isCorrutineDownloadFinished=false;
 
     public IReadOnlyList<LeaderPlayerInfo> LeaderPlayersInfo => _leaderPlayersInfo;
 
@@ -27,30 +27,10 @@ public class LoaderLeaderboard : MonoBehaviour
 
     private void Start()
     {
-        if (!PlayerAccount.IsAuthorized)
-            return;
-
-        Leaderboard.GetEntries(ConstantsString.Leaderboard, (result) =>
+        if (PlayerAccount.IsAuthorized)
         {
-            for (int i = 0; i < result.entries.Length; i++)
-            {
-                int score = result.entries[i].score;
-                string name = result.entries[i].player.publicName;
-                string urlTexture= result.entries[i].player.profilePicture;
-                Debug.Log(urlTexture);
-                StartCoroutine(DownloadPhoto(urlTexture));
-                
-                if(string.IsNullOrEmpty(name))
-                {
-                    name = "Incognito";
-                }
-
-                var newLeaderPlayerInfo = new LeaderPlayerInfo();
-                newLeaderPlayerInfo.Init(name, score, _loadedTexture);
-
-                _leaderPlayersInfo.Add(newLeaderPlayerInfo);
-            }
-        });
+            Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo);
+        }
     }
 
     private void OnUpdateScore()
@@ -74,18 +54,53 @@ public class LoaderLeaderboard : MonoBehaviour
         }
     }
 
+    private void StartSetLeadersPlayersInfo(LeaderboardGetEntriesResponse entries)
+    {
+        StartCoroutine(SetLeadersPlayersInfo(entries));
+    }
+
+    private IEnumerator SetLeadersPlayersInfo(LeaderboardGetEntriesResponse entries)
+    {
+        for (int i = 0; i < entries.entries.Length; i++)
+        {
+            int score = entries.entries[i].score;
+            string name = entries.entries[i].player.publicName;
+            string urlTexture = entries.entries[i].player.profilePicture;
+
+            StartCoroutine(DownloadPhoto(urlTexture));
+
+            if (!_isCorrutineDownloadFinished)
+            {
+                yield return null;
+            }
+
+            if (string.IsNullOrEmpty(name))
+            {
+                name = "Incognito";
+            }
+
+            var newLeaderPlayerInfo = new LeaderPlayerInfo();
+            newLeaderPlayerInfo.Init(name, score, _textureLeader);
+            _leaderPlayersInfo.Add(newLeaderPlayerInfo);
+            _textureLeader = null;
+        }
+    }
+
     private IEnumerator DownloadPhoto(string url)
     {
-        UnityWebRequest result = UnityWebRequestTexture.GetTexture(url);
-        yield return result.SendWebRequest();
 
-        if(result.result ==UnityWebRequest.Result.ConnectionError || result.result == UnityWebRequest.Result.ProtocolError)
+        var remoteImage = new RemoteImage(url);
+        remoteImage.Download();
+
+            while (!remoteImage.IsDownloadFinished)
         {
-           _loadedTexture = null; 
+            _isCorrutineDownloadFinished = remoteImage.IsDownloadFinished;
+            yield return null;
         }
-        else
-        {
-            _loadedTexture = ((DownloadHandlerTexture)result.downloadHandler).texture;
-        }
+
+        if (remoteImage.IsDownloadSuccessful)            
+            _textureLeader = remoteImage.Texture;
+
+        _isCorrutineDownloadFinished = remoteImage.IsDownloadFinished;
     }
 }

@@ -44,7 +44,6 @@ public class CollisionPlayerHandler : MonoBehaviour
             else
             {
                 artefactHandler.AddInSnake();
-
                 Artefact artefact = artefactHandler.GetComponentInParent<Artefact>();
                 artefact.GivePoints(_player.Points);
                 _controllerArtefactEffect.TryGetEffect(artefact);

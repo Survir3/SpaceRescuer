@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent (typeof(Player), typeof(ControllerSurvivorMovement))]
-public class MovementPlayer : Movement
+public class MovementPlayer : Movement, IIncreaseForLevel
 {
     [SerializeField, Range(0, 1)] private float _durationDisableInput;
-    [SerializeField] private DetecterOS _detecterOS;
+    [SerializeField] private DetecterDevice _detecterDevice;
 
     private PlayerInput _playerInput;
     private ControllerSurvivorMovement _controllerSurvivorMovement;
-    private Coroutine _currentCoretine;
     private float _directionRotation;
     private Quaternion _targetRotation;
 
@@ -28,7 +27,7 @@ public class MovementPlayer : Movement
 
     private void Start()
     {
-        if (_detecterOS.Device == RuntimePlatform.Android || _detecterOS.Device == RuntimePlatform.IPhonePlayer)
+        if (_detecterDevice.Device == RuntimePlatform.Android || _detecterDevice.Device == RuntimePlatform.IPhonePlayer)
             _onCorrectInputForDevice = InputForTouchDevice;
         else
             _onCorrectInputForDevice = InputKeyboard;
@@ -77,8 +76,6 @@ public class MovementPlayer : Movement
 
         Vector3 targetPosition = transform.TransformDirection(new Vector3(_directionRotation, 0, 1));
         _targetRotation = Quaternion.FromToRotation(transform.forward, targetPosition) * _rigidbody.rotation;
-
-      //  StartDisableInput();
     }
 
     private float InputForTouchDevice(float value)
@@ -94,7 +91,7 @@ public class MovementPlayer : Movement
         float right = 1;
         float centrScreen = Screen.width / 2;        
 
-        if (_detecterOS.Device ==RuntimePlatform.Android || _detecterOS.Device == RuntimePlatform.IPhonePlayer)
+        if (_detecterDevice.Device ==RuntimePlatform.Android || _detecterDevice.Device == RuntimePlatform.IPhonePlayer)
         {
             if(value< centrScreen)
             {
@@ -114,29 +111,8 @@ public class MovementPlayer : Movement
         return value;
     }
 
-    private void StartDisableInput()
+    public void SetValueToStartLevel(float value)
     {
-        if (_currentCoretine != null)
-        {
-            StopCoroutine(_currentCoretine);
-        }
-
-        _currentCoretine = StartCoroutine(DisableInput());
-    }
-
-    private void asdf()
-    {
-        Debug.Log("asdf");
-
-        _directionRotation = 0;
-    }
-
-    private IEnumerator DisableInput()
-    {
-        _playerInput.Disable();
-
-        yield return new WaitForSeconds(_durationDisableInput);
-
-        _playerInput.Enable();
+        _speedMovement = value;
     }
 }

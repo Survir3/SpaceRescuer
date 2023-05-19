@@ -4,51 +4,40 @@ using UnityEngine;
 public class ViewLevelScore : MonoBehaviour
 {
     [SerializeField] private Player _player;
-    [SerializeField] private Spawner[] _spawner;
+    [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
     [SerializeField] private GameObject _gameOverMenu;
     [SerializeField] private GameObject _gameVictoryMenu;
     [SerializeField] private GameObject _viewPoits;
-    [SerializeField] private TMP_Text _finalScore;
+    [SerializeField] private GameObject _finalScore;
 
     private void Awake()
     {
         _gameOverMenu.SetActive(false);
-        _finalScore.enabled= false;
+        _finalScore.SetActive(false);
     }
 
     private void OnEnable()
     {
         _player.IsDie += OnPlayerDead;
-
-        foreach (var spawn in _spawner)
-        {
-            spawn.IsSpawnedFull += OnSpawnerFull;
-        }
+        _spawnerSurvivor.IsAllAdded += OnAllAdded;
     }
 
     private void OnDisable()
     {
         _player.IsDie -= OnPlayerDead;
-
-        foreach (var spawn in _spawner)
-        {
-            spawn.IsSpawnedFull -= OnSpawnerFull;
-        }
-
+        _spawnerSurvivor.IsAllAdded -= OnAllAdded;
     }
 
     private void OnPlayerDead()
     {
-        _finalScore.text=_player.Points.Value.ToString();
-        _finalScore.enabled = false;
-        _viewPoits.SetActive(false);
+        _viewPoits.SetActive(true);
         _gameOverMenu.SetActive(true);
+        _finalScore.SetActive(true);
     }
 
-    private void OnSpawnerFull()
+    private void OnAllAdded()
     {
-        _finalScore.text = _player.Points.Value.ToString();
-        _finalScore.enabled = false;
+        _finalScore.SetActive(true);
         _viewPoits.SetActive(false);
         _gameVictoryMenu.SetActive(true);
     }      

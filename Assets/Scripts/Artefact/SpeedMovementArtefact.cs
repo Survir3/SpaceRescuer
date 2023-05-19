@@ -24,6 +24,6 @@ public class SpeedMovementArtefact : Artefact
             item.SetDefaultMultiplier();
         }
 
-        DestroyAfterEffect();
+        DisableAfterEffect();
     }
 }
