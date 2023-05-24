@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ConecterYandex : MonoBehaviour
 {
-    [SerializeField] private int _indexMainMenuScene;
+    public event UnityAction IsAuthorize;
 
     private void Awake()
     {
@@ -23,11 +23,6 @@ public class ConecterYandex : MonoBehaviour
     private void RequestPersonal()
     {
         PlayerAccount.RequestPersonalProfileDataPermission();
-        LoadScene();
-    }
-
-    private void LoadScene()
-    {
-        SceneManager.LoadSceneAsync(_indexMainMenuScene);
+        IsAuthorize?.Invoke();
     }
 }

@@ -8,7 +8,9 @@ public class LevelConfig
     public float TimeToLevel { get; private set; } = 100;
     public float SpeedMovement { get; private set; } = 2;
     public int PointsPlayer { get; private set; } = 0;
+    public int TimeRewardForVideoAD { get; private set; } = 0;
 
+    private int _increaseTimeRewardForVideoAD = 30;
     private int _maxIncreaseCountSurvivorsToLevel=5;
     private int _maxIncreaseCountEnemy=5;
     private int _maxIncreaseCountArtefact=2;
@@ -23,11 +25,23 @@ public class LevelConfig
 
     public void SetConfigForNextLevel()
     {
+        TimeRewardForVideoAD = 0;
         SetIncreaseCountSurvivorsToLevel();
         SetIncreaseCountEnemy();
         SetIncreaseCountArtefact();
         SetIncreaseTimeToLevel();
         SetIncreaseSpeedMovement();
+    }
+
+    public void SetPointsConfig(int value)
+    {
+        if(value >0)
+            PointsPlayer += value;
+    }
+
+    public void OnSetRewardVideoAD()
+    {
+        TimeRewardForVideoAD = _increaseTimeRewardForVideoAD;
     }
 
     private void SetIncreaseCountSurvivorsToLevel()
@@ -47,17 +61,11 @@ public class LevelConfig
 
     private void SetIncreaseTimeToLevel()
     {
-        TimeToLevel += Mathf.Clamp(Random.Range(0, _maxIncreaseTimeToLevel), 0, _maxTimeToLevel);
+        TimeToLevel += Mathf.Clamp(Random.Range(0, _maxIncreaseTimeToLevel), 0, _maxTimeToLevel) +TimeRewardForVideoAD;
     }
 
     private void SetIncreaseSpeedMovement()
     {
         SpeedMovement += Mathf.Clamp(Random.Range(0, _maxIncreaseSpeed), 0, _maxSpeedMovement);
-    }
-
-    public void SetPointsConfig(int value)
-    {
-        if(value >0)
-            PointsPlayer += value;
     }
 }

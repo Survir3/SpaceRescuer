@@ -2,35 +2,42 @@ using Agava.YandexGames;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LoaderLeaderboard : MonoBehaviour
 {
-    [SerializeField] private Player _player;    
+    [SerializeField] private Player _player;
+    [SerializeField] private ConecterYandex _conecterYandex;
 
     private Texture2D _textureLeader;
     private List<LeaderPlayerInfo> _leaderPlayersInfo = new List<LeaderPlayerInfo>();
-    private bool _isCorrutineDownloadFinished=false;
+    private bool _isCorrutineDownloadPhotoFinished=false;
 
     public IReadOnlyList<LeaderPlayerInfo> LeaderPlayersInfo => _leaderPlayersInfo;
+
+    public event UnityAction<IReadOnlyList<LeaderPlayerInfo>> IsLoadFinish;
 
     private void OnEnable()
     {
         if (_player != null)
             _player.IsDie += OnUpdateScore;
+
+        if (_conecterYandex != null)
+            _conecterYandex.IsAuthorize += LoadEntries;
     }
 
     private void OnDisable()
     {
         if (_player != null)
             _player.IsDie -= OnUpdateScore;
+
+        if (_conecterYandex != null)
+            _conecterYandex.IsAuthorize -= LoadEntries;
     }
 
-    private void Start()
+    private void LoadEntries()
     {
-        if (PlayerAccount.IsAuthorized)
-        {
-            Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo);
-        }
+        Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo);
     }
 
     private void OnUpdateScore()
@@ -69,7 +76,7 @@ public class LoaderLeaderboard : MonoBehaviour
 
             StartCoroutine(DownloadPhoto(urlTexture));
 
-            if (!_isCorrutineDownloadFinished)
+            while (!_isCorrutineDownloadPhotoFinished)
             {
                 yield return null;
             }
@@ -84,6 +91,8 @@ public class LoaderLeaderboard : MonoBehaviour
             _leaderPlayersInfo.Add(newLeaderPlayerInfo);
             _textureLeader = null;
         }
+
+        IsLoadFinish?.Invoke(LeaderPlayersInfo);
     }
 
     private IEnumerator DownloadPhoto(string url)
@@ -94,13 +103,13 @@ public class LoaderLeaderboard : MonoBehaviour
 
             while (!remoteImage.IsDownloadFinished)
         {
-            _isCorrutineDownloadFinished = remoteImage.IsDownloadFinished;
+            _isCorrutineDownloadPhotoFinished = remoteImage.IsDownloadFinished;
             yield return null;
         }
 
         if (remoteImage.IsDownloadSuccessful)            
             _textureLeader = remoteImage.Texture;
 
-        _isCorrutineDownloadFinished = remoteImage.IsDownloadFinished;
+        _isCorrutineDownloadPhotoFinished = remoteImage.IsDownloadFinished;
     }
 }

@@ -1,11 +1,12 @@
+using Agava.WebUtility;
 using UnityEngine;
 
 public class DetecterDevice : MonoBehaviour
 {
-    public RuntimePlatform Device { get; private set; }
+    public bool IsDevice { get; private set; }
 
     private void Awake()
     {
-        Device=Application.platform;
+        IsDevice=Device.IsMobile;
     }
 }

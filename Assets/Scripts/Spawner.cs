@@ -19,6 +19,7 @@ public abstract class Spawner : Pool, IIncreaseForLevel
 
     public event UnityAction<int> IsAdded;
     public event UnityAction IsAllAdded;
+    public event UnityAction<Spawner> IsSpawned;
 
     private void Awake()
     {        
@@ -45,7 +46,8 @@ public abstract class Spawner : Pool, IIncreaseForLevel
                 gameObject.SetActive(true);
                 CollisionHandler newHandler = gameObject.GetComponentInChildren<CollisionHandler>();
                 newHandler.Added+= OnAdded;
-              _timerSpawn = 0;
+                _timerSpawn = 0;
+                IsSpawned?.Invoke(this);
             }
         }
     }

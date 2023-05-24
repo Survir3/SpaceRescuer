@@ -1,16 +1,20 @@
+using IJunior.TypedScenes;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ViewLeaderboard : MonoBehaviour
+public class ViewLeaderboard : MonoBehaviour, ISceneLoadHandler<IReadOnlyList<LeaderPlayerInfo>>
 {
     [SerializeField] private List<ViewLeader> _viewLeaders;
     [SerializeField] private LoaderLeaderboard _loaderLeaderboard;
 
-    private void OnEnable()
+    public void OnSceneLoaded(IReadOnlyList<LeaderPlayerInfo> argument)
     {
-        for (int i = 0; i < _loaderLeaderboard.LeaderPlayersInfo.Count; i++)
+        if (argument != null)
         {
-            _viewLeaders[i].InitWithTexture(_loaderLeaderboard.LeaderPlayersInfo[i]);
+            for (int i = 0; i < _loaderLeaderboard.LeaderPlayersInfo.Count; i++)
+            {
+                _viewLeaders[i].InitWithTexture(_loaderLeaderboard.LeaderPlayersInfo[i]);
+            }
         }
     }
 }

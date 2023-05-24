@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemySpawner : Spawner
+public class SpawnerEnemy : Spawner
 {
     private void Start()
     {

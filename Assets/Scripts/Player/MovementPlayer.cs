@@ -1,12 +1,11 @@
-using System.Collections;
+using Agava.WebUtility;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(Player), typeof(ControllerSurvivorMovement))]
+[RequireComponent(typeof(Player), typeof(ControllerSurvivorMovement))]
 public class MovementPlayer : Movement, IIncreaseForLevel
 {
     [SerializeField, Range(0, 1)] private float _durationDisableInput;
-    [SerializeField] private DetecterDevice _detecterDevice;
 
     private PlayerInput _playerInput;
     private ControllerSurvivorMovement _controllerSurvivorMovement;
@@ -27,10 +26,14 @@ public class MovementPlayer : Movement, IIncreaseForLevel
 
     private void Start()
     {
-        if (_detecterDevice.Device == RuntimePlatform.Android || _detecterDevice.Device == RuntimePlatform.IPhonePlayer)
+        _onCorrectInputForDevice = InputKeyboard;
+
+#if (UNITY_EDITOR)
+        if (Device.IsMobile)
             _onCorrectInputForDevice = InputForTouchDevice;
         else
             _onCorrectInputForDevice = InputKeyboard;
+#endif
     }
 
     private void OnEnable()
@@ -61,7 +64,7 @@ public class MovementPlayer : Movement, IIncreaseForLevel
     protected override void Move()
     {
         Vector3 direction = transform.TransformDirection(Vector3.forward);
-        _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement*_currentMultiplier * Time.deltaTime);
+        _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement * _currentMultiplier * Time.deltaTime);
     }
 
     protected override void Rotate()
@@ -71,7 +74,7 @@ public class MovementPlayer : Movement, IIncreaseForLevel
     }
 
     private void GetTargetRotation()
-    {        
+    {
         _directionRotation = _onCorrectInputForDevice(_playerInput.Player.Move.ReadValue<float>());
 
         Vector3 targetPosition = transform.TransformDirection(new Vector3(_directionRotation, 0, 1));
@@ -80,30 +83,25 @@ public class MovementPlayer : Movement, IIncreaseForLevel
 
     private float InputForTouchDevice(float value)
     {
-        int touchTrue = 1;
+        int countTouches = 1;
 
-        if(_playerInput.Player.Touch.ReadValue<float>()!=touchTrue)
+        if (_playerInput.Player.Touch.ReadValue<float>() != countTouches)
         {
             return 0;
         }
 
         float left = -1;
         float right = 1;
-        float centrScreen = Screen.width / 2;        
+        float centrScreen = Screen.width / 2;
 
-        if (_detecterDevice.Device ==RuntimePlatform.Android || _detecterDevice.Device == RuntimePlatform.IPhonePlayer)
+        if (value < centrScreen)
         {
-            if(value< centrScreen)
-            {
-                return left;
-            }
-            else 
-            {
-                return right;
-            }
+            return left;
         }
-
-        return 0;
+        else
+        {
+            return right;
+        }
     }
 
     private float InputKeyboard(float value)
