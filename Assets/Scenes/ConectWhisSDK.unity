@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
-  _conecterYandex: {fileID: 448553058}
+  _connecterYandex: {fileID: 448553058}
 --- !u!1 &823483604
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(ArtificialGravityAttractor), typeof(SphereCollider))]
 public abstract class Spawner : Pool, IIncreaseForLevel
@@ -8,12 +9,13 @@ public abstract class Spawner : Pool, IIncreaseForLevel
     [SerializeField] protected List<GameObject> _prefabs;
     [SerializeField] protected float _delay;
     [SerializeField] protected LayerMask _layerMask;
-    [SerializeField] private SleeperSpawner _sleeperSpawner;
 
     protected Coroutine _pauseSpawn;
     protected float _radius;
     protected Vector3 _scaleBody;
     protected float _timerSpawn;
+
+    private int _halfRatio = 2;
 
     public int CountAdded { get; private set; } = 0;
 
@@ -23,8 +25,8 @@ public abstract class Spawner : Pool, IIncreaseForLevel
 
     private void Awake()
     {        
-        _radius = transform.localScale.x / 2;
-        _scaleBody = _prefabs[0].transform.localScale / 2;
+        _radius = transform.localScale.x / _halfRatio;
+        _scaleBody = _prefabs[0].transform.localScale / _halfRatio;
         Init(_prefabs);
     }
 
@@ -56,21 +58,13 @@ public abstract class Spawner : Pool, IIncreaseForLevel
     {
         Vector3 newPosition = GetSpawnRandomPosition();
         RaycastHit[] hits = GetAllObstacles(newPosition);
-        int countTry = 0;
-        int maxCountTry = 1000;
 
-        while (hits.Length > 1)
+        int maxCountRaycastHit = 1;
+
+        while (hits.Length > maxCountRaycastHit)
         {
-            if(countTry>=maxCountTry)
-            {
-               _pauseSpawn= StartCoroutine(_sleeperSpawner.Countdown());
-            }
-            else
-            {
             newPosition = GetSpawnRandomPosition();
             hits = GetAllObstacles(newPosition);
-            countTry++;
-            }
         }
 
         return newPosition;
@@ -78,14 +72,14 @@ public abstract class Spawner : Pool, IIncreaseForLevel
 
     private Vector3 GetSpawnRandomPosition()
     {
-        var rq= transform.position + Random.insideUnitSphere.normalized * _radius;
-        return rq;
+        return transform.position + Random.insideUnitSphere.normalized * _radius;        
     }
 
     private RaycastHit[] GetAllObstacles(Vector3 position)
     {
         float maxDistance = 0;
-        var halfBox = new Vector3(0.5f, 0.5f, 0.5f);
+        float lengthEdge = 0.5f;
+        var halfBox = new Vector3(lengthEdge, lengthEdge, lengthEdge);
 
         return Physics.BoxCastAll(position, halfBox, Vector3.forward, Quaternion.identity, maxDistance, _layerMask);
     }

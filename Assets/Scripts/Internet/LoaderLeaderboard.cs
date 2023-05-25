@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class LoaderLeaderboard : MonoBehaviour
 {
     [SerializeField] private Player _player;
-    [SerializeField] private ConecterYandex _conecterYandex;
+    [SerializeField] private ConnecterYandex _connecterYandex;
 
     private Texture2D _textureLeader;
     private List<LeaderPlayerInfo> _leaderPlayersInfo = new List<LeaderPlayerInfo>();
@@ -22,8 +22,8 @@ public class LoaderLeaderboard : MonoBehaviour
         if (_player != null)
             _player.IsDie += OnUpdateScore;
 
-        if (_conecterYandex != null)
-            _conecterYandex.IsAuthorize += LoadEntries;
+        if (_connecterYandex != null)
+            _connecterYandex.IsConnect += LoadEntries;
     }
 
     private void OnDisable()
@@ -31,12 +31,12 @@ public class LoaderLeaderboard : MonoBehaviour
         if (_player != null)
             _player.IsDie -= OnUpdateScore;
 
-        if (_conecterYandex != null)
-            _conecterYandex.IsAuthorize -= LoadEntries;
+        if (_connecterYandex != null)
+            _connecterYandex.IsConnect -= LoadEntries;
     }
 
     private void LoadEntries()
-    {
+    {        
         Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo);
     }
 

@@ -2,13 +2,13 @@ using Agava.WebUtility;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Player), typeof(ControllerSurvivorMovement))]
+[RequireComponent(typeof(Player), typeof(GiverTargetSurvivorMovement))]
 public class MovementPlayer : Movement, IIncreaseForLevel
 {
     [SerializeField, Range(0, 1)] private float _durationDisableInput;
 
     private PlayerInput _playerInput;
-    private ControllerSurvivorMovement _controllerSurvivorMovement;
+    private GiverTargetSurvivorMovement _controllerSurvivorMovement;
     private float _directionRotation;
     private Quaternion _targetRotation;
 
@@ -21,19 +21,15 @@ public class MovementPlayer : Movement, IIncreaseForLevel
     {
         _playerInput = new PlayerInput();
         _targetRotation = _rigidbody.rotation;
-        _controllerSurvivorMovement = GetComponent<ControllerSurvivorMovement>();
+        _controllerSurvivorMovement = GetComponent<GiverTargetSurvivorMovement>();
     }
 
     private void Start()
     {
-        _onCorrectInputForDevice = InputKeyboard;
-
-#if (UNITY_EDITOR)
         if (Device.IsMobile)
             _onCorrectInputForDevice = InputForTouchDevice;
         else
             _onCorrectInputForDevice = InputKeyboard;
-#endif
     }
 
     private void OnEnable()

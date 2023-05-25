@@ -2,11 +2,10 @@ using Agava.YandexGames;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
-public class ConecterYandex : MonoBehaviour
+public class ConnecterYandex : MonoBehaviour
 {
-    public event UnityAction IsAuthorize;
+    public event UnityAction IsConnect;
 
     private void Awake()
     {
@@ -23,6 +22,6 @@ public class ConecterYandex : MonoBehaviour
     private void RequestPersonal()
     {
         PlayerAccount.RequestPersonalProfileDataPermission();
-        IsAuthorize?.Invoke();
+        IsConnect?.Invoke();
     }
 }

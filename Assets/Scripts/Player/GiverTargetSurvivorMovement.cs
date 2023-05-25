@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
-public class ControllerSurvivorMovement : MonoBehaviour
+public class GiverTargetSurvivorMovement : MonoBehaviour
 {
     private MovementPlayer _player;
 

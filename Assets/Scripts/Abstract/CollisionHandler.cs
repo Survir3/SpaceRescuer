@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CollisionHandler : MonoBehaviour
+public abstract class CollisionHandler : MonoBehaviour
 {
     protected IAdder _adderPlayer;
     public bool IsAdded { get; protected set; }

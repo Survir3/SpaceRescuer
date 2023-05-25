@@ -12,7 +12,6 @@ public class SaverData : MonoBehaviour
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
     [SerializeField] private SpawnerEnemy _spawnerEnemy;
 
-
     public int СountLoadGame { get; private set; }
     public int CountSpawnedSurvivor { get; private set; }
     public int CountSpawnedArtefact { get; private set; }

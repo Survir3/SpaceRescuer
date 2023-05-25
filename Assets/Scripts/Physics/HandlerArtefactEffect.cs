@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerArtefactEffect : MonoBehaviour
+public class HandlerArtefactEffect : MonoBehaviour
 {
     private MovementPlayer _playerMovement;
     private Player _player;
@@ -12,7 +12,7 @@ public class ControllerArtefactEffect : MonoBehaviour
         _playerMovement= GetComponent<MovementPlayer>();
     }
 
-    public void TryGetEffect(Artefact artefact)
+    public void GetEffect(Artefact artefact)
     {
         switch (artefact)
         {
@@ -23,7 +23,6 @@ public class ControllerArtefactEffect : MonoBehaviour
                 speedMovement.StartEffect(_playerMovement.GetAllMovementShake());
                 break;
             default:
-                Debug.Log("--");
                 break;
         }
     }

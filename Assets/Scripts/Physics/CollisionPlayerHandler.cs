@@ -1,17 +1,17 @@
 using UnityEngine;
 
-[RequireComponent ((typeof(Player)), (typeof(MovementPlayer)), typeof(ControllerSurvivorMovement))]
+[RequireComponent ((typeof(Player)), (typeof(MovementPlayer)), typeof(GiverTargetSurvivorMovement))]
 public class CollisionPlayerHandler : MonoBehaviour
 {
     private Player _player;
-    private ControllerSurvivorMovement _controllerSurvivorMovement;
-    private ControllerArtefactEffect _controllerArtefactEffect;
+    private GiverTargetSurvivorMovement _controllerSurvivorMovement;
+    private HandlerArtefactEffect _controllerArtefactEffect;
     
     private void Awake()
     {
         _player= GetComponent<Player>();
-        _controllerSurvivorMovement= GetComponent<ControllerSurvivorMovement>();
-        _controllerArtefactEffect = GetComponent<ControllerArtefactEffect>();
+        _controllerSurvivorMovement= GetComponent<GiverTargetSurvivorMovement>();
+        _controllerArtefactEffect = GetComponent<HandlerArtefactEffect>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,7 +46,7 @@ public class CollisionPlayerHandler : MonoBehaviour
                 artefactHandler.AddInSnake();
                 Artefact artefact = artefactHandler.GetComponentInParent<Artefact>();
                 artefact.GivePoints(_player.Points);
-                _controllerArtefactEffect.TryGetEffect(artefact);
+                _controllerArtefactEffect.GetEffect(artefact);
             }
         }
     }

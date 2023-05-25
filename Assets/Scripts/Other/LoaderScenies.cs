@@ -13,7 +13,6 @@ public class LoaderScenies : MonoBehaviour, ISceneLoadHandler<LevelConfig>
     [SerializeField] private TimerToEndLevel _timerToEndLevel;
     [SerializeField] private TimeSceler _timeSceler;
     [SerializeField] private LoaderLeaderboard _loaderLeaderboard;
-    [SerializeField] private ViewLeaderboard _viewLeaderboard;
 
     private LevelConfig _levelConfig;
 

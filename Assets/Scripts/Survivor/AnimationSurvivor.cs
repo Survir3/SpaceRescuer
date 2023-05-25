@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class AnimationSurvivor : MonoBehaviour
 {
-    [SerializeField] Animator _animator;
-    [SerializeField] CollisionSurvivorHandler _survivorHandler;
-    [SerializeField] GameObject _shield;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private CollisionSurvivorHandler _survivorHandler;
+    [SerializeField] private GameObject _shield;
 
     private void OnEnable()
     {
@@ -15,7 +15,6 @@ public class AnimationSurvivor : MonoBehaviour
     private void OnDisable()
     {
         _survivorHandler.Added -= StartAninationFollow;
-
     }
     private void StartAninationFollow(CollisionHandler collisionSurvivorHandler)
     {
