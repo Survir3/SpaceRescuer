@@ -19,6 +19,11 @@ public class ConnecterYandex : MonoBehaviour
         PlayerAccount.Authorize(RequestPersonal);
     }
 
+    private void OnEnable()
+    {
+        Debug.Log("++");
+    }
+
     private void RequestPersonal()
     {
         PlayerAccount.RequestPersonalProfileDataPermission();

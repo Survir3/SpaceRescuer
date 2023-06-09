@@ -1,3 +1,4 @@
+using IJunior.TypedScenes;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,7 +11,6 @@ public abstract class Spawner : Pool, IIncreaseForLevel
     [SerializeField] protected float _delay;
     [SerializeField] protected LayerMask _layerMask;
 
-    protected Coroutine _pauseSpawn;
     protected float _radius;
     protected Vector3 _scaleBody;
     protected float _timerSpawn;
@@ -37,21 +37,23 @@ public abstract class Spawner : Pool, IIncreaseForLevel
         if (_timerSpawn >= _delay)
         {
             Vector3 newPosition = GetSpawnedPosition();
-
-            if (_pauseSpawn != null)
-                return;
            
-           if(TryGetObject(out GameObject gameObject))
+           if(TryGetObject(out GameObject prefab))
             {
-                gameObject.transform.position = newPosition;
-                gameObject.transform.parent= null;
-                gameObject.SetActive(true);
-                CollisionHandler newHandler = gameObject.GetComponentInChildren<CollisionHandler>();
-                newHandler.Added+= OnAdded;
-                _timerSpawn = 0;
-                IsSpawned?.Invoke(this);
+                ActivePrefab(prefab, newPosition);
             }
         }
+    }
+
+    protected void ActivePrefab(GameObject prefab, Vector3 newPosition)
+    {
+        prefab.transform.position = newPosition;
+        prefab.transform.parent = null;
+        prefab.SetActive(true);
+        CollisionHandler newHandler = prefab.GetComponentInChildren<CollisionHandler>();
+        newHandler.Added += OnAdded;
+        _timerSpawn = 0;
+        IsSpawned?.Invoke(this);
     }
 
     protected Vector3 GetSpawnedPosition()

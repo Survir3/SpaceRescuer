@@ -2,14 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using IJunior.TypedScenes;
-using Newtonsoft.Json.Linq;
 
-public class Points : MonoBehaviour, IMultiplied, IIncreaseForLevel
+public class Points : MonoBehaviour, IMultiplied, IIncreaseForLevel, ISceneLoadHandler<DataLoadScene>
 {
     [SerializeField] private float _durationSaveCombo;
     [SerializeField] private int _diminutionMultiplier;
 
-    private int _defaulMultiplier = 1;
+    private int _defaulMultiplier = 0;
     private int _value;
     private int _currentMultiplier = 0;
     private Coroutine _timeComboPoints;
@@ -68,11 +67,17 @@ public class Points : MonoBehaviour, IMultiplied, IIncreaseForLevel
     public void SetDefaultMultiplier()
     {
         _currentMultiplier = _defaulMultiplier;
+
     }
 
     public void SetValueToStartLevel(float value)
     {
         if (value >= 0)
             _value += (int)value;
+    }
+
+    public void OnSceneLoaded(DataLoadScene argument)
+    {
+        _value = argument.LevelConfig.PointsPlayer;
     }
 }

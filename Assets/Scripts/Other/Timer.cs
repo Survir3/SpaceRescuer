@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Timer : MonoBehaviour
 {    
@@ -12,7 +13,7 @@ public class Timer : MonoBehaviour
 
         while (_value > 0)
         {
-            _value -= Time.unscaledDeltaTime;
+            _value -= Time.deltaTime;
             intermediateValue?.Invoke(_value);
             yield return new WaitForEndOfFrame();
         }

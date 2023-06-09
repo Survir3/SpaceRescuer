@@ -30,9 +30,9 @@ public class CollisionPlayerHandler : MonoBehaviour
             }
             else
             {
-                survivorHandler.AddInSnake();
                 survivorHandler.GetComponent<Survivor>().GivePoints(_player.Points);
                  _controllerSurvivorMovement.AddSurvivor(survivorHandler.GetComponent<SurvivorMovement>());
+                survivorHandler.AddInSnake();
             }
         }
         else if(other.gameObject.TryGetComponent<CollisionArtefactHandler>(out CollisionArtefactHandler artefactHandler))
@@ -43,10 +43,10 @@ public class CollisionPlayerHandler : MonoBehaviour
             }
             else
             {
-                artefactHandler.AddInSnake();
                 Artefact artefact = artefactHandler.GetComponentInParent<Artefact>();
                 artefact.GivePoints(_player.Points);
                 _controllerArtefactEffect.GetEffect(artefact);
+                artefactHandler.AddInSnake();
             }
         }
     }

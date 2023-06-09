@@ -1,9 +1,10 @@
 using Agava.WebUtility;
+using IJunior.TypedScenes;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Player), typeof(GiverTargetSurvivorMovement))]
-public class MovementPlayer : Movement, IIncreaseForLevel
+public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<DataLoadScene>
 {
     [SerializeField, Range(0, 1)] private float _durationDisableInput;
 
@@ -26,6 +27,12 @@ public class MovementPlayer : Movement, IIncreaseForLevel
 
     private void Start()
     {
+        if(Application.platform==RuntimePlatform.WindowsEditor)
+        {
+            _onCorrectInputForDevice = InputKeyboard;
+            return;
+        }
+
         if (Device.IsMobile)
             _onCorrectInputForDevice = InputForTouchDevice;
         else
@@ -108,5 +115,10 @@ public class MovementPlayer : Movement, IIncreaseForLevel
     public void SetValueToStartLevel(float value)
     {
         _speedMovement = value;
+    }
+
+    public void OnSceneLoaded(DataLoadScene argument)
+    {
+        _speedMovement=argument.LevelConfig.SpeedMovement;
     }
 }

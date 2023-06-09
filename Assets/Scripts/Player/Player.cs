@@ -1,9 +1,10 @@
+using IJunior.TypedScenes;
 using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent (typeof (Points))]
 public class Player : MonoBehaviour
-{
+{ 
    [SerializeField] private Points _points;
 
     public bool IsDead { get; private set; } = false;

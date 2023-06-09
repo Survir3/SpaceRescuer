@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.UI;
 
 [Serializable]
 public class ViewPoints : MonoBehaviour
@@ -9,16 +10,11 @@ public class ViewPoints : MonoBehaviour
     [SerializeField] private Points _point;
     [SerializeField] private TMP_Text _textPoints;
     [SerializeField] private TMP_Text _finalScore;
-    [SerializeField] private TMP_Text _textMult;
+    [SerializeField] private TMP_Text _textCombo;
+    [SerializeField] private Image _imageCombo;
 
-    private CanvasGroup _canvasGroup;
-    private float _defaultAlpha = 1f;
-    private Coroutine _currentCoroutine;
-
-    private void Awake()
-    {
-        _canvasGroup= _textMult.GetComponent<CanvasGroup>();
-    }
+    private float _defaultFillImage = 1f;
+    private Coroutine _currentCoroutine;    
 
     private void OnEnable()
     {
@@ -44,21 +40,23 @@ public class ViewPoints : MonoBehaviour
             StopCoroutine( _currentCoroutine);
         }
 
-        _currentCoroutine = StartCoroutine(DurationShowInfo(multiplier));
+        _currentCoroutine = StartCoroutine(DurationShowCombo(multiplier));
     }
 
-    private IEnumerator DurationShowInfo(int multiplier)
+    private IEnumerator DurationShowCombo(int multiplier)
     {
         float currentDuration = 0;
 
-        _textMult.text="X" + multiplier.ToString();
-        _canvasGroup.alpha=_defaultAlpha;
+        _textCombo.text="X" + multiplier.ToString();
+        _imageCombo.fillAmount=_defaultFillImage;
 
         while (currentDuration<_point.DurationSaveCombo)
         {
             currentDuration += Time.deltaTime;
-            _canvasGroup.alpha=1-(currentDuration/ _point.DurationSaveCombo);
+            _imageCombo.fillAmount = 1-(currentDuration/ _point.DurationSaveCombo);
             yield return null;
         }
+
+        _textCombo.text = string.Empty;
     }
 }

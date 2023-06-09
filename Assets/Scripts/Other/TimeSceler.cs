@@ -1,3 +1,4 @@
+using IJunior.TypedScenes;
 using UnityEngine;
 
 public class TimeSceler : MonoBehaviour

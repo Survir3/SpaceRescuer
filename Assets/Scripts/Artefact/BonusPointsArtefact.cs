@@ -8,6 +8,6 @@ public class BonusPointsArtefact : Artefact
     {
         multiplied.SetMultiplier(_multiplier);
 
-        DisableAfterEffect();
+        StartCoroutine(DisableAfterEffect());
     }
 }

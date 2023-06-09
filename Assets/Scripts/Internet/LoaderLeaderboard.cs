@@ -13,7 +13,7 @@ public class LoaderLeaderboard : MonoBehaviour
     private List<LeaderPlayerInfo> _leaderPlayersInfo = new List<LeaderPlayerInfo>();
     private bool _isCorrutineDownloadPhotoFinished=false;
 
-    public IReadOnlyList<LeaderPlayerInfo> LeaderPlayersInfo => _leaderPlayersInfo;
+    public IReadOnlyList<LeaderPlayerInfo> LeaderPlayerInfos => _leaderPlayersInfo;
 
     public event UnityAction<IReadOnlyList<LeaderPlayerInfo>> IsLoadFinish;
 
@@ -47,8 +47,6 @@ public class LoaderLeaderboard : MonoBehaviour
 
     private void SetScore(LeaderboardEntryResponse leaderboardEntry)
     {
-        Debug.Log("SetScore");
-
         if (leaderboardEntry == null)
         {
             Leaderboard.SetScore(ConstantsString.Leaderboard, _player.Points.Value);
@@ -92,7 +90,7 @@ public class LoaderLeaderboard : MonoBehaviour
             _textureLeader = null;
         }
 
-        IsLoadFinish?.Invoke(LeaderPlayersInfo);
+        IsLoadFinish?.Invoke(LeaderPlayerInfos);
     }
 
     private IEnumerator DownloadPhoto(string url)

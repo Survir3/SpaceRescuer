@@ -2,33 +2,30 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class SaverData : MonoBehaviour
-{
-    public const string OrderLoadGame = "OrderLoadGame";
-    public const string OrderSpawnedSurvivor = "OrderSpawnedSurvivor";
-    public const string OrderSpawnedArtefact = "OrderSpawnedArtefact";
-    public const string OrderSpawnedEnemy = "OrderSpawnedEnemy";
-
+{  
     [SerializeField] private SpawnerArtefact _spawnerArtefact;
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
-    [SerializeField] private SpawnerEnemy _spawnerEnemy;
+    [SerializeField] private EnemySpawner _spawnerEnemy;
+    [SerializeField] private SoundGame _sound;
 
     public int СountLoadGame { get; private set; }
     public int CountSpawnedSurvivor { get; private set; }
     public int CountSpawnedArtefact { get; private set; }
     public int CountSpawnedEnemy { get; private set; }
+    public int OnOrOffSound { get; private set; }
 
     public event UnityAction<Spawner, string> SavedData;
-    public event UnityAction<string> FIrstLoadedGame;
+    public event UnityAction<string> FirstLoadedGame;
 
     private void Awake()
     {
         ExtractValue();
-        PlayerPrefs.SetInt(OrderLoadGame, ++СountLoadGame);
+        PlayerPrefs.SetInt(ConstantsString.OrderLoadGame, ++СountLoadGame);
     }
 
     private void Start()
     {
-        FIrstLoadedGame?.Invoke(OrderLoadGame);
+        FirstLoadedGame?.Invoke(ConstantsString.OrderLoadGame);
     }
 
     private void OnEnable()
@@ -55,10 +52,12 @@ public class SaverData : MonoBehaviour
 
     public void ResetAllDataForTest()
     {
-        PlayerPrefs.SetInt(OrderSpawnedArtefact,0);
-        PlayerPrefs.SetInt(OrderSpawnedSurvivor,0);
-        PlayerPrefs.SetInt(OrderSpawnedEnemy, 0);
-        PlayerPrefs.SetInt(OrderLoadGame,0);
+        PlayerPrefs.SetInt(ConstantsString.OrderSpawnedArtefact,0);
+        PlayerPrefs.SetInt(ConstantsString.OrderSpawnedSurvivor,0);
+        PlayerPrefs.SetInt(ConstantsString.OrderSpawnedEnemy, 0);
+        PlayerPrefs.SetInt(ConstantsString.OrderLoadGame,0);
+        PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, 0);
+
     }
 
     private void OnAddCount(Spawner spawner)
@@ -71,7 +70,7 @@ public class SaverData : MonoBehaviour
             case SpawnerSurvivor spawnerSurvivor:
                 SaveData(spawnerSurvivor);
                 break;
-            case SpawnerEnemy spawnerEnemy:
+            case EnemySpawner spawnerEnemy:
                 SaveData(spawnerEnemy);
                 break;
             default:
@@ -81,24 +80,43 @@ public class SaverData : MonoBehaviour
 
     private void SaveData(SpawnerArtefact spawner)
     {
-        PlayerPrefs.SetInt(OrderSpawnedArtefact, ++CountSpawnedArtefact);
-        SavedData?.Invoke(spawner, OrderSpawnedArtefact);
+        PlayerPrefs.SetInt(ConstantsString.OrderSpawnedArtefact, ++CountSpawnedArtefact);
+        SavedData?.Invoke(spawner, ConstantsString.OrderSpawnedArtefact);
     }
 
     private void SaveData(SpawnerSurvivor spawner)
     {
-        PlayerPrefs.SetInt(OrderSpawnedSurvivor, ++CountSpawnedSurvivor);
-        SavedData?.Invoke(spawner, OrderSpawnedSurvivor);
+        PlayerPrefs.SetInt(ConstantsString.OrderSpawnedSurvivor, ++CountSpawnedSurvivor);
+        SavedData?.Invoke(spawner, ConstantsString.OrderSpawnedSurvivor);
     }
 
-    private void SaveData(SpawnerEnemy spawner)
+    private void SaveData(EnemySpawner spawner)
     {
-        PlayerPrefs.SetInt(OrderSpawnedEnemy, ++CountSpawnedEnemy);
-        SavedData?.Invoke(spawner, OrderSpawnedEnemy);
+        PlayerPrefs.SetInt(ConstantsString.OrderSpawnedEnemy, ++CountSpawnedEnemy);
+        SavedData?.Invoke(spawner, ConstantsString.OrderSpawnedEnemy);
+    }
+
+    private void SaveData(bool isPlaySound)
+    {
+        int trueValue = 1;
+        int falseValue = 0;
+
+        if(isPlaySound)
+        {
+            PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, trueValue);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, falseValue);
+        }
+
+        Debug.Log(PlayerPrefs.GetInt(ConstantsString.OrderSoundPlay));
     }
 
     private void AddListener()
     {
+        _sound.ChangedModePlay += SaveData;
+
         if (_spawnerArtefact == null || _spawnerSurvivor == null || _spawnerEnemy == null)
             return;
 
@@ -109,6 +127,8 @@ public class SaverData : MonoBehaviour
 
     private void RemoveListeners()
     {
+        _sound.ChangedModePlay -= SaveData;
+
         if (_spawnerArtefact == null || _spawnerSurvivor == null || _spawnerEnemy == null)
             return;
 
@@ -119,9 +139,9 @@ public class SaverData : MonoBehaviour
 
     private void ExtractValue()
     {
-        CountSpawnedArtefact=PlayerPrefs.GetInt(OrderSpawnedArtefact);
-        CountSpawnedSurvivor= PlayerPrefs.GetInt(OrderSpawnedSurvivor);
-        CountSpawnedEnemy=PlayerPrefs.GetInt(OrderSpawnedEnemy);
-        СountLoadGame += PlayerPrefs.GetInt(OrderLoadGame);
+        CountSpawnedArtefact=PlayerPrefs.GetInt(ConstantsString.OrderSpawnedArtefact);
+        CountSpawnedSurvivor= PlayerPrefs.GetInt(ConstantsString.OrderSpawnedSurvivor);
+        CountSpawnedEnemy=PlayerPrefs.GetInt(ConstantsString.OrderSpawnedEnemy);
+        СountLoadGame += PlayerPrefs.GetInt(ConstantsString.OrderLoadGame);
     }
 }
