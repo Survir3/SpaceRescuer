@@ -7,11 +7,13 @@ using UnityEngine;
 public class ViewSurvivorAdd : MonoBehaviour
 {
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
-    [SerializeField] private TMP_Text _AddSurvivor;
+    [SerializeField] private TMP_Text _addSurvivor;
+    [SerializeField] private TMP_Text _maxSurvivor;
 
     private void Start()
     {
         OnAdded(0);
+        _maxSurvivor.text = " / " + _spawnerSurvivor.Count.ToString();
     }
 
     private void OnEnable()
@@ -26,6 +28,6 @@ public class ViewSurvivorAdd : MonoBehaviour
 
     private void OnAdded(int value)
     {
-        _AddSurvivor.text=(value + " / " + _spawnerSurvivor.Count).ToString();
+        _addSurvivor.text=value.ToString();
     }
 }

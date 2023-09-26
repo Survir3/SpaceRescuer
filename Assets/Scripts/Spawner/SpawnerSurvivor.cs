@@ -1,4 +1,5 @@
 using IJunior.TypedScenes;
+using UnityEngine;
 
 public class SpawnerSurvivor : Spawner, ISceneLoadHandler<DataLoadScene>
 {
@@ -9,6 +10,7 @@ public class SpawnerSurvivor : Spawner, ISceneLoadHandler<DataLoadScene>
 
     public void OnSceneLoaded(DataLoadScene argument)
     {
+        Debug.Log("Инфо " + argument.LevelConfig == null);
         _count = argument.LevelConfig.CountSurvivorsToLevel;
     }
 }

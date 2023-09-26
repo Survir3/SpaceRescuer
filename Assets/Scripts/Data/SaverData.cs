@@ -20,6 +20,10 @@ public class SaverData : MonoBehaviour
     private void Awake()
     {
         ExtractValue();
+
+        if (_spawnerArtefact == null || _spawnerSurvivor == null || _spawnerEnemy == null)
+            return;
+
         PlayerPrefs.SetInt(ConstantsString.OrderLoadGame, ++СountLoadGame);
     }
 
@@ -38,18 +42,6 @@ public class SaverData : MonoBehaviour
         RemoveListeners();
     }
 
-    public bool IsAllDataGreaterZero()
-    {
-        if(СountLoadGame >0 && CountSpawnedSurvivor > 0 && CountSpawnedArtefact > 0 && CountSpawnedEnemy > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public void ResetAllDataForTest()
     {
         PlayerPrefs.SetInt(ConstantsString.OrderSpawnedArtefact,0);
@@ -57,7 +49,6 @@ public class SaverData : MonoBehaviour
         PlayerPrefs.SetInt(ConstantsString.OrderSpawnedEnemy, 0);
         PlayerPrefs.SetInt(ConstantsString.OrderLoadGame,0);
         PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, 0);
-
     }
 
     private void OnAddCount(Spawner spawner)
@@ -109,8 +100,6 @@ public class SaverData : MonoBehaviour
         {
             PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, falseValue);
         }
-
-        Debug.Log(PlayerPrefs.GetInt(ConstantsString.OrderSoundPlay));
     }
 
     private void AddListener()

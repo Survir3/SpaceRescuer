@@ -14,19 +14,12 @@ public class Training : MonoBehaviour
 
     public event UnityAction<string> IsTraining;
 
-    private void Awake()
-    {
-        if (_saverData.IsAllDataGreaterZero())
-            enabled = false;
-    }
-
     private void OnEnable()
     {
         _saverData.SavedData += OnSavedData;
         _saverData.FirstLoadedGame += OnFirstLoadedGame;
         _timerStartLevel.StartGame += OnStartGame;
     }
-
 
     private void OnDisable()
     {
@@ -60,6 +53,7 @@ public class Training : MonoBehaviour
     {
         TryDoTraining(ConstantsString.TrainingTextFirstLoadGame, saveDataKey);
     }
+
     private void OnStartGame()
     {
         TryDoTraining(ConstantsString.TrainingTextSpawnerEnemies, ConstantsString.OrderLoadGame);
@@ -67,6 +61,7 @@ public class Training : MonoBehaviour
 
     private void TryDoTraining(string training, string saveDataKey)
     {
+
         if (PlayerPrefs.GetInt(saveDataKey) > _firstAction)
             return;
 

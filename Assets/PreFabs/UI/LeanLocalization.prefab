@@ -94,6 +94,12 @@ MonoBehaviour:
   - Root: {fileID: 527698076618757605, guid: 8b5648039f1a35742b3331e975193b78, type: 3}
     sources:
     - {fileID: 4194239954721599002, guid: 8b5648039f1a35742b3331e975193b78, type: 3}
+  - Root: {fileID: 5082701366789620413, guid: 33c63516a9592c74291a2ffd75e21622, type: 3}
+    sources:
+    - {fileID: 1441820790580592329, guid: 33c63516a9592c74291a2ffd75e21622, type: 3}
+  - Root: {fileID: 5121713620307921553, guid: 712fff80e8cffbd41ad5893e5492695f, type: 3}
+    sources:
+    - {fileID: 8492636637528530, guid: 712fff80e8cffbd41ad5893e5492695f, type: 3}
 --- !u!114 &2487605659636348819
 MonoBehaviour:
   m_ObjectHideFlags: 0

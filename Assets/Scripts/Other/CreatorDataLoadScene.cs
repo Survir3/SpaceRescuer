@@ -2,6 +2,7 @@ using IJunior.TypedScenes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CreatorDataLoadScene : MonoBehaviour, ISceneLoadHandler<DataLoadScene>
 {
@@ -47,20 +48,30 @@ public class CreatorDataLoadScene : MonoBehaviour, ISceneLoadHandler<DataLoadSce
     {
         if (_loaderLeaderboard == null && _connecterYandex == null)
         {
+            Debug.Log(DataLoadScene==null);
+            Debug.Log(SceneManager.GetActiveScene().name);
             DataLoadScene = argument;
+
+            if(DataLoadScene==null)
+                Debug.Log(13);
         }
     }
 
     public void OnLoadNextSceneButton()
     {
+        IReadOnlyList<LeaderPlayerInfo> leaderPlayerInfos=new List<LeaderPlayerInfo>();
+        LeaderPlayerInfo leaderPlayerInfo = new LeaderPlayerInfo();
+        List<LeaderPlayerInfo> test= new List<LeaderPlayerInfo>();
+        leaderPlayerInfo.Init("Name", 10);
+        test.Add(leaderPlayerInfo);
 
-        DataLoadScene = new DataLoadScene(new LevelConfig(), null);
-        Debug.Log(PlayerPrefs.GetInt(ConstantsString.OrderSoundPlay));
+        DataLoadScene = new DataLoadScene(new LevelConfig(), test);
     }
 
     private void OnAllAdded()
     {
         DataLoadScene.LevelConfig.SetPointsConfig(_player.Points.Value);
+        DataLoadScene.LevelConfig.SetConfigForNextLevel();
     }
 
     private void OnPlayerDead()
@@ -71,6 +82,7 @@ public class CreatorDataLoadScene : MonoBehaviour, ISceneLoadHandler<DataLoadSce
     private void CreateDataLoadScene(IReadOnlyList<LeaderPlayerInfo> leaderPlayerInfos)
     {
         DataLoadScene = new DataLoadScene(new LevelConfig(), leaderPlayerInfos);
+        Debug.Log(10);
         IsCreatedData?.Invoke(DataLoadScene);
     }
 }

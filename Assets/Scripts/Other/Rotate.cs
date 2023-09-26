@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RotatePlanet : MonoBehaviour
+public class Rotate : MonoBehaviour
 {
     [SerializeField] private int _speed;
 

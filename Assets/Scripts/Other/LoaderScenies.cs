@@ -1,22 +1,25 @@
 using Agava.YandexGames;
 using IJunior.TypedScenes;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoaderScenies : MonoBehaviour
 {
+    private const string ConectWhisSDKSceneName = "ConectWhisSDK";
+
     [SerializeField] private Player _player;
     [SerializeField] private TimeSceler _timeSceler;
     [SerializeField] private CreatorDataLoadScene _creatorDataLoadScene;
 
     private void OnEnable()
     {
-        if (_creatorDataLoadScene != null)
+        if (SceneManager.GetActiveScene().name== ConectWhisSDKSceneName)
             _creatorDataLoadScene.IsCreatedData += OnLoadMenuAfterCreatedData;
     }
 
     private void OnDisable()
     {
-        if (_creatorDataLoadScene != null)
+        if (SceneManager.GetActiveScene().name == ConectWhisSDKSceneName)
             _creatorDataLoadScene.IsCreatedData -= OnLoadMenuAfterCreatedData;
     }
 
@@ -40,11 +43,16 @@ public class LoaderScenies : MonoBehaviour
     public void OnClickLoadMenuButton()
     {
         _creatorDataLoadScene.ResetLevelConfig();
+        Debug.Log(_creatorDataLoadScene.DataLoadScene.LevelConfig == null);
+
         MainMenu.Load(_creatorDataLoadScene.DataLoadScene);
     }
 
     private void OnLoadMenuAfterCreatedData(DataLoadScene dataLoadScene)
     {
+        if(dataLoadScene != null)
+            Debug.Log("12");
+
         MainMenu.Load(dataLoadScene);
     }
 }
