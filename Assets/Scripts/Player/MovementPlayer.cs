@@ -20,20 +20,13 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Dat
 
     private void Awake()
     {
-        Debug.Log(0);
-
         _playerInput = new PlayerInput();
         _targetRotation = _rigidbody.rotation;
         _controllerSurvivorMovement = GetComponent<GiverTargetSurvivorMovement>();
-
-        Debug.Log(1);
     }
 
     private void Start()
     {
-        Debug.Log(3);
-
-
         if (Application.platform==RuntimePlatform.WindowsEditor)
         {
             _onCorrectInputForDevice = InputKeyboard;
@@ -44,9 +37,6 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Dat
             _onCorrectInputForDevice = InputForTouchDevice;
         else
             _onCorrectInputForDevice = InputKeyboard;
-
-        Debug.Log(4);
-
     }
 
     private void OnEnable()

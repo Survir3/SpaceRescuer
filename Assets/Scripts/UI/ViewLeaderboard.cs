@@ -8,16 +8,16 @@ public class ViewLeaderboard : MonoBehaviour, ISceneLoadHandler<DataLoadScene>
 
     public void OnSceneLoaded(DataLoadScene argument)
     {
-        Debug.Log(99);
+        Debug.Log("LeaderPlayers.Count " + argument.LeaderPlayers.Count);
 
         if (argument != null)
         {
-            for (int i = 0; i < argument.LeaderPlayers.Count; i++)
+            for (int i = 0; i < _viewLeaders.Count; i++)
             {
                 _viewLeaders[i].InitWithTexture(argument.LeaderPlayers[i]);
             }
         }
 
-        Debug.Log(98);
+        Debug.Log("_viewLeaders.Count " + _viewLeaders.Count);
     }
 }

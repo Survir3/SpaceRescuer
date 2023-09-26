@@ -43,15 +43,16 @@ public class LoaderScenies : MonoBehaviour
     public void OnClickLoadMenuButton()
     {
         _creatorDataLoadScene.ResetLevelConfig();
-        Debug.Log(_creatorDataLoadScene.DataLoadScene.LevelConfig == null);
 
         MainMenu.Load(_creatorDataLoadScene.DataLoadScene);
     }
 
     private void OnLoadMenuAfterCreatedData(DataLoadScene dataLoadScene)
     {
-        if(dataLoadScene != null)
-            Debug.Log("12");
+        if (dataLoadScene != null)
+        {
+            Debug.Log("OnLoadMenuAfterCreatedData " + dataLoadScene.LeaderPlayers[0]);
+        }
 
         MainMenu.Load(dataLoadScene);
     }

@@ -16,16 +16,16 @@ namespace IJunior.TypedScenes
     public class ConectWhisSDK : TypedScene
     {
         
-        public const string SceneName = "ConectWhisSDK";
+        private const string _sceneName = "ConectWhisSDK";
         
         public static void Load(DataLoadScene argument, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
-            LoadScene(SceneName, loadSceneMode, argument);
+            LoadScene(_sceneName, loadSceneMode, argument);
         }
         
         public static UnityEngine.AsyncOperation LoadAsync(DataLoadScene argument, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
         {
-            return LoadScene(SceneName, loadSceneMode, argument);
+            return LoadScene(_sceneName, loadSceneMode, argument);
         }
     }
 }

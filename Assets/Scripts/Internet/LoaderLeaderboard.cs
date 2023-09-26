@@ -6,12 +6,13 @@ using UnityEngine.Events;
 
 public class LoaderLeaderboard : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private Points _points;
     [SerializeField] private ConnecterYandex _connecterYandex;
 
     private Texture2D _textureLeader;
     private List<LeaderPlayerInfo> _leaderPlayersInfo = new List<LeaderPlayerInfo>();
     private bool _isCorrutineDownloadPhotoFinished=false;
+    private int _countLeaderPlayerInfo = 5;
 
     public IReadOnlyList<LeaderPlayerInfo> LeaderPlayerInfos => _leaderPlayersInfo;
 
@@ -19,8 +20,8 @@ public class LoaderLeaderboard : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_player != null)
-            _player.IsDie += OnUpdateScore;
+        if (_points != null)
+            _points.ChangeValue += OnUpdateScore;
 
         if (_connecterYandex != null)
             _connecterYandex.IsConnect += LoadEntries;
@@ -28,8 +29,8 @@ public class LoaderLeaderboard : MonoBehaviour
 
     private void OnDisable()
     {
-        if (_player != null)
-            _player.IsDie -= OnUpdateScore;
+        if (_points != null)
+            _points.ChangeValue -= OnUpdateScore;
 
         if (_connecterYandex != null)
             _connecterYandex.IsConnect -= LoadEntries;
@@ -37,10 +38,10 @@ public class LoaderLeaderboard : MonoBehaviour
 
     private void LoadEntries()
     {        
-        Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo);
+        Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo, ErrorString, _countLeaderPlayerInfo);
     }
 
-    private void OnUpdateScore()
+    private void OnUpdateScore(int value)
     {
         Leaderboard.GetPlayerEntry(ConstantsString.Leaderboard, SetScore);
     }
@@ -49,13 +50,13 @@ public class LoaderLeaderboard : MonoBehaviour
     {
         if (leaderboardEntry == null)
         {
-            Leaderboard.SetScore(ConstantsString.Leaderboard, _player.Points.Value);
+            Leaderboard.SetScore(ConstantsString.Leaderboard, _points.Value);
             return;
         }
 
-        if (leaderboardEntry.score < _player.Points.Value)
+        if (leaderboardEntry.score < _points.Value)
         {
-            Leaderboard.SetScore(ConstantsString.Leaderboard, _player.Points.Value);
+            Leaderboard.SetScore(ConstantsString.Leaderboard, _points.Value);
         }
     }
 
@@ -90,6 +91,7 @@ public class LoaderLeaderboard : MonoBehaviour
             _textureLeader = null;
         }
 
+        Debug.Log(_leaderPlayersInfo.Count);
         IsLoadFinish?.Invoke(LeaderPlayerInfos);
     }
 
@@ -109,5 +111,10 @@ public class LoaderLeaderboard : MonoBehaviour
             _textureLeader = remoteImage.Texture;
 
         _isCorrutineDownloadPhotoFinished = remoteImage.IsDownloadFinished;
+    }
+
+    private void ErrorString(string callBack)
+    {
+        Debug.LogError("ErrorString " + callBack);
     }
 }
