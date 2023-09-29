@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: TrainingIcon
   m_EditorClassIdentifier: 
   _inputs:
-  - {fileID: 21300034, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
-  - {fileID: 21300026, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
+  - {fileID: 21300000, guid: d31115fa9cb67004b96bc76f48802b9f, type: 3}
+  - {fileID: 21300000, guid: 841ae3188ba4d9746ba4f4ed86597a98, type: 3}
   _enemies:
-  - {fileID: 21300000, guid: ee01ce23c46a003468d2f2855db26dd4, type: 3}
-  - {fileID: 21300000, guid: 1b13d18f2ee130241950881f2de67ec6, type: 3}
-  - {fileID: 21300000, guid: 86299e10395dda540afbebb70fa37ee7, type: 3}
+  - {fileID: 21300000, guid: 1e6cb2121472a52488160fe93f4bca28, type: 3}
+  - {fileID: 21300000, guid: 93b7b87670dd90346bc682af1b9afda8, type: 3}
+  - {fileID: 21300000, guid: 5e5f42d5bbf909546bba41468e2e17d9, type: 3}
   _artefacts:
-  - {fileID: 21300000, guid: 8f3f453d4dbb17f41a68e927d195ede5, type: 3}
-  - {fileID: 21300000, guid: 18141d080d72ad54ca6aeb4eef62558a, type: 3}
+  - {fileID: 21300000, guid: 2f2148fe04912b140abc7555f4bf130b, type: 3}
+  - {fileID: 21300000, guid: ed2424be631e0aa4abf51bb26a165ee5, type: 3}
   _survivor:
-  - {fileID: 21300000, guid: 79d12a6503266dc4aa9cd400980d14b3, type: 3}
+  - {fileID: 21300000, guid: b8391b6c0257c8f469ef3fd602e70c6c, type: 3}

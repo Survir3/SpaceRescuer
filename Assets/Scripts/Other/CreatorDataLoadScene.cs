@@ -53,7 +53,7 @@ public class CreatorDataLoadScene : MonoBehaviour, ISceneLoadHandler<DataLoadSce
         }
     }
 
-    public void OnLoadNextSceneButton()
+    public void OnCreateDataLoad()
     {
         IReadOnlyList<LeaderPlayerInfo> leaderPlayerInfos=new List<LeaderPlayerInfo>();
         LeaderPlayerInfo leaderPlayerInfo = new LeaderPlayerInfo();

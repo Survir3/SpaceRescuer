@@ -12,7 +12,7 @@ public class SoundGame : MonoBehaviour
 
     public event Action<bool> ChangedModePlay;
 
-    private void Start()
+    private void Awake()
     {
         _audioSources = FindObjectsOfType<AudioSource>(true).ToList();
 

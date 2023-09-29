@@ -82,7 +82,7 @@ public class LoaderLeaderboard : MonoBehaviour
 
             if (string.IsNullOrEmpty(name))
             {
-                name = "Incognito";
+                name = ConstantsString.Incognito;
             }
 
             var newLeaderPlayerInfo = new LeaderPlayerInfo();

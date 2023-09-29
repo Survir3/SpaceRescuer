@@ -235,6 +235,7 @@ GameObject:
   - component: {fileID: 5376062435588478233}
   - component: {fileID: 2282692243634727963}
   - component: {fileID: 5696115159480779819}
+  - component: {fileID: 1784591635}
   m_Layer: 5
   m_Name: TemplateLeaderNameText
   m_TagString: Untagged
@@ -289,7 +290,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u0418\u043D\u043A\u043E\u0433\u043D\u0438\u0442\u043E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -316,7 +317,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 44.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -358,6 +359,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1784591635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058473526409314201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: Incognito
+  FallbackText: Incognito
 --- !u!1 &4115400984413911472
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,6 +509,7 @@ MonoBehaviour:
   _name: {fileID: 5696115159480779819}
   _score: {fileID: 9202901426500792349}
   _image: {fileID: 2997101758997381638}
+  _leanLocalizedText: {fileID: 1784591635}
 --- !u!114 &7713547678709114415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,15 +523,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6037736, g: 0.5895336, b: 0.5895336, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300032, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: de104d32a95556349875721f3a1b1e55, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

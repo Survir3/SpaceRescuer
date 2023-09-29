@@ -13,4 +13,7 @@ public static class ConstantsString
     public const string OrderSpawnedArtefact = "OrderSpawnedArtefact";
     public const string OrderSpawnedEnemy = "OrderSpawnedEnemy";
     public const string OrderSoundPlay = "OrderSoundPlay";
+
+    public const string Incognito = "Incognito";
+
 }

@@ -1,47 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &6157967029220860345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9015512558570661385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  translationName: Sound
-  FallbackText: Sound
---- !u!114 &6157967030007730087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9015512557979468649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  translationName: Menu
-  FallbackText: Menu
---- !u!114 &6157967030976709576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9015512557729522694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  translationName: Pause
-  FallbackText: Pause
 --- !u!1 &6157967031263016732
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,6 +47,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6157967031263016732}
   m_CullTransparentMesh: 1
+--- !u!114 &6157967030976709576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9015512557729522694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: Pause
+  FallbackText: Pause
+--- !u!114 &6157967030007730087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9015512557979468649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: Menu
+  FallbackText: Menu
+--- !u!114 &6157967029220860345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9015512558570661385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: Sound
+  FallbackText: Sound
 --- !u!1001 &6157967029290307995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -208,6 +208,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300014, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
+    - target: {fileID: 2911848208457309030, guid: d756f62e30bcead44b1497874a64f711, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2911848208457309031, guid: d756f62e30bcead44b1497874a64f711, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -238,7 +242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2911848208996635380, guid: d756f62e30bcead44b1497874a64f711, type: 3}
       propertyPath: m_fontSize
-      value: 70.85
+      value: 70.9
       objectReference: {fileID: 0}
     - target: {fileID: 2911848208996635380, guid: d756f62e30bcead44b1497874a64f711, type: 3}
       propertyPath: m_margin.w
@@ -421,7 +425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2911848208996635380, guid: d756f62e30bcead44b1497874a64f711, type: 3}
       propertyPath: m_fontSize
-      value: 55.4
+      value: 55.45
       objectReference: {fileID: 0}
     - target: {fileID: 2911848208996635380, guid: d756f62e30bcead44b1497874a64f711, type: 3}
       propertyPath: m_margin.w
@@ -632,7 +636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2911848208996635380, guid: d756f62e30bcead44b1497874a64f711, type: 3}
       propertyPath: m_fontSize
-      value: 70.35
+      value: 70.4
       objectReference: {fileID: 0}
     - target: {fileID: 2911848208996635380, guid: d756f62e30bcead44b1497874a64f711, type: 3}
       propertyPath: m_margin.w
