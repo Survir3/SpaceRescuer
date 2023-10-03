@@ -49,11 +49,6 @@ public class LoaderScenies : MonoBehaviour
 
     private void OnLoadMenuAfterCreatedData(DataLoadScene dataLoadScene)
     {
-        if (dataLoadScene != null)
-        {
-            Debug.Log("OnLoadMenuAfterCreatedData " + dataLoadScene.LeaderPlayers[0]);
-        }
-
         MainMenu.Load(dataLoadScene);
     }
 }

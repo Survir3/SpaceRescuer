@@ -20,6 +20,8 @@ public class ViewLeader : MonoBehaviour
 
     public void SetName(string name)
     {
+        Debug.Log(name == ConstantsString.Incognito);
+
         if (name == ConstantsString.Incognito)
         {
             _leanLocalizedText.enabled = true;

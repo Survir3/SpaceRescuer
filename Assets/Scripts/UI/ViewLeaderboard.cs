@@ -5,19 +5,45 @@ using UnityEngine;
 public class ViewLeaderboard : MonoBehaviour, ISceneLoadHandler<DataLoadScene>
 {
     [SerializeField] private List<ViewLeader> _viewLeaders;
+    [SerializeField] private LoaderLeaderboard _leaderboard;
+
+    private void OnEnable()
+    {
+        _leaderboard.IsLoadFinish += ShowLeaderPlayer;
+        Debug.Log("OnEnable");
+    }
+
+    private void OnDisable()
+    {
+        _leaderboard.IsLoadFinish -= ShowLeaderPlayer;
+    }
 
     public void OnSceneLoaded(DataLoadScene argument)
     {
-        Debug.Log("LeaderPlayers.Count " + argument.LeaderPlayers.Count);
+        IReadOnlyList<LeaderPlayerInfo> leaderPlayerInfo = argument.LeaderPlayers;
 
-        if (argument != null)
+        ShowLeaderPlayer(leaderPlayerInfo);
+    }
+
+    private void ShowLeaderPlayer(IReadOnlyList<LeaderPlayerInfo> leaderPlayerInfo)
+    {
+        Debug.Log("ShowLeaderPlayer");
+
+        if (leaderPlayerInfo != null)
         {
             for (int i = 0; i < _viewLeaders.Count; i++)
             {
-                _viewLeaders[i].InitWithTexture(argument.LeaderPlayers[i]);
+                Debug.Log(leaderPlayerInfo[i].Name);
+
+                if (_viewLeaders[i] == null || leaderPlayerInfo[i] == null)
+                    return;
+
+                _viewLeaders[i].InitWithTexture(leaderPlayerInfo[i]);
             }
         }
-
-        Debug.Log("_viewLeaders.Count " + _viewLeaders.Count);
+        else
+        {
+            Debug.Log(leaderPlayerInfo);
+        }
     }
 }

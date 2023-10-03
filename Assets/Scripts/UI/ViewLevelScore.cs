@@ -7,7 +7,6 @@ public class ViewLevelScore : MonoBehaviour
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
     [SerializeField] private GameObject _gameOverMenu;
     [SerializeField] private GameObject _gameVictoryMenu;
-    [SerializeField] private GameObject _viewPoints;
     [SerializeField] private GameObject _finalScore;
 
     private void Awake()
@@ -30,7 +29,6 @@ public class ViewLevelScore : MonoBehaviour
 
     private void OnPlayerDead()
     {
-        _viewPoints.SetActive(false);
         _gameOverMenu.SetActive(true);
         _finalScore.SetActive(true);
     }
@@ -38,7 +36,6 @@ public class ViewLevelScore : MonoBehaviour
     private void OnAllAdded()
     {
         _finalScore.SetActive(true);
-        _viewPoints.SetActive(false);
         _gameVictoryMenu.SetActive(true);
     }      
 }

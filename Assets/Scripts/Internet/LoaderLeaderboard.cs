@@ -36,18 +36,29 @@ public class LoaderLeaderboard : MonoBehaviour
             _connecterYandex.IsConnect -= LoadEntries;
     }
 
-    private void LoadEntries()
-    {        
-        Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo, ErrorString, _countLeaderPlayerInfo);
+    public void LoadEntries()
+    {
+        if (PlayerAccount.IsAuthorized == true)
+        {
+            Debug.Log("LoadEntries true");
+            Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo, ErrorString, _countLeaderPlayerInfo);
+        }
+        else
+        {
+            Debug.Log("LoadEntries false");
+            IsLoadFinish?.Invoke(null);
+        }
     }
 
     private void OnUpdateScore(int value)
     {
-        Leaderboard.GetPlayerEntry(ConstantsString.Leaderboard, SetScore);
+        if (PlayerAccount.IsAuthorized == true)
+            Leaderboard.GetPlayerEntry(ConstantsString.Leaderboard, SetScore);
     }
 
     private void SetScore(LeaderboardEntryResponse leaderboardEntry)
     {
+
         if (leaderboardEntry == null)
         {
             Leaderboard.SetScore(ConstantsString.Leaderboard, _points.Value);
@@ -91,7 +102,7 @@ public class LoaderLeaderboard : MonoBehaviour
             _textureLeader = null;
         }
 
-        Debug.Log(_leaderPlayersInfo.Count);
+        Debug.Log("IEnumerator");
         IsLoadFinish?.Invoke(LeaderPlayerInfos);
     }
 

@@ -1,4 +1,6 @@
+using Agava.WebUtility;
 using IJunior.TypedScenes;
+using System;
 using UnityEngine;
 
 public class TimeSceler : MonoBehaviour
@@ -18,12 +20,22 @@ public class TimeSceler : MonoBehaviour
     {
         _player.IsDie += PauseGame;
         _spawnerSurvivor.IsAllAdded+= PauseGame;
+        WebApplication.InBackgroundChangeEvent += OnBackgroundChangeEvent;
     }
 
     private void OnDisable()
     {
         _player.IsDie -= PauseGame;
         _spawnerSurvivor.IsAllAdded -= PauseGame;
+        WebApplication.InBackgroundChangeEvent -= OnBackgroundChangeEvent;
+    }
+
+    private void OnBackgroundChangeEvent(bool hidden)
+    {
+        if(hidden)
+            PauseGame();
+        else
+            PlayGame();
     }
 
     public void OnClickPauseButton()

@@ -12,11 +12,9 @@ public class SoundGame : MonoBehaviour
 
     public event Action<bool> ChangedModePlay;
 
-    private void Awake()
+    private void Start()
     {
         _audioSources = FindObjectsOfType<AudioSource>(true).ToList();
-
-        SetSound(PlayerPrefs.GetInt(ConstantsString.OrderSoundPlay));
     }
 
     public void OnSwitchSound()
@@ -45,25 +43,13 @@ public class SoundGame : MonoBehaviour
 
     public void OffSound()
     {
+        Debug.Log(_isPlaying);
+
         foreach (var sources in _audioSources)
         {
             sources.mute = true;
         }
 
         _isPlaying = false;
-    }
-
-    private void SetSound(int saveSoundMode)
-    {
-        int trueValue = 1;
-
-        if(saveSoundMode==trueValue)
-        {
-            OnSound();
-        }
-        else
-        {
-            OffSound();
-        }
     }
 }

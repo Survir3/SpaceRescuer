@@ -22,6 +22,7 @@ public class Pool : MonoBehaviour
             _pool.Add(newObject);
             newObject.GetComponent<ArtificialGravityBody>().Init(_artificialGravityAttractor);
             newObject.SetActive(false);
+            Debug.Log(newObject.name);
         }
     }
 
