@@ -18,6 +18,7 @@ public abstract class Spawner : Pool, IIncreaseForLevel
     private int _halfRatio = 2;
 
     public int CountAdded { get; private set; } = 0;
+    public bool IsAllAdd => Count == CountAdded;
 
     public event UnityAction<int> IsAdded;
     public event UnityAction IsAllAdded;

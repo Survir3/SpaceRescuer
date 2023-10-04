@@ -5,7 +5,8 @@ public class ButtonViewLeaderboard : MonoBehaviour
 {
     [SerializeField] private GameObject _leaderboard;
     [SerializeField] private GameObject _mainMenu;
-    [SerializeField] private LoaderLeaderboard _leaderboardLoader;
+    [SerializeField] private GameObject _authorization;
+    [SerializeField] private LoaderLeaderboard _loaderLeaderboard;
 
     private void Awake()
     {
@@ -14,15 +15,10 @@ public class ButtonViewLeaderboard : MonoBehaviour
 
     public void OnClick()
     {
-        if (PlayerAccount.IsAuthorized)
-        {
+        if(PlayerAccount.IsAuthorized)        
             Open();
-        }
         else
-        {
-            PlayerAccount.Authorize(_leaderboardLoader.LoadEntries);
-        }
-
+            _authorization.SetActive(true);
     }
 
     private void Open()

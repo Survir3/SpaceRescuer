@@ -1,3 +1,4 @@
+using Agava.WebUtility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,29 @@ public class SoundGame : MonoBehaviour
 
     public event Action<bool> ChangedModePlay;
 
+    private void OnEnable()
+    {
+        WebApplication.InBackgroundChangeEvent += OnBackgroundChangeEvent;
+    }
+
+    private void OnDisable()
+    {
+        WebApplication.InBackgroundChangeEvent -= OnBackgroundChangeEvent;
+    }
     private void Start()
     {
         _audioSources = FindObjectsOfType<AudioSource>(true).ToList();
+    }
+
+    private void OnBackgroundChangeEvent(bool hidden)
+    {
+        if (_isPlaying==false)
+            return;
+
+        if (hidden)
+            OffSound();
+        else
+            OnSound();
     }
 
     public void OnSwitchSound()
@@ -28,6 +49,8 @@ public class SoundGame : MonoBehaviour
             OnSound();
         }
 
+        _isPlaying = !_isPlaying;
+
         ChangedModePlay?.Invoke(_isPlaying);
     }
 
@@ -37,19 +60,13 @@ public class SoundGame : MonoBehaviour
         {
             sources.mute = false;
         }
-
-        _isPlaying = true;
     }
 
     public void OffSound()
     {
-        Debug.Log(_isPlaying);
-
         foreach (var sources in _audioSources)
         {
             sources.mute = true;
         }
-
-        _isPlaying = false;
     }
 }

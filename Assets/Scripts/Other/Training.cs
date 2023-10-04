@@ -61,7 +61,6 @@ public class Training : MonoBehaviour
 
     private void TryDoTraining(string training, string saveDataKey)
     {
-
         if (PlayerPrefs.GetInt(saveDataKey) > _firstAction)
             return;
 

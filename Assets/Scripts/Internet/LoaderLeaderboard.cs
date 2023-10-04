@@ -13,7 +13,9 @@ public class LoaderLeaderboard : MonoBehaviour
     private List<LeaderPlayerInfo> _leaderPlayersInfo = new List<LeaderPlayerInfo>();
     private bool _isCorrutineDownloadPhotoFinished=false;
     private int _countLeaderPlayerInfo = 5;
+    private bool _isLoaderCorrectLoad = false;
 
+    public bool IsLoaderCorrectLoad => _isLoaderCorrectLoad;
     public IReadOnlyList<LeaderPlayerInfo> LeaderPlayerInfos => _leaderPlayersInfo;
 
     public event UnityAction<IReadOnlyList<LeaderPlayerInfo>> IsLoadFinish;
@@ -102,7 +104,7 @@ public class LoaderLeaderboard : MonoBehaviour
             _textureLeader = null;
         }
 
-        Debug.Log("IEnumerator");
+        _isLoaderCorrectLoad = true;
         IsLoadFinish?.Invoke(LeaderPlayerInfos);
     }
 

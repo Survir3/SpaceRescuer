@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5545996249065800081}
   - component: {fileID: 5545996249065800080}
+  - component: {fileID: 7020151744568067066}
   - component: {fileID: 5545996249065800095}
   m_Layer: 5
   m_Name: Toggle
@@ -231,6 +232,20 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
+--- !u!114 &7020151744568067066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5545996249065800094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e6f98222ef9c9442ab9b23a9d6031ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pauseToggle: {fileID: 0}
+  _timeSceler: {fileID: 0}
 --- !u!114 &5545996249065800095
 MonoBehaviour:
   m_ObjectHideFlags: 0

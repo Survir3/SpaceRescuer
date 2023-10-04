@@ -13,21 +13,16 @@ public class ViewLeader : MonoBehaviour
     public void SetScore(int score) => _score.text = score.ToString();
     public void SetTexture(Texture2D texture) => _image.texture = texture;
 
-    private void Awake()
-    {
-        _leanLocalizedText.enabled = false;
-    }
-
     public void SetName(string name)
     {
         Debug.Log(name == ConstantsString.Incognito);
 
-        if (name == ConstantsString.Incognito)
+        _name.text = name;
+
+        if (_name.text == ConstantsString.Incognito)
         {
             _leanLocalizedText.enabled = true;
         }
-
-        _name.text = name;
     }
 
     public void InitWithTexture(LeaderPlayerInfo leaderPlayerInfo)
