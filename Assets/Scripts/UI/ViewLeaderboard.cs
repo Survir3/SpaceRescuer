@@ -10,7 +10,6 @@ public class ViewLeaderboard : MonoBehaviour, ISceneLoadHandler<DataLoadScene>
     private void OnEnable()
     {
         _leaderboard.IsLoadFinish += ShowLeaderPlayer;
-        Debug.Log("OnEnable");
     }
 
     private void OnDisable()
@@ -27,23 +26,16 @@ public class ViewLeaderboard : MonoBehaviour, ISceneLoadHandler<DataLoadScene>
 
     private void ShowLeaderPlayer(IReadOnlyList<LeaderPlayerInfo> leaderPlayerInfo)
     {
-        Debug.Log("ShowLeaderPlayer");
 
         if (leaderPlayerInfo != null)
         {
             for (int i = 0; i < _viewLeaders.Count; i++)
             {
-                Debug.Log(leaderPlayerInfo[i].Name);
-
                 if (_viewLeaders[i] == null || leaderPlayerInfo[i] == null)
                     return;
 
                 _viewLeaders[i].InitWithTexture(leaderPlayerInfo[i]);
             }
-        }
-        else
-        {
-            Debug.Log(leaderPlayerInfo);
         }
     }
 }

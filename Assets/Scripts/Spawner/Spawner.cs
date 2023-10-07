@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(ArtificialGravityAttractor), typeof(SphereCollider))]
-public abstract class Spawner : Pool, IIncreaseForLevel
+public abstract class Spawner : Pool, IIncreaseForLevel, INeededSwitchPlayMode
 {
     [SerializeField] protected List<GameObject> _prefabs;
     [SerializeField] protected float _delay;
@@ -20,9 +20,13 @@ public abstract class Spawner : Pool, IIncreaseForLevel
     public int CountAdded { get; private set; } = 0;
     public bool IsAllAdd => Count == CountAdded;
 
+    public bool IsPause { get; private set; }
+
     public event UnityAction<int> IsAdded;
     public event UnityAction IsAllAdded;
     public event UnityAction<Spawner> IsSpawned;
+    public event UnityAction NeededPause;
+    public event UnityAction NeededPlay;
 
     private void Awake()
     {        
@@ -94,11 +98,26 @@ public abstract class Spawner : Pool, IIncreaseForLevel
         IsAdded?.Invoke(CountAdded);
 
         if (CountAdded == Count)
+        {
             IsAllAdded?.Invoke();
+            RequestPause();
+        }
     }
 
     public void SetValueToStartLevel(float value)
     {
         _count = (int)value;
+    }
+
+    public void RequestPlay()
+    {
+        IsPause = false;
+        NeededPlay.Invoke();
+    }
+
+    public void RequestPause()
+    {
+        IsPause = true;
+        NeededPause.Invoke();
     }
 }

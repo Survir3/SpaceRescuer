@@ -15,8 +15,6 @@ public class ViewLeader : MonoBehaviour
 
     public void SetName(string name)
     {
-        Debug.Log(name == ConstantsString.Incognito);
-
         _name.text = name;
 
         if (_name.text == ConstantsString.Incognito)

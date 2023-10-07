@@ -31,8 +31,6 @@ public class SaverData : MonoBehaviour
     {
         FirstLoadedGame?.Invoke(ConstantsString.OrderLoadGame);
 
-        Debug.Log("SaveDataStart " + PlayerPrefs.GetInt(ConstantsString.OrderSoundPlay));
-
     }
 
     private void OnEnable()
@@ -103,8 +101,6 @@ public class SaverData : MonoBehaviour
         {
             PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, falseValue);
         }
-
-        Debug.Log("SaveData " + PlayerPrefs.GetInt(ConstantsString.OrderSoundPlay));
     }
 
     private void AddListener()

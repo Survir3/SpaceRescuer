@@ -2,17 +2,20 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Training : MonoBehaviour
+public class Training : MonoBehaviour, INeededSwitchPlayMode
 { 
     [SerializeField] private SaverData _saverData;
-    [SerializeField] private TimeSceler _timeSceler;
     [SerializeField] private SpawnerArtefact _spawnerArtefact;
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
     [SerializeField] private TimerStartLevel _timerStartLevel;
 
     private int _firstAction = 1;
 
+    public bool IsPause { get; set; } = false;
+
     public event UnityAction<string> IsTraining;
+    public event UnityAction NeededPause;
+    public event UnityAction NeededPlay;
 
     private void OnEnable()
     {
@@ -64,8 +67,19 @@ public class Training : MonoBehaviour
         if (PlayerPrefs.GetInt(saveDataKey) > _firstAction)
             return;
 
-            _timeSceler.PauseGame();
-
         IsTraining?.Invoke(training);
+        RequestPause();
     }
+
+    public void RequestPlay()
+    {
+        IsPause = false;
+        NeededPlay.Invoke();
+    }
+
+    public void RequestPause()
+    {
+        IsPause = true;
+        NeededPause.Invoke();
+    }    
 }

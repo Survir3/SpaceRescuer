@@ -42,12 +42,10 @@ public class LoaderLeaderboard : MonoBehaviour
     {
         if (PlayerAccount.IsAuthorized == true)
         {
-            Debug.Log("LoadEntries true");
-            Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo, ErrorString, _countLeaderPlayerInfo);
+            Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo, null, _countLeaderPlayerInfo);
         }
         else
         {
-            Debug.Log("LoadEntries false");
             IsLoadFinish?.Invoke(null);
         }
     }
@@ -124,10 +122,5 @@ public class LoaderLeaderboard : MonoBehaviour
             _textureLeader = remoteImage.Texture;
 
         _isCorrutineDownloadPhotoFinished = remoteImage.IsDownloadFinished;
-    }
-
-    private void ErrorString(string callBack)
-    {
-        Debug.LogError("ErrorString " + callBack);
     }
 }

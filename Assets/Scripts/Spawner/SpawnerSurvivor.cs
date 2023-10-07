@@ -10,7 +10,7 @@ public class SpawnerSurvivor : Spawner, ISceneLoadHandler<DataLoadScene>
 
     public void OnSceneLoaded(DataLoadScene argument)
     {
-        Debug.Log("Info argument.LevelConfig ==null?" + argument.LevelConfig == null);
         _count = argument.LevelConfig.CountSurvivorsToLevel;
+        Debug.LogError("Info argument.LevelConfig ==_count? " + argument.LevelConfig.CountSurvivorsToLevel);
     }
 }

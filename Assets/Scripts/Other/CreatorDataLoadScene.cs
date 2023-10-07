@@ -48,20 +48,8 @@ public class CreatorDataLoadScene : MonoBehaviour, ISceneLoadHandler<DataLoadSce
     {
         if (_loaderLeaderboard == null && _connecterYandex == null)
         {
-            Debug.Log(SceneManager.GetActiveScene().name);
             DataLoadScene = argument;
         }
-    }
-
-    public void OnCreateDataLoad()
-    {
-        IReadOnlyList<LeaderPlayerInfo> leaderPlayerInfos=new List<LeaderPlayerInfo>();
-        LeaderPlayerInfo leaderPlayerInfo = new LeaderPlayerInfo();
-        List<LeaderPlayerInfo> test= new List<LeaderPlayerInfo>();
-        leaderPlayerInfo.Init("Name", 10);
-        test.Add(leaderPlayerInfo);
-
-        DataLoadScene = new DataLoadScene(new LevelConfig(), test);
     }
 
     private void OnAllAdded()

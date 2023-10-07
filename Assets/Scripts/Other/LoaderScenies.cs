@@ -1,6 +1,8 @@
 using Agava.YandexGames;
 using IJunior.TypedScenes;
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class LoaderScenies : MonoBehaviour
@@ -8,8 +10,10 @@ public class LoaderScenies : MonoBehaviour
     private const string ConectWhisSDKSceneName = "ConectWhisSDK";
 
     [SerializeField] private Player _player;
-    [SerializeField] private TimeSceler _timeSceler;
     [SerializeField] private CreatorDataLoadScene _creatorDataLoadScene;
+    [SerializeField] private HandlerRewardAd _handlerRewardAd;
+
+    public event UnityAction _StartRewardAd;
 
     private void OnEnable()
     {
@@ -27,11 +31,11 @@ public class LoaderScenies : MonoBehaviour
     {
         if (isShowAd)
         {
-            VideoAd.Show(_timeSceler.PauseGame, _creatorDataLoadScene.DataLoadScene.LevelConfig.OnSetRewardVideoAD, OnClickLoadGameButton);
+            _handlerRewardAd.ShowAd(_creatorDataLoadScene.DataLoadScene.LevelConfig.OnSetRewardVideoAD, OnClickLoadGameButton);
         }
         else
-        {    
-            Game.Load(_creatorDataLoadScene.DataLoadScene);
+        {
+            OnClickLoadGameButton();
         }
     }
 
