@@ -25,6 +25,11 @@ public class SoundGame : MonoBehaviour
     private void Start()
     {
         _audioSources = FindObjectsOfType<AudioSource>(true).ToList();
+
+        foreach (var sources in _audioSources)
+        {
+            Debug.Log(sources.name);
+        }
     }
 
     private void OnBackgroundChangeEvent(bool hidden)

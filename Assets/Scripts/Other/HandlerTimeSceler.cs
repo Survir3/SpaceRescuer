@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.UI;
 
 public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
 {
@@ -33,6 +34,7 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
     private void Awake()
     {
         _interfaceTriggersGamePause= Array.ConvertAll(_monoBehaviourTriggersGamePause, i => (INeededSwitchPlayMode)i).ToList();
+        SetPlay();
     }
 
     private void OnEnable()
@@ -50,7 +52,7 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
         foreach (var trigger in _interfaceTriggersGamePause)
         {
             trigger.NeededPause += SetPause;
-            trigger.NeededPlay += SetPlay;
+            trigger.NeededPlay += TrySetPlay;
         }
     }
 
@@ -59,7 +61,7 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
         foreach (var trigger in _interfaceTriggersGamePause)
         {
             trigger.NeededPause -= SetPause;
-            trigger.NeededPlay -= SetPlay;
+            trigger.NeededPlay -= TrySetPlay;
         }
     }
 
@@ -68,7 +70,7 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
         if (_isGlobalPause)
         {
             RequestPlay();
-            SetPlay();
+            TrySetPlay();
         }
         else
         {
@@ -76,7 +78,7 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
         }
     }
 
-    private void SetPlay()
+    private void TrySetPlay()
     {
         bool isAllTriggerReadyPlay = true;
 
@@ -91,15 +93,8 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
 
         if (isAllTriggerReadyPlay)
         {
-            Time.timeScale = 1;
-            _isGlobalPause = false;
+            SetPlay();
         }
-    }
-
-    private void SetPause()
-    {
-        Time.timeScale = 0;
-        _isGlobalPause = true;
     }
 
     public void RequestPlay()
@@ -112,5 +107,27 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
     {
         IsPause = true;
         NeededPause.Invoke();
+    }
+
+    private void SetPause()
+    {
+        Time.timeScale = 0;
+        _isGlobalPause = true;
+    }
+
+    private void SetPlay()
+    {
+        Time.timeScale = 1;
+        _isGlobalPause = false;
+    }
+
+    private void Reset()
+    {
+        foreach (var trigger in _interfaceTriggersGamePause)
+        {
+            trigger.RequestPlay();
+        }
+
+        SetPlay();
     }
 }

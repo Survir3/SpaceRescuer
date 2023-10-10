@@ -18,9 +18,10 @@ public class Player : MonoBehaviour, INeededSwitchPlayMode
 
     public void Dead()
     {
+        Debug.LogError("Dead");
         IsDead=true;
-        IsDie.Invoke();
         RequestPause();
+        IsDie.Invoke();
     }
 
     public void RequestPlay()

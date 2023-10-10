@@ -40,7 +40,7 @@ public class LoaderLeaderboard : MonoBehaviour
 
     public void LoadEntries()
     {
-        if (PlayerAccount.IsAuthorized == true)
+        if (PlayerAccount.IsAuthorized)
         {
             Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo, null, _countLeaderPlayerInfo);
         }

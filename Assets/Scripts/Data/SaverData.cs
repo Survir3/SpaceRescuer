@@ -30,7 +30,6 @@ public class SaverData : MonoBehaviour
     private void Start()
     {
         FirstLoadedGame?.Invoke(ConstantsString.OrderLoadGame);
-
     }
 
     private void OnEnable()

@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b156306520f6bb54d8b1f9a281b3659b, type: 3}
   m_Name: TrainingIcon
   m_EditorClassIdentifier: 
-  _inputs:
-  - {fileID: 21300000, guid: d31115fa9cb67004b96bc76f48802b9f, type: 3}
+  _inputsTouch:
+  - {fileID: 21300000, guid: 6701170dac9355143b896941a15f1ef4, type: 3}
+  _inputsKeyboard:
+  - {fileID: 21300000, guid: 98d20fe739e52024d8acf8e32bf24b1c, type: 3}
   - {fileID: 21300000, guid: 841ae3188ba4d9746ba4f4ed86597a98, type: 3}
+  - {fileID: 21300000, guid: c8a971f4e6dcb374cbb45804db8121a6, type: 3}
+  - {fileID: 21300000, guid: 4f0db69bda1cb0e47bb2cc7b4f8cedeb, type: 3}
   _enemies:
   - {fileID: 21300000, guid: 1e6cb2121472a52488160fe93f4bca28, type: 3}
   - {fileID: 21300000, guid: 93b7b87670dd90346bc682af1b9afda8, type: 3}

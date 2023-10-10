@@ -7,6 +7,7 @@ using UnityEngine;
 public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<DataLoadScene>
 {
     [SerializeField, Range(0, 1)] private float _durationDisableInput;
+    [SerializeField] private DetecterDevice _detecterDevice;
 
     private PlayerInput _playerInput;
     private GiverTargetSurvivorMovement _controllerSurvivorMovement;

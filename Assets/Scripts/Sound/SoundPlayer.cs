@@ -16,12 +16,11 @@ public class SoundPlayer : MonoBehaviour
     private void OnDisable()
     {
         _player.IsDie -= OnDeadPlayer;
-
     }
 
     private void OnDeadPlayer()
     {
-        _audioSource.Play();
+        if (_audioSource.mute==false)
+            _audioSource.Play();
     }
-
 }

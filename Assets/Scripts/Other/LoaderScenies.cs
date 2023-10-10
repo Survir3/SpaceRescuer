@@ -53,6 +53,7 @@ public class LoaderScenies : MonoBehaviour
 
     private void OnLoadMenuAfterCreatedData(DataLoadScene dataLoadScene)
     {
+        Debug.LogError("OnLoadMenuAfterCreatedData " + dataLoadScene.LevelConfig.TimeToLevel);
         MainMenu.Load(dataLoadScene);
     }
 }

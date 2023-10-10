@@ -17,10 +17,10 @@ public class CreatorDataLoadScene : MonoBehaviour, ISceneLoadHandler<DataLoadSce
 
     private void OnEnable()
     {
-        if (_loaderLeaderboard != null && _connecterYandex != null)
+        if (_loaderLeaderboard  && _connecterYandex)
             _loaderLeaderboard.IsLoadFinish += CreateDataLoadScene;
 
-        if(_player !=null && _spawnerSurvivor!=null)
+        if(_player && _spawnerSurvivor)
         {
             _player.IsDie += OnPlayerDead;
             _spawnerSurvivor.IsAllAdded += OnAllAdded;
@@ -46,7 +46,7 @@ public class CreatorDataLoadScene : MonoBehaviour, ISceneLoadHandler<DataLoadSce
 
     public void OnSceneLoaded(DataLoadScene argument)
     {
-        if (_loaderLeaderboard == null && _connecterYandex == null)
+        if (_connecterYandex == null)
         {
             DataLoadScene = argument;
         }

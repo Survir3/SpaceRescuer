@@ -1,9 +1,7 @@
 using Agava.YandexGames;
-using IJunior.TypedScenes;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 public class ConnecterYandex : MonoBehaviour
 {

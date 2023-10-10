@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class DetecterDevice : MonoBehaviour
 {
-    public bool IsDevice { get; private set; }
+    public bool IsMobile { get; private set; }
 
     private void Awake()
     {
-        IsDevice=Device.IsMobile;
+        IsMobile=Device.IsMobile;
     }
 }

@@ -46,12 +46,12 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: Russian
-    Text: "\u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0440\u0435\u043A\u043B\u0430\u043C\u0443
-      \u0438 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C"
+    Text: "+30 \u0441\u0435\u043A\u0443\u043D\u0434 \u043A \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u043C\u0443
+      \u0443\u0440\u043E\u0432\u043D\u044E"
     Object: {fileID: 0}
   - Language: English
-    Text: View the ad and continue
+    Text: +30 seconds to the next level
     Object: {fileID: 0}
   - Language: Turkish
-    Text: "Reklam\u0131 g\xF6r\xFCnt\xFCleyin ve devam edin"
+    Text: bir sonraki seviyeye 30 saniye
     Object: {fileID: 0}
