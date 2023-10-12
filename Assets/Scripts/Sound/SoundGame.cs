@@ -1,77 +1,23 @@
-using Agava.WebUtility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class SoundGame : MonoBehaviour
+public class SoundGame : MonoBehaviour, INeededSwitchSoundPlay
 {
-    private List<AudioSource> _audioSources;
-    private bool _isPlaying = true;
+    [SerializeField] private AudioSource _audioSource;
+    public bool IsOffSound { get; set; }
 
-    public bool IsPlaying => _isPlaying;
+    public event UnityAction NeededOffSound;
+    public event UnityAction NeededOnSound;
 
-    public event Action<bool> ChangedModePlay;
-
-    private void OnEnable()
+    public void RequestOffSound()
     {
-        WebApplication.InBackgroundChangeEvent += OnBackgroundChangeEvent;
+        IsOffSound = true;
+        NeededOffSound.Invoke();
     }
 
-    private void OnDisable()
+    public void RequestOnSound()
     {
-        WebApplication.InBackgroundChangeEvent -= OnBackgroundChangeEvent;
-    }
-    private void Start()
-    {
-        _audioSources = FindObjectsOfType<AudioSource>(true).ToList();
-
-        foreach (var sources in _audioSources)
-        {
-            Debug.Log(sources.name);
-        }
-    }
-
-    private void OnBackgroundChangeEvent(bool hidden)
-    {
-        if (_isPlaying==false)
-            return;
-
-        if (hidden)
-            OffSound();
-        else
-            OnSound();
-    }
-
-    public void OnSwitchSound()
-    {
-        if (_isPlaying)
-        {
-            OffSound();
-        }
-        else
-        {
-            OnSound();
-        }
-
-        _isPlaying = !_isPlaying;
-
-        ChangedModePlay?.Invoke(_isPlaying);
-    }
-
-    public void OnSound()
-    {
-        foreach (var sources in _audioSources)
-        {
-            sources.mute = false;
-        }
-    }
-
-    public void OffSound()
-    {
-        foreach (var sources in _audioSources)
-        {
-            sources.mute = true;
-        }
+        IsOffSound = false;
+        NeededOnSound.Invoke();
     }
 }

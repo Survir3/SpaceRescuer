@@ -1,8 +1,6 @@
 using Agava.YandexGames;
 using IJunior.TypedScenes;
-using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class LoaderScenies : MonoBehaviour
@@ -12,8 +10,6 @@ public class LoaderScenies : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private CreatorDataLoadScene _creatorDataLoadScene;
     [SerializeField] private HandlerRewardAd _handlerRewardAd;
-
-    public event UnityAction _StartRewardAd;
 
     private void OnEnable()
     {
@@ -29,6 +25,8 @@ public class LoaderScenies : MonoBehaviour
 
     public void OnClickReloadSceneButton(bool isShowAd)
     {
+         Debug.Log(_creatorDataLoadScene.DataLoadScene.LevelConfig==null);
+
         if (isShowAd)
         {
             _handlerRewardAd.ShowAd(_creatorDataLoadScene.DataLoadScene.LevelConfig.OnSetRewardVideoAD, OnClickLoadGameButton);

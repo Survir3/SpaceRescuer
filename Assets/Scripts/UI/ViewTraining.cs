@@ -15,7 +15,7 @@ public class ViewTraining : MonoBehaviour
     [SerializeField] private GridLayoutGroup _gridLayout;
     
     private List<GameObject> _icons=new List<GameObject>();
-    private Vector2 _startSizeGridLayoutGroup;
+    private Vector2 _startSizeGridLayoutGroup= new Vector2(150,150);
 
     private void Awake()
     {
@@ -98,7 +98,7 @@ public class ViewTraining : MonoBehaviour
     {
         IReadOnlyList<Sprite> inputIcon;
 
-        if (true)
+        if (Device.IsMobile)
         {
             inputIcon = _trainingIcon.InputsTouch;
         }
@@ -115,7 +115,7 @@ public class ViewTraining : MonoBehaviour
         float multiplierSizeY = 2;
         float multiplierSizeX = 2f;
 
-        if (trainingText == ConstantsString.TrainingTextFirstLoadGame)
+        if (trainingText == ConstantsString.TrainingTextFirstLoadGame && Device.IsMobile)
         {
             var newSize = new Vector2 (_startSizeGridLayoutGroup.x*multiplierSizeX, _startSizeGridLayoutGroup.y* multiplierSizeY);
             _gridLayout.cellSize = newSize;

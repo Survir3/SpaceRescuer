@@ -1,9 +1,15 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-public class SoundAdded : MonoBehaviour
+public class SoundAdded : MonoBehaviour, INeededSwitchSoundPlay
 {
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private CollisionHandler _collisionHandler;
+
+    public event UnityAction NeededOffSound;
+    public event UnityAction NeededOnSound;
+
+    public bool IsOffSound { get; set; }
 
     private void OnEnable()
     {
@@ -17,6 +23,19 @@ public class SoundAdded : MonoBehaviour
 
     private void OnAdded(CollisionHandler collisionHandler)
     {
-        _audioSource.Play();
+        if (IsOffSound==false)
+            _audioSource.Play();
+    }
+
+    public void RequestOffSound()
+    {
+        IsOffSound= true;
+        NeededOffSound.Invoke();
+    }
+
+    public void RequestOnSound()
+    {
+        IsOffSound = false;
+        NeededOnSound.Invoke();
     }
 }

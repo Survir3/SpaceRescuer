@@ -25,6 +25,7 @@ public class ViewPoints : MonoBehaviour
     private void OnDisable()
     {
         _point.ChangeValue -= ShowPoints;
+        _point.ChangeMultiplier += StartDurationShowInfo;
     }
 
     private void ShowPoints(int point)

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,7 +7,7 @@ public class SaverData : MonoBehaviour
     [SerializeField] private SpawnerArtefact _spawnerArtefact;
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
     [SerializeField] private EnemySpawner _spawnerEnemy;
-    [SerializeField] private SoundGame _sound;
+    [SerializeField] private HandlerSound _sound;
 
     public int СountLoadGame { get; private set; }
     public int CountSpawnedSurvivor { get; private set; }
@@ -51,6 +52,11 @@ public class SaverData : MonoBehaviour
         PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, 0);
     }
 
+    public bool IsOffSound()
+    {
+        return Convert.ToBoolean(PlayerPrefs.GetInt(ConstantsString.OrderSoundPlay));
+    }
+
     private void OnAddCount(Spawner spawner)
     {
         switch (spawner)
@@ -87,12 +93,12 @@ public class SaverData : MonoBehaviour
         SavedData?.Invoke(spawner, ConstantsString.OrderSpawnedEnemy);
     }
 
-    private void SaveData(bool isPlaySound)
+    private void SaveData(bool isOffSound)
     {
         int trueValue = 1;
         int falseValue = 0;
 
-        if(isPlaySound)
+        if(isOffSound)
         {
             PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, trueValue);
         }

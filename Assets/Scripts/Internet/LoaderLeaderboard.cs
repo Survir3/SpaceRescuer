@@ -52,8 +52,10 @@ public class LoaderLeaderboard : MonoBehaviour
 
     private void OnUpdateScore(int value)
     {
-        if (PlayerAccount.IsAuthorized == true)
+        if (PlayerAccount.IsAuthorized)
             Leaderboard.GetPlayerEntry(ConstantsString.Leaderboard, SetScore);
+        else
+            Leaderboard.SetScore(ConstantsString.Leaderboard, _points.Value);
     }
 
     private void SetScore(LeaderboardEntryResponse leaderboardEntry)

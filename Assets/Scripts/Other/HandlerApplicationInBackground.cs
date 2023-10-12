@@ -2,12 +2,15 @@ using Agava.WebUtility;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class HandlerApplicationInBackground : MonoBehaviour, INeededSwitchPlayMode
+public class HandlerApplicationInBackground : MonoBehaviour, INeededSwitchPlayMode, INeededSwitchSoundPlay
 {
     public bool IsPause { get; private set; }
+    public bool IsOffSound { get; private set; }
 
     public event UnityAction NeededPause;
     public event UnityAction NeededPlay;
+    public event UnityAction NeededOffSound;
+    public event UnityAction NeededOnSound;
 
     private void OnEnable()
     {
@@ -17,6 +20,20 @@ public class HandlerApplicationInBackground : MonoBehaviour, INeededSwitchPlayMo
     private void OnDisable()
     {
         WebApplication.InBackgroundChangeEvent -= OnInBackgroundChangeEvent;
+    }
+
+    public void OnInBackgroundChangeEvent(bool hidden)
+    {
+        if (hidden)
+        {
+            RequestPause();
+            RequestOffSound();
+        }
+        else
+        {
+            RequestPlay();
+            RequestOnSound();
+        }
     }
 
     public void RequestPlay()
@@ -31,11 +48,20 @@ public class HandlerApplicationInBackground : MonoBehaviour, INeededSwitchPlayMo
         NeededPause.Invoke();
     }
 
-    public void OnInBackgroundChangeEvent(bool hidden)
+    public void RequestOffSound()
     {
-        if (hidden)
-            RequestPause();
-        else
-            RequestPlay();
+
+        IsOffSound = true;
+        Debug.Log("HandlerApplicationInBackground "+ IsOffSound);
+        NeededOffSound.Invoke();
+        
+    }
+
+    public void RequestOnSound()
+    {
+        IsOffSound = false;
+        Debug.Log("HandlerApplicationInBackground " + IsOffSound);
+
+        NeededOnSound.Invoke(); 
     }
 }

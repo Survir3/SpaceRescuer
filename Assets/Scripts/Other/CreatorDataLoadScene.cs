@@ -39,6 +39,11 @@ public class CreatorDataLoadScene : MonoBehaviour, ISceneLoadHandler<DataLoadSce
         }
     }
 
+    public void TestCreated()
+    {
+        DataLoadScene = new DataLoadScene(new LevelConfig(), null);
+    }
+
     public void ResetLevelConfig()
     {
         DataLoadScene.LevelConfig = new LevelConfig();

@@ -1,12 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class SoundPlayer : MonoBehaviour
+public class SoundPlayer : MonoBehaviour, INeededSwitchSoundPlay
 {
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private Player _player;
+
+    public event UnityAction NeededOffSound;
+    public event UnityAction NeededOnSound;
+
+    public bool IsOffSound { get; set; }
 
     private void OnEnable()
     {
@@ -20,7 +23,21 @@ public class SoundPlayer : MonoBehaviour
 
     private void OnDeadPlayer()
     {
-        if (_audioSource.mute==false)
+        Debug.Log("OnDeadPlayer " + IsOffSound);
+
+        if (IsOffSound==false)
             _audioSource.Play();
+    }
+
+    public void RequestOffSound()
+    {
+        IsOffSound = true;
+        NeededOffSound.Invoke();
+    }
+
+    public void RequestOnSound()
+    {
+        IsOffSound = false;
+        NeededOnSound.Invoke();
     }
 }
