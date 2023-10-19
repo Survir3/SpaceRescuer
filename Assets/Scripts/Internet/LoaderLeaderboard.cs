@@ -6,7 +6,8 @@ using UnityEngine.Events;
 
 public class LoaderLeaderboard : MonoBehaviour
 {
-    [SerializeField] private Points _points;
+    [SerializeField] private Player _player;
+    [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
     [SerializeField] private ConnecterYandex _connecterYandex;
 
     private Texture2D _textureLeader;
@@ -22,20 +23,26 @@ public class LoaderLeaderboard : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_points != null)
-            _points.ChangeValue += OnUpdateScore;
+        if (_player != null && _spawnerSurvivor!=null)
+        {
+            _player.IsDie += OnUpdateScore;
+            _spawnerSurvivor.IsAllAdded += OnUpdateScore;
+        }
 
-        if (_connecterYandex != null)
-            _connecterYandex.IsConnect += LoadEntries;
+       // if (_connecterYandex != null)
+          //  _connecterYandex.ReadyLoadedLeaderboard += LoadEntries;
     }
 
     private void OnDisable()
     {
-        if (_points != null)
-            _points.ChangeValue -= OnUpdateScore;
+        if (_player != null)
+        {
+            _spawnerSurvivor.IsAllAdded -= OnUpdateScore;
+            _player.IsDie -= OnUpdateScore;
+        }
 
-        if (_connecterYandex != null)
-            _connecterYandex.IsConnect -= LoadEntries;
+       // if (_connecterYandex != null)
+           // _connecterYandex.ReadyLoadedLeaderboard -= LoadEntries;
     }
 
     public void LoadEntries()
@@ -50,12 +57,12 @@ public class LoaderLeaderboard : MonoBehaviour
         }
     }
 
-    private void OnUpdateScore(int value)
+    private void OnUpdateScore()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
         if (PlayerAccount.IsAuthorized)
             Leaderboard.GetPlayerEntry(ConstantsString.Leaderboard, SetScore);
-        else
-            Leaderboard.SetScore(ConstantsString.Leaderboard, _points.Value);
+#endif
     }
 
     private void SetScore(LeaderboardEntryResponse leaderboardEntry)
@@ -63,13 +70,13 @@ public class LoaderLeaderboard : MonoBehaviour
 
         if (leaderboardEntry == null)
         {
-            Leaderboard.SetScore(ConstantsString.Leaderboard, _points.Value);
+            Leaderboard.SetScore(ConstantsString.Leaderboard, _player.Points.Value);
             return;
         }
 
-        if (leaderboardEntry.score < _points.Value)
+        if (leaderboardEntry.score < _player.Points.Value)
         {
-            Leaderboard.SetScore(ConstantsString.Leaderboard, _points.Value);
+            Leaderboard.SetScore(ConstantsString.Leaderboard, _player.Points.Value);
         }
     }
 
@@ -105,6 +112,7 @@ public class LoaderLeaderboard : MonoBehaviour
         }
 
         _isLoaderCorrectLoad = true;
+        
         IsLoadFinish?.Invoke(LeaderPlayerInfos);
     }
 

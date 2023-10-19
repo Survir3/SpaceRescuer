@@ -12,7 +12,7 @@ public class SoundGame : MonoBehaviour, INeededSwitchSoundPlay
     public void RequestOffSound()
     {
         IsOffSound = true;
-        NeededOffSound.Invoke();
+        NeededOffSound.Invoke();  
     }
 
     public void RequestOnSound()

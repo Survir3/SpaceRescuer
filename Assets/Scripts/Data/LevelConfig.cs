@@ -37,7 +37,7 @@ public class LevelConfig
     public void SetPointsConfig(int value)
     {
         if (value > 0)
-            PointsPlayer += value;
+            PointsPlayer = value;
     }
 
     public void OnSetRewardVideoAD()

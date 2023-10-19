@@ -23,9 +23,7 @@ public class SoundPlayer : MonoBehaviour, INeededSwitchSoundPlay
 
     private void OnDeadPlayer()
     {
-        Debug.Log("OnDeadPlayer " + IsOffSound);
-
-        if (IsOffSound==false)
+        if (IsOffSound == false)
             _audioSource.Play();
     }
 

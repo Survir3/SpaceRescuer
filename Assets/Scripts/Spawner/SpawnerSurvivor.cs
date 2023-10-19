@@ -1,16 +1,42 @@
 using IJunior.TypedScenes;
-using UnityEngine;
+using UnityEngine.Events;
 
-public class SpawnerSurvivor : Spawner, ISceneLoadHandler<DataLoadScene>
+public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededSwitchPlayMode
 {
+    public bool IsPause { get; private set; }
+
+    public event UnityAction NeededPause;
+    public event UnityAction NeededPlay;
+
+    private void OnEnable()
+    {
+        IsAllAdded += RequestPause;
+    }
+
+    private void OnDisable()
+    {
+        IsAllAdded += RequestPause;
+    }
+
     private void Update()
     {
         Spawned();
     }
 
-    public void OnSceneLoaded(DataLoadScene argument)
+    public void OnSceneLoaded(LevelConfig argument)
     {
         _count = argument.LevelConfig.CountSurvivorsToLevel;
-        Debug.LogError("Info argument.LevelConfig ==_count? " + argument.LevelConfig.CountSurvivorsToLevel);
+    }
+
+    public void RequestPlay()
+    {
+        IsPause = false;
+        NeededPlay.Invoke();
+    }
+
+    public void RequestPause()
+    {
+        IsPause = true;
+        NeededPause.Invoke();
     }
 }

@@ -1,7 +1,7 @@
 using IJunior.TypedScenes;
 using UnityEngine;
 
-public class EnemySpawner : Spawner, ISceneLoadHandler<DataLoadScene>
+public class EnemySpawner : Spawner, ISceneLoadHandler<LevelConfig>
 {
     private void Start()
     {
@@ -18,7 +18,7 @@ public class EnemySpawner : Spawner, ISceneLoadHandler<DataLoadScene>
         }
     }
 
-    public void OnSceneLoaded(DataLoadScene argument)
+    public void OnSceneLoaded(LevelConfig argument)
     {
         _count = argument.LevelConfig.CountEnemy;
     }

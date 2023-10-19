@@ -2,10 +2,9 @@ using IJunior.TypedScenes;
 using TMPro;
 using UnityEngine;
 
-public class TimerToEndLevel : Timer, IIncreaseForLevel, ISceneLoadHandler<DataLoadScene>
+public class TimerToEndLevel : Timer, IIncreaseForLevel, ISceneLoadHandler<LevelConfig>
 {
-    [SerializeField] private TMP_Text _maxTime;
-    [SerializeField] private TMP_Text _currentTime;
+    [SerializeField] private TMP_Text _time;
     [SerializeField] private TimerStartLevel _timerStartLevel;
     [SerializeField] private Player _player;
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
@@ -14,8 +13,8 @@ public class TimerToEndLevel : Timer, IIncreaseForLevel, ISceneLoadHandler<DataL
 
     private void Start()
     {
-        _currentTime.text =ConvertToClock(_value);
-        _maxTime.text ="/ " + ConvertToClock(_value);
+        _startValue = _value;
+        ShowValue(_value);
     }
 
     private void OnEnable()
@@ -39,7 +38,7 @@ public class TimerToEndLevel : Timer, IIncreaseForLevel, ISceneLoadHandler<DataL
 
     private void ShowValue(float value)
     {
-        _currentTime.text = ConvertToClock(value);
+        _time.text = ConvertToClock(_value);
     }
 
     private string ConvertToClock(float value)
@@ -47,7 +46,7 @@ public class TimerToEndLevel : Timer, IIncreaseForLevel, ISceneLoadHandler<DataL
         int minutes = (int)(value / 60);
         int seconds = (int)(value % 60);
 
-        return minutes + ":" + seconds;
+        return $"{minutes} : {seconds:D2}";
     }
 
     private void StartTimer()
@@ -60,7 +59,7 @@ public class TimerToEndLevel : Timer, IIncreaseForLevel, ISceneLoadHandler<DataL
         StopCoroutine(_lastCoroutine);
     }
 
-    public void OnSceneLoaded(DataLoadScene argument)
+    public void OnSceneLoaded(LevelConfig argument)
     {
         _value = argument.LevelConfig.TotalTimeToLevel;
     }

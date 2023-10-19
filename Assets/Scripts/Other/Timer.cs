@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Timer : MonoBehaviour
 {    
     [SerializeField] protected float _value;
+
+    protected float _startValue;
 
     public IEnumerator Countdown(Action<float> intermediateValue=null, Action before=null, Action after=null)
     {

@@ -75,8 +75,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.38015747, y: 0.38996315, z: 0.4086647}
-  m_Center: {x: 0.0047950745, y: 0.19148731, z: 0.011678696}
+  m_Size: {x: 0.38015747, y: 0.36899567, z: 0.4086647}
+  m_Center: {x: 0.0047950745, y: 0.20197105, z: 0.011678696}
 --- !u!82 &1922394034551334554
 AudioSource:
   m_ObjectHideFlags: 0
@@ -265,6 +265,18 @@ PrefabInstance:
     - target: {fileID: 23933861978518034, guid: 90a8f0af0be89c04eb22578b3dae859c, type: 3}
       propertyPath: m_CastShadows
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 49505618066101035, guid: 90a8f0af0be89c04eb22578b3dae859c, type: 3}
+      propertyPath: _points
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 49505618066101035, guid: 90a8f0af0be89c04eb22578b3dae859c, type: 3}
+      propertyPath: _duration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 49505618066101035, guid: 90a8f0af0be89c04eb22578b3dae859c, type: 3}
+      propertyPath: _multiplier
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7954642782266147092, guid: 90a8f0af0be89c04eb22578b3dae859c, type: 3}
       propertyPath: _collider

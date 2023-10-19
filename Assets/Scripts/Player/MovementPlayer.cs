@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Player), typeof(GiverTargetSurvivorMovement))]
-public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<DataLoadScene>
+public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<LevelConfig>
 {
     [SerializeField, Range(0, 1)] private float _durationDisableInput;
     [SerializeField] private DetecterDevice _detecterDevice;
@@ -118,7 +118,7 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Dat
         _speedMovement = value;
     }
 
-    public void OnSceneLoaded(DataLoadScene argument)
+    public void OnSceneLoaded(LevelConfig argument)
     {
         _speedMovement=argument.LevelConfig.SpeedMovement;
     }

@@ -6,7 +6,6 @@ public class ButtonViewLeaderboard : MonoBehaviour
     [SerializeField] private GameObject _leaderboard;
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _authorization;
-    [SerializeField] private LoaderLeaderboard _loaderLeaderboard;
 
     private void Awake()
     {

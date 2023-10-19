@@ -16,4 +16,11 @@ public static class ConstantsString
 
     public const string Incognito = "Incognito";
 
+    public const string ConectWhisSDKSceneName = "ConectWhisSDK";
+    public const string MainMenuSceneName = "MainMenu";
+
+    public const string OrderKeyLang = "KeyLang";
+    public const string KeyLangEnglish = "en";
+    public const string KeyLangRussian = "ru";
+    public const string KeyLangTurkish = "tr";
 }

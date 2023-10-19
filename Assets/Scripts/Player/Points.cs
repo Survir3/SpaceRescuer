@@ -3,13 +3,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using IJunior.TypedScenes;
 
-public class Points : MonoBehaviour, IMultiplied, IIncreaseForLevel, ISceneLoadHandler<DataLoadScene>
+public class Points : MonoBehaviour, IMultiplied, IIncreaseForLevel, ISceneLoadHandler<LevelConfig>
 {
     [SerializeField] private float _durationSaveCombo;
     [SerializeField] private int _diminutionMultiplier;
 
     private int _defaulMultiplier = 0;
-    private int _value;
+    public int _value;
     private int _currentMultiplier = 0;
     private Coroutine _timeComboPoints;
 
@@ -76,7 +76,7 @@ public class Points : MonoBehaviour, IMultiplied, IIncreaseForLevel, ISceneLoadH
             _value += (int)value;
     }
 
-    public void OnSceneLoaded(DataLoadScene argument)
+    public void OnSceneLoaded(LevelConfig argument)
     {
         _value = argument.LevelConfig.PointsPlayer;
     }

@@ -7,15 +7,16 @@ using UnityEngine.UI;
 public class ViewTraining : MonoBehaviour
 {
     [SerializeField] private GameObject _trainingPanel;
-    [SerializeField] private TMP_Text _trainingText;
     [SerializeField] private Training _training;
     [SerializeField] private TrainingIcon _trainingIcon;
     [SerializeField] private GameObject _templet;
     [SerializeField] private Transform _contaner;
     [SerializeField] private GridLayoutGroup _gridLayout;
-    
+    [SerializeField] private List<TMP_Text> _trainingTexts;
+
     private List<GameObject> _icons=new List<GameObject>();
     private Vector2 _startSizeGridLayoutGroup= new Vector2(150,150);
+    private TMP_Text _currentText;
 
     private void Awake()
     {
@@ -34,14 +35,51 @@ public class ViewTraining : MonoBehaviour
 
     private void OnTraining(string trainingText)
     {
-        SetText(trainingText);
+        foreach (var text in _trainingTexts)
+        {
+            if (text.text == trainingText)
+            {
+                SetText(text);
+            }
+        }
+
         SetIcons(trainingText);
         _trainingPanel.SetActive(true);
+        Debug.Log("OnFirstLoadedGame " + trainingText);
+
     }
 
-    private void SetText(string trainingText)
+    private void SetText(TMP_Text trainingText)
     {
-        _trainingText.text = trainingText;
+        if (_currentText != null)
+            _currentText.gameObject.SetActive(false);
+
+        _currentText = trainingText;
+        trainingText.gameObject.SetActive(true);
+    }
+
+    private void SetIcons(string trainingText)
+    {
+        IReadOnlyList<Sprite> sprites = GetSpriteTraining(trainingText);  
+        
+        ClearContaner();
+        SetGridSize(trainingText);
+
+        for (int i = 0; i < sprites.Count; i++)
+        {
+            GameObject newGameObject= Instantiate(_templet, _contaner);
+            _icons.Add(newGameObject);
+
+            Image image = newGameObject.GetComponent<Image>();
+            image.sprite = sprites[i];            
+        }
+    }
+    private void ClearContaner()
+    {
+        foreach (var icon in _icons)
+        {
+            Destroy(icon.gameObject);
+        }
     }
 
     private IReadOnlyList<Sprite> GetSpriteTraining(string trainingText)
@@ -67,31 +105,6 @@ public class ViewTraining : MonoBehaviour
         }
 
         return sprites;
-    }
-
-    private void SetIcons(string trainingText)
-    {
-        IReadOnlyList<Sprite> sprites = GetSpriteTraining(trainingText);  
-        
-        ClearContaner();
-        SetGridSize(trainingText);
-
-        for (int i = 0; i < sprites.Count; i++)
-        {
-            GameObject newGameObject= Instantiate(_templet, _contaner);
-            _icons.Add(newGameObject);
-
-            Image image = newGameObject.GetComponent<Image>();
-            image.sprite = sprites[i];            
-        }
-    }
-
-    private void ClearContaner()
-    {
-        foreach (var icon in _icons)
-        {
-            Destroy(icon.gameObject);
-        }
     }
 
     private IReadOnlyList<Sprite> GetSpriteFirstLoad()

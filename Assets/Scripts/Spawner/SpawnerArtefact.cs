@@ -1,14 +1,14 @@
 using IJunior.TypedScenes;
 using UnityEngine;
 
-public class SpawnerArtefact : Spawner, ISceneLoadHandler<DataLoadScene>
+public class SpawnerArtefact : Spawner, ISceneLoadHandler<LevelConfig>
 {
     private void Update()
     {
         Spawned();
     }
 
-    public void OnSceneLoaded(DataLoadScene argument)
+    public void OnSceneLoaded(LevelConfig argument)
     {
         _count = argument.LevelConfig.CountArtefact;
     }

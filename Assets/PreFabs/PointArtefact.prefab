@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02e8d662e78c504baec708c578425b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _points: 10
+  _points: 2
   _multiplier: 3
 --- !u!114 &248264308686096652
 MonoBehaviour:
@@ -378,8 +378,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.38015747, y: 0.38996315, z: 0.4086647}
-  m_Center: {x: 0.0047950745, y: 0.19148731, z: 0.011678696}
+  m_Size: {x: 0.38015747, y: 0.3670082, z: 0.4086647}
+  m_Center: {x: 0.0047950745, y: 0.20296478, z: 0.011678696}
 --- !u!82 &8228860265374325994
 AudioSource:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class ViewPoints : MonoBehaviour
 {
     [SerializeField] private Points _point;
     [SerializeField] private TMP_Text _textPoints;
-    [SerializeField] private TMP_Text _finalScore;
+    [SerializeField] private TMP_Text[] _finalScore;
     [SerializeField] private TMP_Text _textCombo;
     [SerializeField] private Image _imageCombo;
 
@@ -31,7 +31,11 @@ public class ViewPoints : MonoBehaviour
     private void ShowPoints(int point)
     {
         _textPoints.text= point.ToString();
-        _finalScore.text = point.ToString();
+
+        foreach (var score in _finalScore)
+        {
+            score.text = point.ToString();
+        }
     }
 
     private void StartDurationShowInfo(int multiplier)

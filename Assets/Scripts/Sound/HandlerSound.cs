@@ -1,4 +1,6 @@
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,16 +12,16 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
     [SerializeField] private MonoBehaviour[] _monoBehaviourSwitchSoundPlay;
 
     private List<INeededSwitchSoundPlay> _interfaceSwitchSoundPlay;
-    private List<AudioSource> _audioSources;
     private bool _isGlobalOffSound = false;
+    private Coroutine _currentCoroutine;
 
     public bool IsGlobalOffSound => _isGlobalOffSound;
-
     public bool IsOffSound { get ; private set; }
 
     public event Action<bool> ChangedModePlay;
     public event UnityAction NeededOffSound;
     public event UnityAction NeededOnSound;
+    public event UnityAction GameReady;
 
     private void OnValidate()
     {
@@ -36,7 +38,6 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
     private void Awake()
     {
         _interfaceSwitchSoundPlay = Array.ConvertAll(_monoBehaviourSwitchSoundPlay, i => (INeededSwitchSoundPlay)i).ToList();
-        Debug.Log("_interfaceSwitchSoundPlay" + _interfaceSwitchSoundPlay.Count);
     }
 
     private void OnEnable()
@@ -51,36 +52,14 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
 
     private void Start()
     {
-        _audioSources = FindObjectsOfType<AudioSource>(true).ToList();
-
-        _isGlobalOffSound = _saverData.IsOffSound();
-
-        if (_isGlobalOffSound)
-        {
-            OffSound();
-        }
-        else
-        {
-            OnSound();
-        }
-    }
-
-    public void OnClickButtonSound()
-    {
-        if (_isGlobalOffSound)
-        {
-            RequestOnSound();
-            TryOnSound();
-        }
-        else
-            RequestOffSound();
+        SetStartSoundMode(_saverData.OffSound);
+        GameReady?.Invoke();
     }
 
     private void AddListener()
     {
         foreach (var sound in _interfaceSwitchSoundPlay)
         {
-            Debug.Log(sound);
             sound.NeededOffSound += OffSound;
             sound.NeededOnSound += TryOnSound;
         }
@@ -101,8 +80,6 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
 
         foreach (var sound in _interfaceSwitchSoundPlay)
         {
-
-
             if (sound.IsOffSound)
             {
                 isAllTriggerReadyPlay = false;
@@ -116,15 +93,43 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
         }
     }
 
+    private void SetStartSoundMode(bool isOffSound)
+    {
+        _isGlobalOffSound = isOffSound;
+
+        if (_isGlobalOffSound)
+        {
+            RequestOffSound();
+        }
+        else
+        {
+            RequestOnSound();
+            TryOnSound();
+        }
+    }
+
+    public void OnClickButtonSound()
+    {
+        if (_isGlobalOffSound)
+        {
+            RequestOnSound();
+            TryOnSound();
+        }
+        else
+        {
+            RequestOffSound();
+        }
+    }
+
     public void OnSound()
     {
+        float onSound = 1f;
         _isGlobalOffSound= false;
 
-        foreach (var sources in _audioSources)
-        {
-            sources.mute = _isGlobalOffSound;
-        }
+        if (_currentCoroutine != null)
+            StopCoroutine(_currentCoroutine);
 
+        _currentCoroutine = StartCoroutine(ChangeVolumeTo(onSound));
         ChangedModePlay.Invoke(_isGlobalOffSound);
     }
 
@@ -132,37 +137,34 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
     {
         _isGlobalOffSound = true;
 
-        foreach (var sources in _audioSources)
-        {
-            sources.mute = _isGlobalOffSound;
-        }
-
+        AudioListener.volume = 0;
         ChangedModePlay.Invoke(_isGlobalOffSound);
     }
 
     public void RequestOffSound()
     {
         IsOffSound = true;
-        Debug.Log("HandlerSound " + IsOffSound);
-
-        foreach (var interfaceSwitchSoundPlay in _interfaceSwitchSoundPlay)
-        {
-            Debug.Log("foreach " + interfaceSwitchSoundPlay.IsOffSound);
-        }
-
         NeededOffSound.Invoke();
     }
 
     public void RequestOnSound()
     {
         IsOffSound = false;
-        Debug.Log("HandlerSound " + IsOffSound);
-
-        foreach (var interfaceSwitchSoundPlay in _interfaceSwitchSoundPlay)
-        {
-            Debug.Log("foreach " + interfaceSwitchSoundPlay.IsOffSound);
-        }
-
         NeededOnSound.Invoke();
+    }
+
+    private IEnumerator ChangeVolumeTo(float value)
+    {
+        float toValue = AudioListener.volume - value;
+        float newValue;
+        float minValue = 0;
+        float maxValue = 1;
+
+        while (AudioListener.volume!=value)
+        {
+            yield return new WaitForFixedUpdate();
+            newValue = Mathf.Clamp(AudioListener.volume -= toValue * Time.fixedDeltaTime, minValue, maxValue);
+            AudioListener.volume = newValue;
+        }
     }
 }

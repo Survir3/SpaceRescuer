@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using PlayerPrefs = UnityEngine.PlayerPrefs;
 
 public class SaverData : MonoBehaviour
 {  
@@ -8,28 +10,31 @@ public class SaverData : MonoBehaviour
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
     [SerializeField] private EnemySpawner _spawnerEnemy;
     [SerializeField] private HandlerSound _sound;
+    [SerializeField] private ConnecterYandex _connecterYandex;
 
     public int СountLoadGame { get; private set; }
     public int CountSpawnedSurvivor { get; private set; }
     public int CountSpawnedArtefact { get; private set; }
     public int CountSpawnedEnemy { get; private set; }
-    public int OnOrOffSound { get; private set; }
+    public bool OffSound { get; private set; }
+    public string KeyLanguage { get; private set; }
 
     public event UnityAction<Spawner, string> SavedData;
     public event UnityAction<string> FirstLoadedGame;
 
     private void Awake()
     {
-        ExtractValue();
+        if (SceneManager.GetActiveScene().name != ConstantsString.ConectWhisSDKSceneName)
+            ExtractValue();
 
         if (_spawnerArtefact == null || _spawnerSurvivor == null || _spawnerEnemy == null)
             return;
 
-        PlayerPrefs.SetInt(ConstantsString.OrderLoadGame, ++СountLoadGame);
     }
 
     private void Start()
     {
+        PlayerPrefs.SetInt(ConstantsString.OrderLoadGame, ++СountLoadGame);
         FirstLoadedGame?.Invoke(ConstantsString.OrderLoadGame);
     }
 
@@ -50,11 +55,6 @@ public class SaverData : MonoBehaviour
         PlayerPrefs.SetInt(ConstantsString.OrderSpawnedEnemy, 0);
         PlayerPrefs.SetInt(ConstantsString.OrderLoadGame,0);
         PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, 0);
-    }
-
-    public bool IsOffSound()
-    {
-        return Convert.ToBoolean(PlayerPrefs.GetInt(ConstantsString.OrderSoundPlay));
     }
 
     private void OnAddCount(Spawner spawner)
@@ -95,21 +95,20 @@ public class SaverData : MonoBehaviour
 
     private void SaveData(bool isOffSound)
     {
-        int trueValue = 1;
-        int falseValue = 0;
+        PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, Convert.ToInt32(isOffSound));
+    }
 
-        if(isOffSound)
-        {
-            PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, trueValue);
-        }
-        else
-        {
-            PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, falseValue);
-        }
+    public void SaveData(string lang)
+    {
+        PlayerPrefs.SetString(ConstantsString.OrderKeyLang, lang);
     }
 
     private void AddListener()
     {
+      //  if (SceneManager.GetActiveScene().name == ConstantsString.ConectWhisSDKSceneName)
+       //     _connecterYandex.ReadySetLanguage += SaveData;
+
+        if (_sound!=null)
         _sound.ChangedModePlay += SaveData;
 
         if (_spawnerArtefact == null || _spawnerSurvivor == null || _spawnerEnemy == null)
@@ -122,7 +121,11 @@ public class SaverData : MonoBehaviour
 
     private void RemoveListeners()
     {
-        _sound.ChangedModePlay -= SaveData;
+        if (SceneManager.GetActiveScene().name == ConstantsString.ConectWhisSDKSceneName)
+          //  _connecterYandex.ReadySetLanguage-= SaveData;
+
+        if (_sound != null)
+            _sound.ChangedModePlay -= SaveData;
 
         if (_spawnerArtefact == null || _spawnerSurvivor == null || _spawnerEnemy == null)
             return;
@@ -138,5 +141,7 @@ public class SaverData : MonoBehaviour
         CountSpawnedSurvivor= PlayerPrefs.GetInt(ConstantsString.OrderSpawnedSurvivor);
         CountSpawnedEnemy=PlayerPrefs.GetInt(ConstantsString.OrderSpawnedEnemy);
         СountLoadGame += PlayerPrefs.GetInt(ConstantsString.OrderLoadGame);
+        OffSound= Convert.ToBoolean(PlayerPrefs.GetInt(ConstantsString.OrderSoundPlay));
+        KeyLanguage = PlayerPrefs.GetString(ConstantsString.OrderKeyLang);
     }
 }

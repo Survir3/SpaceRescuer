@@ -50,18 +50,13 @@ public class HandlerApplicationInBackground : MonoBehaviour, INeededSwitchPlayMo
 
     public void RequestOffSound()
     {
-
         IsOffSound = true;
-        Debug.Log("HandlerApplicationInBackground "+ IsOffSound);
-        NeededOffSound.Invoke();
-        
+        NeededOffSound.Invoke();        
     }
 
     public void RequestOnSound()
     {
         IsOffSound = false;
-        Debug.Log("HandlerApplicationInBackground " + IsOffSound);
-
         NeededOnSound.Invoke(); 
     }
 }

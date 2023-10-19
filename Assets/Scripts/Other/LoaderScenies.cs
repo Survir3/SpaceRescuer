@@ -1,32 +1,38 @@
 using Agava.YandexGames;
 using IJunior.TypedScenes;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoaderScenies : MonoBehaviour
 {
-    private const string ConectWhisSDKSceneName = "ConectWhisSDK";
-
     [SerializeField] private Player _player;
-    [SerializeField] private CreatorDataLoadScene _creatorDataLoadScene;
+    [SerializeField] private CreatorLevelConfig _creatorDataLoadScene;
     [SerializeField] private HandlerRewardAd _handlerRewardAd;
 
     private void OnEnable()
     {
-        if (SceneManager.GetActiveScene().name== ConectWhisSDKSceneName)
+        if (SceneManager.GetActiveScene().name == ConstantsString.ConectWhisSDKSceneName)
             _creatorDataLoadScene.IsCreatedData += OnLoadMenuAfterCreatedData;
     }
 
     private void OnDisable()
     {
-        if (SceneManager.GetActiveScene().name == ConectWhisSDKSceneName)
+        if (SceneManager.GetActiveScene().name == ConstantsString.ConectWhisSDKSceneName)
             _creatorDataLoadScene.IsCreatedData -= OnLoadMenuAfterCreatedData;
+    }
+    private void Awake()
+    {
+        YandexGamesSdk.CallbackLogging = true;
+    }
+
+
+    private void Start()
+    {
     }
 
     public void OnClickReloadSceneButton(bool isShowAd)
     {
-         Debug.Log(_creatorDataLoadScene.DataLoadScene.LevelConfig==null);
-
         if (isShowAd)
         {
             _handlerRewardAd.ShowAd(_creatorDataLoadScene.DataLoadScene.LevelConfig.OnSetRewardVideoAD, OnClickLoadGameButton);
@@ -49,9 +55,8 @@ public class LoaderScenies : MonoBehaviour
         MainMenu.Load(_creatorDataLoadScene.DataLoadScene);
     }
 
-    private void OnLoadMenuAfterCreatedData(DataLoadScene dataLoadScene)
+    private void OnLoadMenuAfterCreatedData(LevelConfig dataLoadScene)
     {
-        Debug.LogError("OnLoadMenuAfterCreatedData " + dataLoadScene.LevelConfig.TimeToLevel);
         MainMenu.Load(dataLoadScene);
     }
 }

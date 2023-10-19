@@ -37,30 +37,22 @@ public class HandlerRewardAd : MonoBehaviour, INeededSwitchPlayMode, INeededSwit
 
     private void EnableInputSystem()
     {
-        Debug.Log("EnableInputSystem");
-
         _inputSystem.enabled = true;
     }
 
     private void DisableInputSystem()
     {
-        Debug.Log("DisableInputSystem");
-
         _inputSystem.enabled = false;
     }
 
     public void RequestPlay()
     {
-        Debug.Log("RequestPlay");
-
         IsPause = false;
         NeededPlay.Invoke();
     }
 
     public void RequestPause()
     {
-        Debug.Log("RequestPause");
-
         IsPause = true;
         NeededPause.Invoke();
     }
@@ -68,15 +60,12 @@ public class HandlerRewardAd : MonoBehaviour, INeededSwitchPlayMode, INeededSwit
     public void RequestOffSound()
     {
         IsOffSound = true;
-        Debug.Log("HandlerRewardAd " + IsOffSound);
         NeededOffSound.Invoke();
     }
 
     public void RequestOnSound()
     {
-
         IsOffSound = false;
-        Debug.Log("HandlerRewardAd " + IsOffSound);
         NeededOnSound.Invoke();
     }
 }
