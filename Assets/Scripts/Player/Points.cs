@@ -78,6 +78,6 @@ public class Points : MonoBehaviour, IMultiplied, IIncreaseForLevel, ISceneLoadH
 
     public void OnSceneLoaded(LevelConfig argument)
     {
-        _value = argument.LevelConfig.PointsPlayer;
+        _value = argument.PointsPlayer;
     }
 }

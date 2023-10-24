@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class ConnecterYandex : MonoBehaviour
 {
     public event UnityAction IsConnect;
-   // public event UnityAction<string> ReadySetLanguage;
-   // public event UnityAction ReadyLoadedLeaderboard;
 
     private void Awake()
     {        
@@ -20,11 +18,8 @@ public class ConnecterYandex : MonoBehaviour
         if (SceneManager.GetActiveScene().name == ConstantsString.ConectWhisSDKSceneName)
         {
             yield return YandexGamesSdk.Initialize();
-            IsConnect.Invoke();
-        }
-        else if(SceneManager.GetActiveScene().name == ConstantsString.MainMenuSceneName)
-        {
             YandexGamesSdk.GameReady();
+            IsConnect.Invoke();
         }
     }
 }

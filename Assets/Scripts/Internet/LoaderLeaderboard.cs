@@ -8,7 +8,6 @@ public class LoaderLeaderboard : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
-    [SerializeField] private ConnecterYandex _connecterYandex;
 
     private Texture2D _textureLeader;
     private List<LeaderPlayerInfo> _leaderPlayersInfo = new List<LeaderPlayerInfo>();
@@ -28,9 +27,6 @@ public class LoaderLeaderboard : MonoBehaviour
             _player.IsDie += OnUpdateScore;
             _spawnerSurvivor.IsAllAdded += OnUpdateScore;
         }
-
-       // if (_connecterYandex != null)
-          //  _connecterYandex.ReadyLoadedLeaderboard += LoadEntries;
     }
 
     private void OnDisable()
@@ -40,9 +36,11 @@ public class LoaderLeaderboard : MonoBehaviour
             _spawnerSurvivor.IsAllAdded -= OnUpdateScore;
             _player.IsDie -= OnUpdateScore;
         }
+    }
 
-       // if (_connecterYandex != null)
-           // _connecterYandex.ReadyLoadedLeaderboard -= LoadEntries;
+    private void Start()
+    {
+        LoadEntries();
     }
 
     public void LoadEntries()
@@ -50,10 +48,6 @@ public class LoaderLeaderboard : MonoBehaviour
         if (PlayerAccount.IsAuthorized)
         {
             Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo, null, _countLeaderPlayerInfo);
-        }
-        else
-        {
-            IsLoadFinish?.Invoke(null);
         }
     }
 
@@ -67,7 +61,6 @@ public class LoaderLeaderboard : MonoBehaviour
 
     private void SetScore(LeaderboardEntryResponse leaderboardEntry)
     {
-
         if (leaderboardEntry == null)
         {
             Leaderboard.SetScore(ConstantsString.Leaderboard, _player.Points.Value);

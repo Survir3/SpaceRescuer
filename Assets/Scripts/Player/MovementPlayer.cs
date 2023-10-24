@@ -120,6 +120,6 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Lev
 
     public void OnSceneLoaded(LevelConfig argument)
     {
-        _speedMovement=argument.LevelConfig.SpeedMovement;
+        _speedMovement=argument.SpeedMovement;
     }
 }

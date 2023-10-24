@@ -15,7 +15,7 @@ public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededS
 
     private void OnDisable()
     {
-        IsAllAdded += RequestPause;
+        IsAllAdded -= RequestPause;
     }
 
     private void Update()
@@ -25,7 +25,7 @@ public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededS
 
     public void OnSceneLoaded(LevelConfig argument)
     {
-        _count = argument.LevelConfig.CountSurvivorsToLevel;
+        _count = argument.CountSurvivorsToLevel;
     }
 
     public void RequestPlay()

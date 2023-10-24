@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2487605659636348828}
+  - component: {fileID: 883320594214541760}
   - component: {fileID: 2487605659636348829}
-  - component: {fileID: 2487605659636348819}
+  - component: {fileID: 6200034130480441208}
   m_Layer: 0
   m_Name: LeanLocalization
   m_TagString: Untagged
@@ -18,8 +18,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2487605659636348828
-Transform:
+--- !u!224 &883320594214541760
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -32,6 +32,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2487605659636348829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLanguage: Russian
   detectLanguage: 0
-  defaultLanguage: Russian
+  defaultLanguage: English
   saveLoad: 0
   prefabs:
   - Root: {fileID: 765358623864573794, guid: adef00e2be323654ca5fa825a2cc3c72, type: 3}
@@ -100,7 +105,19 @@ MonoBehaviour:
   - Root: {fileID: 5121713620307921553, guid: 712fff80e8cffbd41ad5893e5492695f, type: 3}
     sources:
     - {fileID: 8492636637528530, guid: 712fff80e8cffbd41ad5893e5492695f, type: 3}
---- !u!114 &2487605659636348819
+  - Root: {fileID: 86151380627557589, guid: dbfcf2501de0d2a4f85f0e5d6f45dca6, type: 3}
+    sources:
+    - {fileID: 7482674786185327769, guid: dbfcf2501de0d2a4f85f0e5d6f45dca6, type: 3}
+  - Root: {fileID: 3958507907543416279, guid: 44adbe52fc46ca3488352653808189d3, type: 3}
+    sources:
+    - {fileID: 139164126360346982, guid: 44adbe52fc46ca3488352653808189d3, type: 3}
+  - Root: {fileID: 5998587703104228909, guid: d6b42842b4c6a0b40aba8e9a5d2fbd85, type: 3}
+    sources:
+    - {fileID: 4085428618011674163, guid: d6b42842b4c6a0b40aba8e9a5d2fbd85, type: 3}
+  - Root: {fileID: 7652130489658149236, guid: 7f7b78b0fc798d444a770028e9d18f4f, type: 3}
+    sources:
+    - {fileID: 6878044572683190955, guid: 7f7b78b0fc798d444a770028e9d18f4f, type: 3}
+--- !u!114 &6200034130480441208
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,6 +126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2487605659636348830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dde0378fa48ec74c9f08b286781af50, type: 3}
+  m_Script: {fileID: 11500000, guid: f30691610fd98a044ad411c3a042b415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _leanLocalization: {fileID: 2487605659636348829}

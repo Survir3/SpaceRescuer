@@ -20,6 +20,6 @@ public class EnemySpawner : Spawner, ISceneLoadHandler<LevelConfig>
 
     public void OnSceneLoaded(LevelConfig argument)
     {
-        _count = argument.LevelConfig.CountEnemy;
+        _count = argument.CountEnemy;
     }
 }
