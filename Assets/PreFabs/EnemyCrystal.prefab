@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 768787752531248461}
   - component: {fileID: 601019164055822135}
   - component: {fileID: 38136642950246883}
-  - component: {fileID: 3378499535789286369}
   - component: {fileID: 4314018561513926967}
+  - component: {fileID: 6361267955195781752}
   m_Layer: 0
   m_Name: EnemyCrystal
   m_TagString: Untagged
@@ -147,19 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1701a74025fb0d246a3a17c4e2d72bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &3378499535789286369
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3061496059526336499}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.05145663, y: 0.05184012, z: 0.037308287}
-  m_Center: {x: -0.0055656256, y: 0.02346941, z: 0.013663684}
 --- !u!65 &4314018561513926967
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -173,3 +160,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.025, y: 0.0236837, z: 0.025}
   m_Center: {x: -0.0055656256, y: 0.01065815, z: 0.013663686}
+--- !u!136 &6361267955195781752
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3061496059526336499}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.01853447
+  m_Height: 0.05291463
+  m_Direction: 1
+  m_Center: {x: -0.0053876876, y: 0.022932155, z: 0.014633561}

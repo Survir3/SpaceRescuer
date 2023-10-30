@@ -1,41 +1,30 @@
-using Agava.YandexGames;
 using IJunior.TypedScenes;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoaderScenies : MonoBehaviour
 {
-    [SerializeField] private Player _player;
-    [SerializeField] private CreatorLevelConfig _creatorDataLoadScene;
-    [SerializeField] private HandlerRewardAd _handlerRewardAd;
+    [SerializeField] private SDKInitializer _connecterYandex;
+    [SerializeField] private CreatorLevelConfig _creatorLevelConfig;
+    [SerializeField] private HandlerRewardAd _adHandlerReward;
 
     private void OnEnable()
     {
         if (SceneManager.GetActiveScene().name == ConstantsString.ConectWhisSDKSceneName)
-            _creatorDataLoadScene.IsCreatedData += OnLoadMenuAfterCreatedData;
+            _connecterYandex.IsConnect += OnLoadMainMenu;
     }
 
     private void OnDisable()
     {
         if (SceneManager.GetActiveScene().name == ConstantsString.ConectWhisSDKSceneName)
-            _creatorDataLoadScene.IsCreatedData -= OnLoadMenuAfterCreatedData;
-    }
-    private void Awake()
-    {
-        YandexGamesSdk.CallbackLogging = true;
-    }
-
-
-    private void Start()
-    {
+            _connecterYandex.IsConnect -= OnLoadMainMenu;
     }
 
     public void OnClickReloadSceneButton(bool isShowAd)
     {
         if (isShowAd)
         {
-            _handlerRewardAd.ShowAd(_creatorDataLoadScene.DataLoadScene.LevelConfig.OnSetRewardVideoAD, OnClickLoadGameButton);
+            _adHandlerReward.ShowAd(_creatorLevelConfig.LevelConfig.OnSetRewardVideoAD, OnClickLoadGameButton);
         }
         else
         {
@@ -45,18 +34,16 @@ public class LoaderScenies : MonoBehaviour
 
     public void OnClickLoadGameButton()
     {
-        Game.Load(_creatorDataLoadScene.DataLoadScene);
+        Game.Load(_creatorLevelConfig.LevelConfig);
     }
 
     public void OnClickLoadMenuButton()
     {
-        _creatorDataLoadScene.ResetLevelConfig();
-
-        MainMenu.Load(_creatorDataLoadScene.DataLoadScene);
+        MainMenu.Load(_creatorLevelConfig.LevelConfig);
     }
 
-    private void OnLoadMenuAfterCreatedData(LevelConfig dataLoadScene)
+    private void OnLoadMainMenu()
     {
-        MainMenu.Load(dataLoadScene);
+        MainMenu.Load(null);
     }
 }

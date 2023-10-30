@@ -8,9 +8,8 @@ public class SaverData : MonoBehaviour
 {  
     [SerializeField] private SpawnerArtefact _spawnerArtefact;
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
-    [SerializeField] private EnemySpawner _spawnerEnemy;
+    [SerializeField] private SpawnerEnemy _spawnerEnemy;
     [SerializeField] private HandlerSound _sound;
-    [SerializeField] private ConnecterYandex _connecterYandex;
 
     public int СountLoadGame { get; private set; }
     public int CountSpawnedSurvivor { get; private set; }
@@ -24,23 +23,21 @@ public class SaverData : MonoBehaviour
 
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().name != ConstantsString.ConectWhisSDKSceneName)
-            ExtractValue();
+        ExtractValue();
 
-        if (_spawnerArtefact == null || _spawnerSurvivor == null || _spawnerEnemy == null)
-            return;
-
+        if (SceneManager.GetActiveScene().name == ConstantsString.GameSceneName)
+            PlayerPrefs.SetInt(ConstantsString.OrderLoadGame, ++СountLoadGame);
     }
 
     private void Start()
     {
-        PlayerPrefs.SetInt(ConstantsString.OrderLoadGame, ++СountLoadGame);
-        FirstLoadedGame?.Invoke(ConstantsString.OrderLoadGame);
+        if (SceneManager.GetActiveScene().name == ConstantsString.GameSceneName)
+            FirstLoadedGame?.Invoke(ConstantsString.OrderLoadGame);
     }
 
     private void OnEnable()
     {
-        AddListener();
+        AddListeners();
     }
 
     private void OnDisable()
@@ -67,7 +64,7 @@ public class SaverData : MonoBehaviour
             case SpawnerSurvivor spawnerSurvivor:
                 SaveData(spawnerSurvivor);
                 break;
-            case EnemySpawner spawnerEnemy:
+            case SpawnerEnemy spawnerEnemy:
                 SaveData(spawnerEnemy);
                 break;
             default:
@@ -87,7 +84,7 @@ public class SaverData : MonoBehaviour
         SavedData?.Invoke(spawner, ConstantsString.OrderSpawnedSurvivor);
     }
 
-    private void SaveData(EnemySpawner spawner)
+    private void SaveData(SpawnerEnemy spawner)
     {
         PlayerPrefs.SetInt(ConstantsString.OrderSpawnedEnemy, ++CountSpawnedEnemy);
         SavedData?.Invoke(spawner, ConstantsString.OrderSpawnedEnemy);
@@ -98,16 +95,8 @@ public class SaverData : MonoBehaviour
         PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, Convert.ToInt32(isOffSound));
     }
 
-    public void SaveData(string lang)
+    private void AddListeners()
     {
-        PlayerPrefs.SetString(ConstantsString.OrderKeyLang, lang);
-    }
-
-    private void AddListener()
-    {
-      //  if (SceneManager.GetActiveScene().name == ConstantsString.ConectWhisSDKSceneName)
-       //     _connecterYandex.ReadySetLanguage += SaveData;
-
         if (_sound!=null)
         _sound.ChangedModePlay += SaveData;
 
@@ -121,9 +110,6 @@ public class SaverData : MonoBehaviour
 
     private void RemoveListeners()
     {
-        if (SceneManager.GetActiveScene().name == ConstantsString.ConectWhisSDKSceneName)
-          //  _connecterYandex.ReadySetLanguage-= SaveData;
-
         if (_sound != null)
             _sound.ChangedModePlay -= SaveData;
 
@@ -140,7 +126,7 @@ public class SaverData : MonoBehaviour
         CountSpawnedArtefact=PlayerPrefs.GetInt(ConstantsString.OrderSpawnedArtefact);
         CountSpawnedSurvivor= PlayerPrefs.GetInt(ConstantsString.OrderSpawnedSurvivor);
         CountSpawnedEnemy=PlayerPrefs.GetInt(ConstantsString.OrderSpawnedEnemy);
-        СountLoadGame += PlayerPrefs.GetInt(ConstantsString.OrderLoadGame);
+        СountLoadGame = PlayerPrefs.GetInt(ConstantsString.OrderLoadGame);
         OffSound= Convert.ToBoolean(PlayerPrefs.GetInt(ConstantsString.OrderSoundPlay));
         KeyLanguage = PlayerPrefs.GetString(ConstantsString.OrderKeyLang);
     }

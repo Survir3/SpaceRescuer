@@ -1,4 +1,3 @@
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +20,6 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
     public event Action<bool> ChangedModePlay;
     public event UnityAction NeededOffSound;
     public event UnityAction NeededOnSound;
-    public event UnityAction GameReady;
 
     private void OnValidate()
     {
@@ -53,7 +51,6 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
     private void Start()
     {
         SetStartSoundMode(_saverData.OffSound);
-        GameReady?.Invoke();
     }
 
     private void AddListener()

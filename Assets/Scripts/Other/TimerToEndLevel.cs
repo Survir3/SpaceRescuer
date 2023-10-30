@@ -61,6 +61,6 @@ public class TimerToEndLevel : Timer, IIncreaseForLevel, ISceneLoadHandler<Level
 
     public void OnSceneLoaded(LevelConfig argument)
     {
-        _value = argument.LevelConfig.TotalTimeToLevel;
+        _value = argument.TotalTimeToLevel;
     }
 }

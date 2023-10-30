@@ -1,79 +1,32 @@
+using Agava.YandexGames;
 using Lean.Localization;
 using UnityEngine;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(Dropdown))]
 public class LanguageSwitcher : MonoBehaviour
 {
-    [SerializeField] private CountriesData _countryData;
-    [SerializeField] private SaverData _saverData;
-
-    private Dropdown _dropdown;
-    public Country _country;
-    private void Awake()
-    {
-        _dropdown=GetComponent<Dropdown>();
-
-        foreach (var country in _countryData.Value)
-        {
-            _dropdown.options.Add(country.OptionData); 
-        }
-    }
-
-    private void OnEnable()
-    {
-    }
-
-    private void OnDisable()
-    {
-    }
+    [SerializeField] private LeanLocalization _leanLocalization;
 
     private void Start()
     {
-        SetStartCountry();
+        LoadLocalization();
     }
 
-    public void OnClickDropdown(int index)
+    private void LoadLocalization()
     {
-        Debug.Log("OnClickDropdown");
-
-        if (index <= _countryData.Value.Count - 1)
+        switch (YandexGamesSdk.Environment.i18n.lang)
         {
-            SetLanguage(_dropdown.options[index].text);
-            _country = _countryData.Value[index];
-            _saverData.SaveData(_country.KeyLanguage.ToString());
+            case "ru":
+                _leanLocalization.SetCurrentLanguage("Russian");
+                break;
+            case "tr":
+                _leanLocalization.SetCurrentLanguage("Turkish");
+                break;
+            case "en":
+                _leanLocalization.SetCurrentLanguage("English");
+                break;
+            default:
+                _leanLocalization.SetCurrentLanguage("Russian");
+                break;
         }
-        else
-            Debug.LogError("Country not found.");
-    }
-
-    private Country GetCountry(string lang, out int index)
-    {
-        int indexDefaultCountry = 0;
-        index = indexDefaultCountry;
-
-        for (int i = 0; i < _countryData.Value.Count; i++)
-        {
-            if (_countryData.Value[i].KeyLanguage.ToString()==lang)
-            {
-                index = i;
-                return _countryData.Value[i];
-            }
-        }
-
-        Country defaultCountry=_countryData.Value[indexDefaultCountry];
-        Debug.LogAssertion("Country not found, set default: " + defaultCountry);
-        return defaultCountry;
-    }
-
-    private void SetStartCountry()
-    {     
-        _country=GetCountry(_saverData.KeyLanguage, out int index);
-        _dropdown.value = index;
-    }
-
-    private void SetLanguage(string valueOption)
-    {
-        LeanLocalization.SetCurrentLanguageAll(valueOption);
     }
 }

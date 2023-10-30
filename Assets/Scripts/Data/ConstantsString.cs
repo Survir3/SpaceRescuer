@@ -18,6 +18,8 @@ public static class ConstantsString
 
     public const string ConectWhisSDKSceneName = "ConectWhisSDK";
     public const string MainMenuSceneName = "MainMenu";
+    public const string GameSceneName = "Game";
+
 
     public const string OrderKeyLang = "KeyLang";
     public const string KeyLangEnglish = "en";

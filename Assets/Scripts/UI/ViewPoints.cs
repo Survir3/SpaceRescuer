@@ -4,7 +4,6 @@ using TMPro;
 using System.Collections;
 using UnityEngine.UI;
 
-[Serializable]
 public class ViewPoints : MonoBehaviour
 {
     [SerializeField] private Points _point;

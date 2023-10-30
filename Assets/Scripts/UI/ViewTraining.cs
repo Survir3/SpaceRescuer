@@ -45,7 +45,6 @@ public class ViewTraining : MonoBehaviour
 
         SetIcons(trainingText);
         _trainingPanel.SetActive(true);
-        Debug.Log("OnFirstLoadedGame " + trainingText);
 
     }
 
@@ -112,13 +111,9 @@ public class ViewTraining : MonoBehaviour
         IReadOnlyList<Sprite> inputIcon;
 
         if (Device.IsMobile)
-        {
             inputIcon = _trainingIcon.InputsTouch;
-        }
         else
-        {
             inputIcon = _trainingIcon.InputsKeyboard;
-        }
 
         return inputIcon;
     }

@@ -10,6 +10,6 @@ public class SpawnerArtefact : Spawner, ISceneLoadHandler<LevelConfig>
 
     public void OnSceneLoaded(LevelConfig argument)
     {
-        _count = argument.LevelConfig.CountArtefact;
+        _count = argument.CountArtefact;
     }
 }

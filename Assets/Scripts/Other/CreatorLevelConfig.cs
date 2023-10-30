@@ -1,25 +1,17 @@
 using IJunior.TypedScenes;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CreatorLevelConfig : MonoBehaviour, ISceneLoadHandler<LevelConfig>
 {
-    [SerializeField] private LoaderLeaderboard _loaderLeaderboard;
-    [SerializeField] private ConnecterYandex _connecterYandex;
     [SerializeField] private Player _player;
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
 
     public LevelConfig LevelConfig;
 
-    public event Action<LevelConfig> IsCreatedData;
-
     private void OnEnable()
     {
-        if (_loaderLeaderboard  && _connecterYandex)
-            _loaderLeaderboard.IsLoadFinish += CreateDataLoadScene;
-
-        if(_player && _spawnerSurvivor)
+        if (SceneManager.GetActiveScene().name == ConstantsString.GameSceneName)
         {
             _player.IsDie += OnPlayerDead;
             _spawnerSurvivor.IsAllAdded += OnAllAdded;
@@ -28,10 +20,7 @@ public class CreatorLevelConfig : MonoBehaviour, ISceneLoadHandler<LevelConfig>
 
     private void OnDisable()
     {
-        if (_loaderLeaderboard != null && _connecterYandex != null)
-            _loaderLeaderboard.IsLoadFinish -= CreateDataLoadScene;
-
-        if (_player != null && _spawnerSurvivor != null)
+        if (SceneManager.GetActiveScene().name == ConstantsString.GameSceneName)
         {
             _player.IsDie -= OnPlayerDead;
             _spawnerSurvivor.IsAllAdded -= OnAllAdded;
@@ -45,7 +34,11 @@ public class CreatorLevelConfig : MonoBehaviour, ISceneLoadHandler<LevelConfig>
 
     public void OnSceneLoaded(LevelConfig argument)
     {
-        if (_connecterYandex == null)
+        if (argument == null)
+        {
+            ResetLevelConfig();
+        }
+        else
         {
             LevelConfig = argument;
         }
@@ -60,11 +53,5 @@ public class CreatorLevelConfig : MonoBehaviour, ISceneLoadHandler<LevelConfig>
     private void OnPlayerDead()
     {
         ResetLevelConfig();
-    }
-
-    private void CreateDataLoadScene(IReadOnlyList<LeaderPlayerInfo> leaderPlayerInfos)
-    {
-        LevelConfig = new LevelConfig();
-        IsCreatedData?.Invoke(LevelConfig);
     }
 }
