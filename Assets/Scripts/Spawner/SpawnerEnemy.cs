@@ -1,7 +1,7 @@
 using IJunior.TypedScenes;
 using UnityEngine;
 
-public class EnemySpawner : Spawner, ISceneLoadHandler<LevelConfig>
+public class SpawnerEnemy : Spawner, ISceneLoadHandler<LevelConfig>
 {
     private void Start()
     {

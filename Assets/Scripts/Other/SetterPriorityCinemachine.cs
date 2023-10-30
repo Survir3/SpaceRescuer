@@ -2,7 +2,7 @@ using Agava.WebUtility;
 using Cinemachine;
 using UnityEngine;
 
-public class SetterBrainCinemachine : MonoBehaviour
+public class SetterPriorityCinemachine : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _mobile;
     [SerializeField] private CinemachineVirtualCamera _computer;

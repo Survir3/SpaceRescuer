@@ -3,14 +3,13 @@ using IJunior.TypedScenes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Player), typeof(GiverTargetSurvivorMovement))]
+[RequireComponent(typeof(Player), typeof(SetterTargetSurvivorMovement))]
 public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<LevelConfig>
 {
     [SerializeField, Range(0, 1)] private float _durationDisableInput;
-    [SerializeField] private DetecterDevice _detecterDevice;
 
     private PlayerInput _playerInput;
-    private GiverTargetSurvivorMovement _controllerSurvivorMovement;
+    private SetterTargetSurvivorMovement _controllerSurvivorMovement;
     private float _directionRotation;
     private Quaternion _targetRotation;
 
@@ -23,16 +22,15 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Lev
     {
         _playerInput = new PlayerInput();
         _targetRotation = _rigidbody.rotation;
-        _controllerSurvivorMovement = GetComponent<GiverTargetSurvivorMovement>();
+        _controllerSurvivorMovement = GetComponent<SetterTargetSurvivorMovement>();
     }
 
     private void Start()
     {
-        if (Application.platform==RuntimePlatform.WindowsEditor)
-        {
+#if UNITY_EDITOR
             _onCorrectInputForDevice = InputKeyboard;
             return;
-        }
+#endif
 
         if (Device.IsMobile)
             _onCorrectInputForDevice = InputForTouchDevice;

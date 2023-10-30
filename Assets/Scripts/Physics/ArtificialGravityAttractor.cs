@@ -18,13 +18,6 @@ public class ArtificialGravityAttractor : MonoBehaviour
         bodyAttracted.rotation = Quaternion.Slerp(body.rotation, targetRotation, _speedRotation * Time.deltaTime);
     }
 
-    public Vector3 Grav(Rigidbody bodyAttracted, Transform body)
-    {
-        Vector3 normalizePositionBody = NormalizePositionBodyOnAttractor(body);
-
-        return Vector3.Lerp(body.position, normalizePositionBody * -1*_powerGravity, Time.deltaTime);
-    }
-
     private Vector3 NormalizePositionBodyOnAttractor(Transform body)
     {
         return (body.position-transform.position).normalized;

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class LoaderScenies : MonoBehaviour
 {
-    [SerializeField] private ConnecterYandex _connecterYandex;
+    [SerializeField] private SDKInitializer _connecterYandex;
     [SerializeField] private CreatorLevelConfig _creatorLevelConfig;
     [SerializeField] private HandlerRewardAd _adHandlerReward;
 

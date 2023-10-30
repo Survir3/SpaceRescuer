@@ -435,20 +435,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &537473013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8351914263572132282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80eeeddbc0ab72b45ad68e06c659f948, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _handlerRewardAd: {fileID: 0}
-  _button: {fileID: 8351914263572132276}
 --- !u!1 &8356853379285475817
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +528,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64.55
+  m_fontSize: 36.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1046,7 +1032,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 256285868343700049, guid: 5da7d00013636e843b78bcc835e8523a, type: 3}
       propertyPath: m_fontSize
-      value: 37.9
+      value: 32.15
       objectReference: {fileID: 0}
     - target: {fileID: 256285868343700049, guid: 5da7d00013636e843b78bcc835e8523a, type: 3}
       propertyPath: m_margin.x
@@ -1270,22 +1256,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5da7d00013636e843b78bcc835e8523a, type: 3}
---- !u!114 &8351914263572132276 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1092340113670955844, guid: 5da7d00013636e843b78bcc835e8523a, type: 3}
-  m_PrefabInstance: {fileID: 8993460094527623920}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8351914263572132282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &8351914263572132282 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1092340113670955850, guid: 5da7d00013636e843b78bcc835e8523a, type: 3}
-  m_PrefabInstance: {fileID: 8993460094527623920}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8351914263572132283 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1092340113670955851, guid: 5da7d00013636e843b78bcc835e8523a, type: 3}

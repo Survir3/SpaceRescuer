@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class HandlerExitGame : MonoBehaviour, INeededSwitchPlayMode, INeededSwitchSoundPlay
+public class HandlerButtonExitGame : MonoBehaviour, INeededSwitchPlayMode, INeededSwitchSoundPlay
 {
     [SerializeField] private GameObject _gameWinnerMenu;
     [SerializeField] private GameObject _gameOverMenu;

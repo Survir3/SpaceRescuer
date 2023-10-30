@@ -8,7 +8,7 @@ public class SaverData : MonoBehaviour
 {  
     [SerializeField] private SpawnerArtefact _spawnerArtefact;
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
-    [SerializeField] private EnemySpawner _spawnerEnemy;
+    [SerializeField] private SpawnerEnemy _spawnerEnemy;
     [SerializeField] private HandlerSound _sound;
 
     public int СountLoadGame { get; private set; }
@@ -37,7 +37,7 @@ public class SaverData : MonoBehaviour
 
     private void OnEnable()
     {
-        AddListener();
+        AddListeners();
     }
 
     private void OnDisable()
@@ -64,7 +64,7 @@ public class SaverData : MonoBehaviour
             case SpawnerSurvivor spawnerSurvivor:
                 SaveData(spawnerSurvivor);
                 break;
-            case EnemySpawner spawnerEnemy:
+            case SpawnerEnemy spawnerEnemy:
                 SaveData(spawnerEnemy);
                 break;
             default:
@@ -84,7 +84,7 @@ public class SaverData : MonoBehaviour
         SavedData?.Invoke(spawner, ConstantsString.OrderSpawnedSurvivor);
     }
 
-    private void SaveData(EnemySpawner spawner)
+    private void SaveData(SpawnerEnemy spawner)
     {
         PlayerPrefs.SetInt(ConstantsString.OrderSpawnedEnemy, ++CountSpawnedEnemy);
         SavedData?.Invoke(spawner, ConstantsString.OrderSpawnedEnemy);
@@ -95,12 +95,7 @@ public class SaverData : MonoBehaviour
         PlayerPrefs.SetInt(ConstantsString.OrderSoundPlay, Convert.ToInt32(isOffSound));
     }
 
-    //public void SaveData(string lang)
-    //{
-    //    PlayerPrefs.SetString(ConstantsString.OrderKeyLang, lang);
-    //}
-
-    private void AddListener()
+    private void AddListeners()
     {
         if (_sound!=null)
         _sound.ChangedModePlay += SaveData;

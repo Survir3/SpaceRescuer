@@ -38,15 +38,15 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
 
     private void OnEnable()
     {
-        AddListener();
+        AddListeners();
     }
 
     private void OnDisable()
     {
-        RemoveListener();
+        RemoveListeners();
     }
 
-    private void AddListener()
+    private void AddListeners()
     {
         foreach (var trigger in _interfaceTriggersGamePause)
         {
@@ -55,7 +55,7 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
         }
     }
 
-    private void RemoveListener()
+    private void RemoveListeners()
     {
         foreach (var trigger in _interfaceTriggersGamePause)
         {

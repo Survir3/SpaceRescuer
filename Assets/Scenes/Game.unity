@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.43708146, g: 0.4847911, b: 0.56505734, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3645,7 +3645,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.4
+  m_fontSize: 58.2
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3983,6 +3983,7 @@ MonoBehaviour:
   - {fileID: 1303782278}
   - {fileID: 1911633167}
   - {fileID: 689154490}
+  - {fileID: 1911633168}
 --- !u!1 &1316920475
 GameObject:
   m_ObjectHideFlags: 0
@@ -4994,6 +4995,7 @@ MonoBehaviour:
   - {fileID: 27085156}
   - {fileID: 1911633167}
   - {fileID: 689154490}
+  - {fileID: 1911633168}
 --- !u!4 &1656041734
 Transform:
   m_ObjectHideFlags: 0
@@ -5235,7 +5237,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.8
+  m_fontSize: 57.6
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5608,6 +5610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1911633166}
   - component: {fileID: 1911633167}
+  - component: {fileID: 1911633168}
   m_Layer: 0
   m_Name: HandlerRewardAd
   m_TagString: Untagged
@@ -5642,6 +5645,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputSystem: {fileID: 1537604542}
+--- !u!114 &1911633168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911633165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0874e78e694dd0c4d8f4af251b35061c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _saverData: {fileID: 860689378}
 --- !u!1 &1923084952
 GameObject:
   m_ObjectHideFlags: 0
@@ -7276,23 +7292,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7603341773451494425, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 46.72
+      value: 46.78
       objectReference: {fileID: 0}
     - target: {fileID: 7603341773451494425, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.53
+      value: 28.62492
       objectReference: {fileID: 0}
     - target: {fileID: 7603341773451494425, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -43.95
+      value: -44.175636
       objectReference: {fileID: 0}
     - target: {fileID: 7603341773451494425, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.72693604
       objectReference: {fileID: 0}
     - target: {fileID: 7603341773451494425, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: 0.68670523
       objectReference: {fileID: 0}
     - target: {fileID: 7603341773451494425, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: m_LocalRotation.y
@@ -7328,7 +7344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7603341773451494430, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: far clip plane
-      value: 1
+      value: 27.54
       objectReference: {fileID: 0}
     - target: {fileID: 7603341773451494430, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: near clip plane
@@ -7336,7 +7352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7603341773451494430, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: orthographic size
-      value: 1
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 7603341773763714036, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: m_IsActive
@@ -7484,11 +7500,11 @@ PrefabInstance:
       objectReference: {fileID: 1825047846}
     - target: {fileID: 7603341774422937603, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: m_Priority
-      value: 0
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7603341774422937603, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: m_Lens.FarClipPlane
-      value: 50
+      value: 27.54
       objectReference: {fileID: 0}
     - target: {fileID: 7603341774422937603, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: m_Lens.NearClipPlane
@@ -7496,7 +7512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7603341774422937603, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 8
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 7603341774971803715, guid: e7955f7dec451744e90ccc3d43880d09, type: 3}
       propertyPath: m_FollowOffset.y

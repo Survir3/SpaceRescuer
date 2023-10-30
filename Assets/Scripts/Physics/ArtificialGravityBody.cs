@@ -8,7 +8,7 @@ public class ArtificialGravityBody : MonoBehaviour, ISpawned
 
     private void Awake()
     {
-        _rigidbody= GetComponent<Rigidbody> ();
+        _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.freezeRotation= true;
     }
 

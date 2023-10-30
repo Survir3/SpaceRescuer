@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LeaderPlayerInfo
 {
-    public string Name { get; private set; } = "test";
+    public string Name { get; private set; }
     public int Score { get; private set; }
     public Texture2D TextureProfile { get; private set; }
 

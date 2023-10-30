@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
-public class GiverTargetSurvivorMovement : MonoBehaviour
+public class SetterTargetSurvivorMovement : MonoBehaviour
 {
     private MovementPlayer _player;
 
@@ -15,15 +15,17 @@ public class GiverTargetSurvivorMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
-        Rotate();
+        SetMove();
+        SetRotate();
     }
 
     public void AddSurvivor(SurvivorMovement survivor)
     {
+        int firstSurvivor = 1;
+
         SurvivorMovements.Add(survivor);
 
-        if(SurvivorMovements.Count==1)
+        if(SurvivorMovements.Count== firstSurvivor)
         {
             survivor.SetStart(_player.Anchor, _player.CurrentMultiplier);
         }
@@ -33,7 +35,7 @@ public class GiverTargetSurvivorMovement : MonoBehaviour
         }
     }
 
-    public void Move()
+    public void SetMove()
     {
         if(SurvivorMovements.Count>0)
          SurvivorMovements[0].MoveToTarget(_player.Rigidbody);
@@ -45,7 +47,7 @@ public class GiverTargetSurvivorMovement : MonoBehaviour
         }
     }
 
-    public void Rotate()
+    public void SetRotate()
     {
         if (SurvivorMovements.Count > 0)
             SurvivorMovements[0].RotateToTarget(_player.LookAt);

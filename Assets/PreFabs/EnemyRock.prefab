@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1501772563932483871}
   - component: {fileID: 7309824437105678630}
   - component: {fileID: 2175159235274005119}
-  - component: {fileID: 2614181377194849243}
   - component: {fileID: 5571410156688913139}
+  - component: {fileID: 6775147198477075097}
   m_Layer: 0
   m_Name: EnemyRock
   m_TagString: Untagged
@@ -77,19 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1701a74025fb0d246a3a17c4e2d72bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &2614181377194849243
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1416083754792020777}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.7943649, y: 1.3996525, z: 0.598732}
-  m_Center: {x: -0.028717041, y: 0.025940895, z: 0.07751465}
 --- !u!65 &5571410156688913139
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -103,6 +90,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5652809, y: 0.31388855, z: 0.34064484}
   m_Center: {x: -0.05598259, y: -0.4799385, z: 0.08932495}
+--- !u!136 &6775147198477075097
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416083754792020777}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.32280064
+  m_Height: 1.3445568
+  m_Direction: 1
+  m_Center: {x: -0.009305954, y: 0.025164604, z: 0.021950722}
 --- !u!1 &1416083756036889187
 GameObject:
   m_ObjectHideFlags: 0

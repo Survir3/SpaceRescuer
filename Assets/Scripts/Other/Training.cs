@@ -42,7 +42,7 @@ public class Training : MonoBehaviour, INeededSwitchPlayMode
             case SpawnerSurvivor spawnerSurvivor:
                 TrainingInfo= ConstantsString.TrainingTextSpawnerSurvivor;
                 break;
-            case EnemySpawner enemySpawner:
+            case SpawnerEnemy enemySpawner:
                 return;
             default:
                 break;
