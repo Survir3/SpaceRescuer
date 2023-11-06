@@ -7,7 +7,7 @@ public class CreatorLevelConfig : MonoBehaviour, ISceneLoadHandler<LevelConfig>
     [SerializeField] private Player _player;
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
 
-    public LevelConfig LevelConfig;
+    public LevelConfig LevelConfig { get; private set; }
 
     private void OnEnable()
     {

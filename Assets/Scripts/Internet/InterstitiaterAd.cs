@@ -34,7 +34,6 @@ public class InterstitiaterAd : MonoBehaviour, INeededSwitchPlayMode, INeededSwi
         RequestOnSound();
     }
 
-
     private void onCloseCallback(bool e)
     {
         RequestPlay();

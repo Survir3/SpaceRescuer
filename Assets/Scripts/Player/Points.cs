@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using IJunior.TypedScenes;
 
-public class Points : MonoBehaviour, IMultiplied, IIncreaseForLevel, ISceneLoadHandler<LevelConfig>
+public class Points : MonoBehaviour, IMultiplied, ISceneLoadHandler<LevelConfig>
 {
     [SerializeField] private float _durationSaveCombo;
     [SerializeField] private int _diminutionMultiplier;
@@ -28,20 +28,16 @@ public class Points : MonoBehaviour, IMultiplied, IIncreaseForLevel, ISceneLoadH
     public void Add(int value)
     {
         СollectCombo();
-        _value += value* _currentMultiplier;
+        _value += value * _currentMultiplier;
         ChangeValue?.Invoke(_value);
     }
 
     public void SetMultiplier(int multiplier)
     {
         if (_currentMultiplier < multiplier)
-        {
             _currentMultiplier = multiplier;
-        }
         else
-        {
             _currentMultiplier += Mathf.Clamp(multiplier - _diminutionMultiplier, 0, int.MaxValue);
-        }
 
         ChangeMultiplier?.Invoke(_currentMultiplier);
     }
@@ -49,9 +45,7 @@ public class Points : MonoBehaviour, IMultiplied, IIncreaseForLevel, ISceneLoadH
     private void СollectCombo()
     {
         if (_timeComboPoints != null)
-        {
             StopCoroutine(_timeComboPoints);
-        }
 
         _timeComboPoints=StartCoroutine(TimerCombo());
     }
@@ -68,12 +62,6 @@ public class Points : MonoBehaviour, IMultiplied, IIncreaseForLevel, ISceneLoadH
     {
         _currentMultiplier = _defaulMultiplier;
 
-    }
-
-    public void SetValueToStartLevel(float value)
-    {
-        if (value >= 0)
-            _value += (int)value;
     }
 
     public void OnSceneLoaded(LevelConfig argument)

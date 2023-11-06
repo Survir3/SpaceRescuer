@@ -1,7 +1,10 @@
 using UnityEngine;
 
+[RequireComponent (typeof(Player), (typeof(MovementPlayer)))]
 public class HandlerArtefactEffect : MonoBehaviour
 {
+    [SerializeField] private TimerToEndLevel _timerToEndLevel;
+
     private MovementPlayer _playerMovement;
     private Player _player;
 
@@ -20,6 +23,9 @@ public class HandlerArtefactEffect : MonoBehaviour
                 break;
             case SpeedMovementArtefact speedMovement:
                 speedMovement.StartEffect(_playerMovement.GetAllMovementShake());
+                break;
+            case TimerArtefact speedMovement:
+                speedMovement.StartEffect(_timerToEndLevel);
                 break;
             default:
                 break;

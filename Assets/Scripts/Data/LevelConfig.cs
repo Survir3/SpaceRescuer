@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class LevelConfig
 {
-    public int CountSurvivorsToLevel { get; private set; } = 2;
+    public int CountSurvivorsToLevel { get; private set; } = 6;
     public int CountEnemy { get; private set; } = 15;
     public int CountArtefact { get; private set; } = 2;
-    public float TimeToLevel { get; private set; } = 100;
+    public float TimeToLevel { get; private set; } = 60;
     public float SpeedMovement { get; private set; } = 2;
     public int PointsPlayer { get; private set; } = 0;
     public float TimeRewardForVideoAD { get; private set; } = 0;

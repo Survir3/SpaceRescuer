@@ -4,6 +4,7 @@ using UnityEngine;
 public class ArtificialGravityBody : MonoBehaviour, ISpawned
 {
     [SerializeField] private ArtificialGravityAttractor _ground;
+
     private Rigidbody _rigidbody;
 
     private void Awake()
@@ -15,9 +16,7 @@ public class ArtificialGravityBody : MonoBehaviour, ISpawned
     private void FixedUpdate()
     {
         if (_ground != null)
-        {
             _ground.Attract(_rigidbody, transform);
-        }
     }
 
     public void Init(ArtificialGravityAttractor ground)

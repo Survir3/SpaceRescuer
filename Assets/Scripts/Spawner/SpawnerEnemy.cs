@@ -2,18 +2,17 @@ using IJunior.TypedScenes;
 using UnityEngine;
 
 public class SpawnerEnemy : Spawner, ISceneLoadHandler<LevelConfig>
-{
+{    
     private void Start()
     {
-        Spawned();
+        SpawnedToStart(_count);
     }
 
-    protected override void Spawned()
+    protected override void SpawnedToStart(int count)
     {
         while (TryGetObject(out GameObject prefab))
         {
             Vector3 newPosition = GetSpawnedPosition();
-
             ActivePrefab(prefab, newPosition);
         }
     }

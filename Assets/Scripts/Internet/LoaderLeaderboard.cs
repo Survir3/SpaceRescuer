@@ -11,7 +11,7 @@ public class LoaderLeaderboard : MonoBehaviour
 
     private Texture2D _textureLeader;
     private List<LeaderPlayerInfo> _leaderPlayersInfo = new List<LeaderPlayerInfo>();
-    private bool _isCorrutineDownloadPhotoFinished=false;
+    private bool _isCorrutineDownloadPhotoFinished = false;
     private int _countLeaderPlayerInfo = 5;
     private bool _isLoaderCorrectLoad = false;
 
@@ -22,7 +22,7 @@ public class LoaderLeaderboard : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_player != null && _spawnerSurvivor!=null)
+        if (_player != null && _spawnerSurvivor != null)
         {
             _player.IsDie += OnUpdateScore;
             _spawnerSurvivor.IsAllAdded += OnUpdateScore;
@@ -105,7 +105,7 @@ public class LoaderLeaderboard : MonoBehaviour
         }
 
         _isLoaderCorrectLoad = true;
-        
+
         IsLoadFinish?.Invoke(LeaderPlayerInfos);
     }
 
@@ -115,13 +115,13 @@ public class LoaderLeaderboard : MonoBehaviour
         var remoteImage = new RemoteImage(url);
         remoteImage.Download();
 
-            while (!remoteImage.IsDownloadFinished)
+        while (!remoteImage.IsDownloadFinished)
         {
             _isCorrutineDownloadPhotoFinished = remoteImage.IsDownloadFinished;
             yield return null;
         }
 
-        if (remoteImage.IsDownloadSuccessful)            
+        if (remoteImage.IsDownloadSuccessful)
             _textureLeader = remoteImage.Texture;
 
         _isCorrutineDownloadPhotoFinished = remoteImage.IsDownloadFinished;

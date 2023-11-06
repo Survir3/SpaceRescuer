@@ -24,7 +24,7 @@ public class ViewPoints : MonoBehaviour
     private void OnDisable()
     {
         _point.ChangeValue -= ShowPoints;
-        _point.ChangeMultiplier += StartDurationShowInfo;
+        _point.ChangeMultiplier -= StartDurationShowInfo;
     }
 
     private void ShowPoints(int point)
@@ -57,7 +57,7 @@ public class ViewPoints : MonoBehaviour
         while (currentDuration<_point.DurationSaveCombo)
         {
             currentDuration += Time.deltaTime;
-            _imageCombo.fillAmount = 1-(currentDuration/ _point.DurationSaveCombo);
+            _imageCombo.fillAmount = _defaultFillImage - (currentDuration/ _point.DurationSaveCombo);
             yield return null;
         }
 

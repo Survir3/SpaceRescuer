@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class SurvivorMovement : Movement
 {
-    public void SetStart(Transform target, int multiplierMove)
+    public void SetStart(Vector3 startPosition, int multiplierMove)
     {
-        _currentMultiplier=multiplierMove;
-        _rigidbody.position= target.position;
+        _currentMultiplier = multiplierMove;
+        _rigidbody.position = startPosition;
         _rigidbody.velocity = Vector3.zero;
     }
 
-    public override void MoveToTarget(Rigidbody target)
+    public override void Move(Vector3 target)
     {
-         Vector3 direction =  target.position- transform.position;
-         _rigidbody.MovePosition(_rigidbody.position + _currentMultiplier * _speedMovement * Time.fixedDeltaTime * direction);
+          Vector3 direction = target - transform.position;
+          _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement * _currentMultiplier * Time.fixedDeltaTime);
     }
 }

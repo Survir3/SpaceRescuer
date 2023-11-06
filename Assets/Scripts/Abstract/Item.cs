@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour, IGiverPoints, IAdder
+public abstract class Item : MonoBehaviour, IGiverPoints
 {
     [SerializeField] private int _points;
 

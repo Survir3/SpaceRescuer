@@ -16,4 +16,11 @@ public class CollisionArtefactHandler : CollisionHandler
             _animation.Play();
         }
     }
+
+    public void GivePropertyTo(HandlerArtefactEffect handler, Points points)
+    {
+        handler.GetEffect(_artefact);
+        _artefact.GivePoints(points);
+        AddInSnake();
+    }
 }

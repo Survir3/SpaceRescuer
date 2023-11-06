@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7644058191223188360}
   - component: {fileID: 1922394034551334554}
   m_Layer: 8
-  m_Name: SpeedArtefact
+  m_Name: TimeBonusArtefact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,6 +187,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 1922394034551334554}
   _collisionHandler: {fileID: 5030995725629372659}
+--- !u!114 &6659787311610394090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3148352526737838015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b72220dd1d62c2f4d88d74ec9873ff48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _points: 2
+  _multiplier: 0
+  _duration: 5
 --- !u!1001 &3149492242695911911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -279,6 +294,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7954642782266147092, guid: 90a8f0af0be89c04eb22578b3dae859c, type: 3}
+      propertyPath: _artefact
+      value: 
+      objectReference: {fileID: 6659787311610394090}
+    - target: {fileID: 7954642782266147092, guid: 90a8f0af0be89c04eb22578b3dae859c, type: 3}
       propertyPath: _collider
       value: 
       objectReference: {fileID: 7644058191223188360}
@@ -286,7 +305,8 @@ PrefabInstance:
       propertyPath: _rigidbody
       value: 
       objectReference: {fileID: 1171994432391886275}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 49505618066101035, guid: 90a8f0af0be89c04eb22578b3dae859c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 90a8f0af0be89c04eb22578b3dae859c, type: 3}
 --- !u!1 &3148352526737838015 stripped
 GameObject:

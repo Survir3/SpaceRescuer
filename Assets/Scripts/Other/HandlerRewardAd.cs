@@ -9,7 +9,6 @@ public class HandlerRewardAd : MonoBehaviour, INeededSwitchPlayMode, INeededSwit
     [SerializeField] private InputSystemUIInputModule _inputSystem;
 
     public bool IsPause { get; private set; }
-
     public bool IsOffSound { get; private set; }
 
     public event UnityAction NeededPause;
@@ -32,7 +31,7 @@ public class HandlerRewardAd : MonoBehaviour, INeededSwitchPlayMode, INeededSwit
             closeCallbacksAll += onCloseCallback;
         }
 
-        VideoAd.Show(OpenCallback, onRewardedCallback, closeCallbacksAll);
+        VideoAd.Show(OpenCallback, onRewardedCallback, closeCallbacksAll, onErrorCallback);
     }
 
     private void EnableInputSystem()

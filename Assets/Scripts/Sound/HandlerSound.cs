@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -40,12 +41,12 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
 
     private void OnEnable()
     {
-        AddListener();
+        AddListeners();
     }
 
     private void OnDisable()
     {
-        RemoveListener();
+        RemoveListeners();
     }
 
     private void Start()
@@ -53,7 +54,7 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
         SetStartSoundMode(_saverData.OffSound);
     }
 
-    private void AddListener()
+    private void AddListeners()
     {
         foreach (var sound in _interfaceSwitchSoundPlay)
         {
@@ -62,7 +63,7 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
         }
     }
 
-    private void RemoveListener()
+    private void RemoveListeners()
     {
         foreach (var sound in _interfaceSwitchSoundPlay)
         {

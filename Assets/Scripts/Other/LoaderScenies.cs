@@ -23,13 +23,9 @@ public class LoaderScenies : MonoBehaviour
     public void OnClickReloadSceneButton(bool isShowAd)
     {
         if (isShowAd)
-        {
             _adHandlerReward.ShowAd(_creatorLevelConfig.LevelConfig.OnSetRewardVideoAD, OnClickLoadGameButton);
-        }
         else
-        {
             OnClickLoadGameButton();
-        }
     }
 
     public void OnClickLoadGameButton()

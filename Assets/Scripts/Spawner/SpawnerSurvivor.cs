@@ -5,8 +5,15 @@ public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededS
 {
     public bool IsPause { get; private set; }
 
+    private int _countStartSpawner => _count / 2;
+
     public event UnityAction NeededPause;
     public event UnityAction NeededPlay;
+
+    private void Start()
+    {
+        SpawnedToStart(_countStartSpawner);
+    }
 
     private void OnEnable()
     {
@@ -20,7 +27,7 @@ public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededS
 
     private void Update()
     {
-        Spawned();
+        SpawnedToDelay();
     }
 
     public void OnSceneLoaded(LevelConfig argument)

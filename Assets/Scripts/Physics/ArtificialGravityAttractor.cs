@@ -9,9 +9,7 @@ public class ArtificialGravityAttractor : MonoBehaviour
     public void Attract(Rigidbody bodyAttracted, Transform body)
     {
         Vector3 normalizePositionBody = NormalizePositionBodyOnAttractor(body);
-
         Vector3 forceGravity = normalizePositionBody * _powerGravity;
-
         bodyAttracted.AddForce(forceGravity,ForceMode.VelocityChange);
 
         Quaternion targetRotation = Quaternion.FromToRotation(body.up, normalizePositionBody) * body.rotation;

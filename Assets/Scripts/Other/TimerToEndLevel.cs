@@ -31,9 +31,14 @@ public class TimerToEndLevel : Timer, IIncreaseForLevel, ISceneLoadHandler<Level
         _player.IsDie += StopTimer;
     }
 
-    public void SetValueToStartLevel(float value)
+    public void SetValue(float value)
     {
         _value= value;
+    }
+
+    public void AddValue(float value)
+    {
+        _value+= value;
     }
 
     private void ShowValue(float value)

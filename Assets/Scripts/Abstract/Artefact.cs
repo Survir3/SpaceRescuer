@@ -7,16 +7,19 @@ public abstract class Artefact : Item
     [SerializeField] protected int _multiplier;
 
     private float _delayDisable=2;
-    public int Multiplier => _multiplier;
+
+    public float Multiplier => _multiplier;
 
     public virtual void StartEffect(List<IMultiplied> multiplied)
     {
-
     }
 
     public virtual void StartEffect(IMultiplied multiplied)
     {
+    }
 
+    public virtual void StartEffect(TimerToEndLevel timer)
+    {
     }
 
     protected IEnumerator DisableAfterEffect()

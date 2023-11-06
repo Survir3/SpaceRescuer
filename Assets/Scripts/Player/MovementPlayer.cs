@@ -3,17 +3,16 @@ using IJunior.TypedScenes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Player), typeof(SetterTargetSurvivorMovement))]
+[RequireComponent(typeof(Player), typeof(HandlerPathSnake))]
 public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<LevelConfig>
 {
     [SerializeField, Range(0, 1)] private float _durationDisableInput;
 
+    private delegate float ActionInput(float input);
     private PlayerInput _playerInput;
-    private SetterTargetSurvivorMovement _controllerSurvivorMovement;
+    private HandlerPathSnake _handlerSurvivorMovements;
     private float _directionRotation;
     private Quaternion _targetRotation;
-
-    private delegate float ActionInput(float input);
     private ActionInput _onCorrectInputForDevice;
 
     public float SpeedMovenemt => _speedMovement;
@@ -22,7 +21,7 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Lev
     {
         _playerInput = new PlayerInput();
         _targetRotation = _rigidbody.rotation;
-        _controllerSurvivorMovement = GetComponent<SetterTargetSurvivorMovement>();
+        _handlerSurvivorMovements = GetComponent<HandlerPathSnake>();
     }
 
     private void Start()
@@ -58,29 +57,29 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Lev
     {
         var newList = new List<IMultiplied>();
         newList.Add(this);
-        newList.AddRange(_controllerSurvivorMovement.SurvivorMovements);
+        newList.AddRange(_handlerSurvivorMovements.MovementsSnake);
 
         return newList;
     }
 
     protected override void Move()
     {
-        Vector3 direction = transform.TransformDirection(Vector3.forward);
-        _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement * _currentMultiplier * Time.deltaTime);
+        Vector3 direction = transform.TransformDirection(Vector3.forward).normalized;
+        _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement * _currentMultiplier * Time.fixedDeltaTime);
     }
 
     protected override void Rotate()
     {
-        GetTargetRotation();
-        _rigidbody.rotation = Quaternion.Slerp(_rigidbody.rotation, _targetRotation, _speedRotation * Time.deltaTime);
+        _targetRotation=GetTargetRotation();
+        _rigidbody.rotation = Quaternion.Slerp(_rigidbody.rotation, _targetRotation, _speedRotation * Time.fixedDeltaTime);
     }
 
-    private void GetTargetRotation()
+    private Quaternion GetTargetRotation()
     {
         _directionRotation = _onCorrectInputForDevice(_playerInput.Player.Move.ReadValue<float>());
 
         Vector3 targetPosition = transform.TransformDirection(new Vector3(_directionRotation, 0, 1));
-        _targetRotation = Quaternion.FromToRotation(transform.forward, targetPosition) * _rigidbody.rotation;
+        return Quaternion.FromToRotation(transform.forward, targetPosition) * _rigidbody.rotation;
     }
 
     private float InputForTouchDevice(float value)
@@ -88,22 +87,16 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Lev
         int countTouches = 1;
 
         if (_playerInput.Player.Touch.ReadValue<float>() != countTouches)
-        {
             return 0;
-        }
 
         float left = -1;
         float right = 1;
         float centrScreen = Screen.width / 2;
 
         if (value < centrScreen)
-        {
             return left;
-        }
         else
-        {
             return right;
-        }
     }
 
     private float InputKeyboard(float value)
@@ -111,13 +104,13 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Lev
         return value;
     }
 
-    public void SetValueToStartLevel(float value)
+    public void SetValue(float value)
     {
         _speedMovement = value;
     }
 
     public void OnSceneLoaded(LevelConfig argument)
     {
-        _speedMovement=argument.SpeedMovement;
+        SetValue(argument.SpeedMovement);
     }
 }

@@ -9,14 +9,13 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
     [SerializeField] private MonoBehaviour[] _monoBehaviourTriggersGamePause;
 
     private List<INeededSwitchPlayMode> _interfaceTriggersGamePause;
-
     private bool _isGlobalPause = false;
-
-    public event UnityAction NeededPause;
-    public event UnityAction NeededPlay;
 
     public bool IsPause { get; private set; }
     public bool IsGlobalPause => _isGlobalPause;
+
+    public event UnityAction NeededPause;
+    public event UnityAction NeededPlay;
 
     private void OnValidate()
     {
@@ -32,8 +31,8 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
 
     private void Awake()
     {
-        _interfaceTriggersGamePause= Array.ConvertAll(_monoBehaviourTriggersGamePause, i => (INeededSwitchPlayMode)i).ToList();
         SetPlay();
+        _interfaceTriggersGamePause = Array.ConvertAll(_monoBehaviourTriggersGamePause, i => (INeededSwitchPlayMode)i).ToList();
     }
 
     private void OnEnable()
@@ -118,15 +117,5 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
     {
         Time.timeScale = 1;
         _isGlobalPause = false;
-    }
-
-    private void Reset()
-    {
-        foreach (var trigger in _interfaceTriggersGamePause)
-        {
-            trigger.RequestPlay();
-        }
-
-        SetPlay();
     }
 }

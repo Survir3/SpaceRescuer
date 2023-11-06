@@ -8,7 +8,7 @@ public abstract class Movement : MonoBehaviour, IMultiplied
     [SerializeField] protected Transform _anchor;
     [SerializeField] protected Transform _lookAt;
 
-    protected int _currentMultiplier = 1;
+    public int _currentMultiplier = 1;
 
     public int DefaulMultiplier { get; protected set; } = 1;
     public int CurrentMultiplier =>_currentMultiplier;
@@ -26,16 +26,8 @@ public abstract class Movement : MonoBehaviour, IMultiplied
         _currentMultiplier = DefaulMultiplier;
     }
 
-    public virtual void MoveToTarget(Rigidbody target)
+    public virtual void Move(Vector3 point)
     {
-        Vector3 direction = target.position - transform.position;
-        _rigidbody.MovePosition(_rigidbody.position + _currentMultiplier * _speedMovement * Time.deltaTime * direction);
-    }
-
-    public virtual void RotateToTarget(Transform target)
-    {
-        Quaternion rotation = Quaternion.FromToRotation(transform.forward, target.position- transform.position);
-        transform.rotation = rotation * transform.rotation;
     }
 
     protected virtual void Move()

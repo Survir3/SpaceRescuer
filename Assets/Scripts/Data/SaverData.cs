@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using PlayerPrefs = UnityEngine.PlayerPrefs;
 
 public class SaverData : MonoBehaviour
 {  
@@ -16,7 +15,6 @@ public class SaverData : MonoBehaviour
     public int CountSpawnedArtefact { get; private set; }
     public int CountSpawnedEnemy { get; private set; }
     public bool OffSound { get; private set; }
-    public string KeyLanguage { get; private set; }
 
     public event UnityAction<Spawner, string> SavedData;
     public event UnityAction<string> FirstLoadedGame;
@@ -128,6 +126,5 @@ public class SaverData : MonoBehaviour
         CountSpawnedEnemy=PlayerPrefs.GetInt(ConstantsString.OrderSpawnedEnemy);
         СountLoadGame = PlayerPrefs.GetInt(ConstantsString.OrderLoadGame);
         OffSound= Convert.ToBoolean(PlayerPrefs.GetInt(ConstantsString.OrderSoundPlay));
-        KeyLanguage = PlayerPrefs.GetString(ConstantsString.OrderKeyLang);
     }
 }

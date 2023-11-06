@@ -18,17 +18,11 @@ public class HandlerButtonExitGame : MonoBehaviour, INeededSwitchPlayMode, INeed
     public void OnClickOpenPanelButton()
     {
         if (_gameWinnerMenu.activeSelf)
-        {
             _activeGameMenu = _gameWinnerMenu;
-        }
         else if (_gameOverMenu.activeSelf)
-        {
             _activeGameMenu = _gameOverMenu;
-        }
         else
-        {
             _activeGameMenu = null;
-        }
 
         RequestPause();
         RequestOffSound();

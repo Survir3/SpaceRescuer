@@ -9,7 +9,6 @@ public class Player : MonoBehaviour, INeededSwitchPlayMode
 
     public bool IsDead { get; private set; } = false;
     public Points Points => _points;
-
     public bool IsPause { get; set; }
 
     public event UnityAction IsDie;

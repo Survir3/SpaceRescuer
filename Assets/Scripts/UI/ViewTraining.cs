@@ -14,8 +14,11 @@ public class ViewTraining : MonoBehaviour
     [SerializeField] private GridLayoutGroup _gridLayout;
     [SerializeField] private List<TMP_Text> _trainingTexts;
 
+    private static int SizeX = 150;
+    private static int SizeY = 150;
+
     private List<GameObject> _icons=new List<GameObject>();
-    private Vector2 _startSizeGridLayoutGroup= new Vector2(150,150);
+    private Vector2 _startSizeGridLayoutGroup= new Vector2(SizeX, SizeY);
     private TMP_Text _currentText;
 
     private void Awake()
@@ -77,7 +80,7 @@ public class ViewTraining : MonoBehaviour
     {
         foreach (var icon in _icons)
         {
-            Destroy(icon.gameObject);
+            Destroy(icon);
         }
     }
 

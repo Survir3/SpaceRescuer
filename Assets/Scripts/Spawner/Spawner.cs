@@ -1,13 +1,11 @@
-using IJunior.TypedScenes;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(ArtificialGravityAttractor), typeof(SphereCollider))]
-public abstract class Spawner : Pool, IIncreaseForLevel
+public abstract class Spawner : Pool
 {
-    [SerializeField] protected List<GameObject> _prefabs;
+    [SerializeField] protected List<GameObject> _templet;
     [SerializeField] protected float _delay;
     [SerializeField] protected LayerMask _layerMask;
 
@@ -25,24 +23,32 @@ public abstract class Spawner : Pool, IIncreaseForLevel
     public event UnityAction<Spawner> IsSpawned;
 
     private void Awake()
-    {        
+    {
         _radius = transform.localScale.x / _halfRatio;
-        _scaleBody = _prefabs[0].transform.localScale / _halfRatio;
-        Init(_prefabs);
+        _scaleBody = _templet[0].transform.localScale / _halfRatio;
+        Init(_templet);
     }
 
-    protected virtual void Spawned()
+    protected virtual void SpawnedToDelay()
     {
         _timerSpawn += Time.deltaTime;
 
         if (_timerSpawn >= _delay)
         {
             Vector3 newPosition = GetSpawnedPosition();
-           
-           if(TryGetObject(out GameObject prefab))
-            {
+
+            if (TryGetObject(out GameObject prefab))
                 ActivePrefab(prefab, newPosition);
-            }
+        }
+    }
+
+    protected virtual void SpawnedToStart(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            TryGetObject(out GameObject prefab);
+            Vector3 newPosition = GetSpawnedPosition();
+            ActivePrefab(prefab, newPosition);
         }
     }
 
@@ -75,7 +81,7 @@ public abstract class Spawner : Pool, IIncreaseForLevel
 
     private Vector3 GetSpawnRandomPosition()
     {
-        return transform.position + Random.insideUnitSphere.normalized * _radius;        
+        return transform.position + Random.insideUnitSphere.normalized * _radius;
     }
 
     private RaycastHit[] GetAllObstacles(Vector3 position)
@@ -94,13 +100,6 @@ public abstract class Spawner : Pool, IIncreaseForLevel
         IsAdded?.Invoke(CountAdded);
 
         if (CountAdded == Count)
-        {
             IsAllAdded?.Invoke();
-        }
-    }
-
-    public void SetValueToStartLevel(float value)
-    {
-        _count = (int)value;
     }
 }
