@@ -1,4 +1,5 @@
 using IJunior.TypedScenes;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededSwitchPlayMode
@@ -8,21 +9,25 @@ public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededS
     public event UnityAction NeededPause;
     public event UnityAction NeededPlay;
 
-    private int _countStartSpawner => Count / 2;
-
     private void Start()
     {
-        SpawnedToStart(_countStartSpawner);
+        int multiply = 3;
+        int countStartSpawner = Count / multiply;
+
+        SpawnedToStart(countStartSpawner);
     }
 
     private void OnEnable()
     {
         IsAllAdded += RequestPause;
+        IsAllAdded += OnSpawnedAfterAdded;
+
     }
 
     private void OnDisable()
     {
         IsAllAdded -= RequestPause;
+        IsAllAdded -= OnSpawnedAfterAdded;
     }
 
     private void Update()
@@ -46,4 +51,12 @@ public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededS
         IsPause = true;
         NeededPause.Invoke();
     }
+
+    private void OnSpawnedAfterAdded()
+    {
+        TryGetObject(out GameObject prefab);
+        Vector3 newPosition = GetSpawnedPosition();
+        ActivePrefab(prefab, newPosition);
+    }
+
 }

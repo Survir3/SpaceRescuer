@@ -2,20 +2,10 @@ using UnityEngine;
 
 public class LevelConfig
 {
-    public int CountSurvivorsToLevel { get; private set; } = 6;
-    public int CountEnemy { get; private set; } = 15;
-    public int CountArtefact { get; private set; } = 2;
-    public float TimeToLevel { get; private set; } = 60;
-    public float SpeedMovement { get; private set; } = 2;
-    public int PointsPlayer { get; private set; } = 0;
-    public float TimeRewardForVideoAD { get; private set; } = 0;
-    public float TotalTimeToLevel => TimeToLevel + TimeRewardForVideoAD;
-
     private int _increaseTimeRewardForVideoAD = 30;
     private int _maxIncreaseCountSurvivorsToLevel = 5;
     private int _maxIncreaseCountEnemy = 5;
     private int _maxIncreaseCountArtefact = 2;
-    private float _maxIncreaseTimeToLevel = 30;
     private float _maxIncreaseSpeed = 0.3f;
 
     private int _maxCountSurvivorsToLevel = 30;
@@ -23,11 +13,21 @@ public class LevelConfig
     private int _maxCountArtefact = 10;
     private float _maxSpeedMovement = 4;
 
-    private float _timeForSurvivor = 15;
+    private float _timeToLevel;
+    private float _timeRewardForVideoAD = 0;
+    private float _timeForSurvivor = 5;
+    private float _timeBasicToLevel = 30;
+
+    public int CountSurvivorsToLevel { get; private set; } = 6;
+    public int CountEnemy { get; private set; } = 15;
+    public int CountArtefact { get; private set; } = 2;
+    public float SpeedMovement { get; private set; } = 2;
+    public int PointsPlayer { get; private set; } = 0;
+    public float TotalTimeToLevel => _timeToLevel + _timeRewardForVideoAD;
 
     public void SetConfigForNextLevel()
     {
-        TimeRewardForVideoAD = 0;
+        _timeRewardForVideoAD = 0;
         SetIncreaseCountSurvivorsToLevel();
         SetIncreaseCountEnemy();
         SetIncreaseCountArtefact();
@@ -43,7 +43,7 @@ public class LevelConfig
 
     public void OnSetRewardVideoAD()
     {
-        TimeRewardForVideoAD = _increaseTimeRewardForVideoAD;
+        _timeRewardForVideoAD = _increaseTimeRewardForVideoAD;
     }
 
     private void SetIncreaseCountSurvivorsToLevel()
@@ -63,7 +63,7 @@ public class LevelConfig
 
     private void SetIncreaseTimeToLevel(int countSurvivorToLevel)
     {
-        TimeToLevel += countSurvivorToLevel* _timeForSurvivor + TimeRewardForVideoAD;
+        _timeToLevel += _timeBasicToLevel + countSurvivorToLevel * _timeForSurvivor;
     }
 
     private void SetIncreaseSpeedMovement()

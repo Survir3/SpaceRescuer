@@ -3137,7 +3137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7ff30def2056c449a8248fcfe7d2422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: 3.1
+  Value: 3
   _scoreboard: {fileID: 1232936732}
   _movementPlayer: {fileID: 866535274}
   _startText: Go
@@ -3167,7 +3167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1cba2e79dd781418f58a2963949ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: 100
+  Value: 100
   _time: {fileID: 1165790699}
   _timerStartLevel: {fileID: 1170191828}
   _player: {fileID: 1555579068}
@@ -4087,7 +4087,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46
+  m_fontSize: 58.2
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5889,7 +5889,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.5
+  m_fontSize: 57.6
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6610,6 +6610,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 485102873, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
+      propertyPath: Delay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 485102873, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
       propertyPath: _count
       value: 10
       objectReference: {fileID: 0}
@@ -6638,9 +6642,17 @@ PrefabInstance:
       value: 969
       objectReference: {fileID: 0}
     - target: {fileID: 485102873, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
+      propertyPath: Templet.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 485102873, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
       propertyPath: _templet.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 485102873, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
+      propertyPath: Templet.Array.data[0]
+      value: 
+      objectReference: {fileID: 4144882776779484475, guid: 8390e547639bea4488f2ac01a4b34b6f, type: 3}
     - target: {fileID: 485102873, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
       propertyPath: _prefabs.Array.data[0]
       value: 
@@ -6653,6 +6665,10 @@ PrefabInstance:
       propertyPath: _artificialGravityAttractor
       value: 
       objectReference: {fileID: 930093702}
+    - target: {fileID: 485102879, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
+      propertyPath: Delay
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 485102879, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
       propertyPath: _count
       value: 2
@@ -6678,6 +6694,10 @@ PrefabInstance:
       value: 969
       objectReference: {fileID: 0}
     - target: {fileID: 485102879, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
+      propertyPath: Templet.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 485102879, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
       propertyPath: _prefabs.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -6685,6 +6705,14 @@ PrefabInstance:
       propertyPath: _templet.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 485102879, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
+      propertyPath: Templet.Array.data[0]
+      value: 
+      objectReference: {fileID: 1171994432391885885, guid: 75161f6bcd360e448988562e48e38876, type: 3}
+    - target: {fileID: 485102879, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
+      propertyPath: Templet.Array.data[1]
+      value: 
+      objectReference: {fileID: 5904390455505830206, guid: 4ab78230efb549742a53de82a5a0bdeb, type: 3}
     - target: {fileID: 485102879, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
       propertyPath: _prefabs.Array.data[0]
       value: 
@@ -6738,13 +6766,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2032358151, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
+      propertyPath: LayerMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 2032358151, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
       propertyPath: _layerMask.m_Bits
       value: 1993
+      objectReference: {fileID: 0}
+    - target: {fileID: 2032358151, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
+      propertyPath: Templet.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2032358151, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
       propertyPath: _templet.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2032358151, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
+      propertyPath: Templet.Array.data[0]
+      value: 
+      objectReference: {fileID: 3061496059526336499, guid: 624c90e064067be44941b18f5e7a6dde, type: 3}
+    - target: {fileID: 2032358151, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
+      propertyPath: Templet.Array.data[1]
+      value: 
+      objectReference: {fileID: 7897959031783245948, guid: 852ed83295b74434e8fd8e7ca09bb53a, type: 3}
+    - target: {fileID: 2032358151, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
+      propertyPath: Templet.Array.data[2]
+      value: 
+      objectReference: {fileID: 1416083754792020777, guid: 48adfb50e8fd5cd4589cb539b9eb2c31, type: 3}
     - target: {fileID: 2032358151, guid: 8b6d367d1df20b44f8776f76bd66a985, type: 3}
       propertyPath: _prefabs.Array.data[0]
       value: 
@@ -7288,6 +7336,14 @@ PrefabInstance:
       propertyPath: _timerToEndLevel
       value: 
       objectReference: {fileID: 1170191830}
+    - target: {fileID: 9118235437541656882, guid: dc9263052f7f04f448cbafcbf5efce3d, type: 3}
+      propertyPath: SpeedMovement
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118235437541656882, guid: dc9263052f7f04f448cbafcbf5efce3d, type: 3}
+      propertyPath: SpeedRotation
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9118235437541656882, guid: dc9263052f7f04f448cbafcbf5efce3d, type: 3}
       propertyPath: _speedMovement
       value: 3

@@ -88,7 +88,9 @@ public abstract class Spawner : Pool
         IsAdded?.Invoke(CountAdded);
 
         if (CountAdded == Count)
+        {
             IsAllAdded?.Invoke();
+        }
     }
 
     private Vector3 GetSpawnRandomPosition()
