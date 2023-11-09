@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 38136642950246883}
   - component: {fileID: 4314018561513926967}
   - component: {fileID: 6361267955195781752}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EnemyCrystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

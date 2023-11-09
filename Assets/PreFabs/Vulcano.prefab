@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 7668594196199204536}
   - component: {fileID: 8292916858166378559}
   - component: {fileID: 2721517917628403610}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Vulcano
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,6 +172,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6a274ecc9ee607c42b21df1c74d69ea9, type: 3}
       propertyPath: m_Name
       value: Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6a274ecc9ee607c42b21df1c74d69ea9, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6a274ecc9ee607c42b21df1c74d69ea9, type: 3}
       propertyPath: m_IsActive

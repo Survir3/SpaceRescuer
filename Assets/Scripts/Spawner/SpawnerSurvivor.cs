@@ -20,14 +20,11 @@ public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededS
     private void OnEnable()
     {
         IsAllAdded += RequestPause;
-        IsAllAdded += OnSpawnedAfterAdded;
-
     }
 
     private void OnDisable()
     {
         IsAllAdded -= RequestPause;
-        IsAllAdded -= OnSpawnedAfterAdded;
     }
 
     private void Update()
@@ -51,12 +48,4 @@ public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededS
         IsPause = true;
         NeededPause.Invoke();
     }
-
-    private void OnSpawnedAfterAdded()
-    {
-        TryGetObject(out GameObject prefab);
-        Vector3 newPosition = GetSpawnedPosition();
-        ActivePrefab(prefab, newPosition);
-    }
-
 }

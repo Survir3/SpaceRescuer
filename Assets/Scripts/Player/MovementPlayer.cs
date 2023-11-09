@@ -1,14 +1,14 @@
 using Agava.WebUtility;
 using IJunior.TypedScenes;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Player), typeof(HandlerPathSnake))]
 public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<LevelConfig>
 {
-    [SerializeField, Range(0, 1)] private float _durationDisableInput;
-
     private delegate float ActionInput(float input);
+
     private PlayerInput _playerInput;
     private HandlerPathSnake _handlerSurvivorMovements;
     private float _directionRotation;

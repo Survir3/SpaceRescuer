@@ -13,10 +13,10 @@ public class LevelConfig
     private int _maxCountArtefact = 10;
     private float _maxSpeedMovement = 4;
 
-    private float _timeToLevel;
+    private float _timeToLevel=30;
     private float _timeRewardForVideoAD = 0;
-    private float _timeForSurvivor = 5;
-    private float _timeBasicToLevel = 30;
+    private float _timeForSurvivor = 3;
+    private float _timeBasicToLevel = 20;
 
     public int CountSurvivorsToLevel { get; private set; } = 6;
     public int CountEnemy { get; private set; } = 15;
@@ -63,7 +63,7 @@ public class LevelConfig
 
     private void SetIncreaseTimeToLevel(int countSurvivorToLevel)
     {
-        _timeToLevel += _timeBasicToLevel + countSurvivorToLevel * _timeForSurvivor;
+        _timeToLevel = _timeBasicToLevel + countSurvivorToLevel * _timeForSurvivor;
     }
 
     private void SetIncreaseSpeedMovement()
