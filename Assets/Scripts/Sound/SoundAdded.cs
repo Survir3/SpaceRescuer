@@ -23,8 +23,10 @@ public class SoundAdded : MonoBehaviour, INeededSwitchSoundPlay
 
     private void OnAdded(CollisionHandler collisionHandler)
     {
-        if (IsOffSound==false)
+        if (IsOffSound == false)
+        {
             _audioSource.Play();
+        }
     }
 
     public void RequestOffSound()

@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {    
-    [SerializeField] protected float _value;
+    [SerializeField] protected float Value;
 
-    protected float _startValue;
+    protected float StartValue;
 
     public IEnumerator Countdown(Action<float> intermediateValue=null, Action before=null, Action after=null)
     {
         before?.Invoke();
 
-        while (_value > 0)
+        while (Value > 0)
         {
-            _value -= Time.deltaTime;
-            intermediateValue?.Invoke(_value);
+            Value -= Time.deltaTime;
+            intermediateValue?.Invoke(Value);
             yield return new WaitForEndOfFrame();
         }
 

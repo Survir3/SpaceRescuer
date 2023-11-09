@@ -5,40 +5,42 @@ using UnityEngine.Events;
 [RequireComponent(typeof(ArtificialGravityAttractor), typeof(SphereCollider))]
 public abstract class Spawner : Pool
 {
-    [SerializeField] protected List<GameObject> _templet;
-    [SerializeField] protected float _delay;
-    [SerializeField] protected LayerMask _layerMask;
+    [SerializeField] protected List<GameObject> Templet;
+    [SerializeField] protected float Delay;
+    [SerializeField] protected LayerMask LayerMask;
 
-    protected float _radius;
-    protected Vector3 _scaleBody;
-    protected float _timerSpawn;
+    protected float Radius;
+    protected Vector3 ScaleBody;
+    protected float TimerSpawn;
 
     private int _halfRatio = 2;
-
-    public int CountAdded { get; private set; } = 0;
-    public bool IsAllAdd => Count == CountAdded;
 
     public event UnityAction<int> IsAdded;
     public event UnityAction IsAllAdded;
     public event UnityAction<Spawner> IsSpawned;
 
+    public int CountAdded { get; private set; } = 0;
+    public bool IsAllAdd => Count == CountAdded;
+
     private void Awake()
     {
-        _radius = transform.localScale.x / _halfRatio;
-        _scaleBody = _templet[0].transform.localScale / _halfRatio;
-        Init(_templet);
+        Radius = transform.localScale.x / _halfRatio;
+        ScaleBody = Templet[0].transform.localScale / _halfRatio;
+        Init(Templet);
     }
 
     protected virtual void SpawnedToDelay()
     {
-        _timerSpawn += Time.deltaTime;
+        TimerSpawn += Time.deltaTime;
 
-        if (_timerSpawn >= _delay)
+        if (TimerSpawn >= Delay)
         {
             Vector3 newPosition = GetSpawnedPosition();
 
             if (TryGetObject(out GameObject prefab))
+            {
                 ActivePrefab(prefab, newPosition);
+            }
         }
     }
 
@@ -59,7 +61,7 @@ public abstract class Spawner : Pool
         prefab.SetActive(true);
         CollisionHandler newHandler = prefab.GetComponentInChildren<CollisionHandler>();
         newHandler.Added += OnAdded;
-        _timerSpawn = 0;
+        TimerSpawn = 0;
         IsSpawned?.Invoke(this);
     }
 
@@ -79,20 +81,6 @@ public abstract class Spawner : Pool
         return newPosition;
     }
 
-    private Vector3 GetSpawnRandomPosition()
-    {
-        return transform.position + Random.insideUnitSphere.normalized * _radius;
-    }
-
-    private RaycastHit[] GetAllObstacles(Vector3 position)
-    {
-        float maxDistance = 0;
-        float lengthEdge = 0.5f;
-        var halfBox = new Vector3(lengthEdge, lengthEdge, lengthEdge);
-
-        return Physics.BoxCastAll(position, halfBox, Vector3.forward, Quaternion.identity, maxDistance, _layerMask);
-    }
-
     protected void OnAdded(CollisionHandler collisionHandler)
     {
         collisionHandler.Added -= OnAdded;
@@ -101,5 +89,19 @@ public abstract class Spawner : Pool
 
         if (CountAdded == Count)
             IsAllAdded?.Invoke();
+    }
+
+    private Vector3 GetSpawnRandomPosition()
+    {
+        return transform.position + Random.insideUnitSphere.normalized * Radius;
+    }
+
+    private RaycastHit[] GetAllObstacles(Vector3 position)
+    {
+        float maxDistance = 0;
+        float lengthEdge = 0.5f;
+        var halfBox = new Vector3(lengthEdge, lengthEdge, lengthEdge);
+
+        return Physics.BoxCastAll(position, halfBox, Vector3.forward, Quaternion.identity, maxDistance, LayerMask);
     }
 }

@@ -7,13 +7,13 @@ public class Player : MonoBehaviour, INeededSwitchPlayMode
 { 
    [SerializeField] private Points _points;
 
-    public bool IsDead { get; private set; } = false;
-    public Points Points => _points;
-    public bool IsPause { get; set; }
-
     public event UnityAction IsDie;
     public event UnityAction NeededPause;
     public event UnityAction NeededPlay;
+
+    public bool IsDead { get; private set; } = false;
+    public Points Points => _points;
+    public bool IsPause { get; set; }
 
     public void Dead()
     {

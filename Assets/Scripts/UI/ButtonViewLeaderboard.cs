@@ -14,10 +14,14 @@ public class ButtonViewLeaderboard : MonoBehaviour
 
     public void OnClick()
     {
-        if(PlayerAccount.IsAuthorized)        
+        if (PlayerAccount.IsAuthorized)
+        {
             Open();
+        }
         else
+        {
             _authorization.SetActive(true);
+        }
     }
 
     private void Open()

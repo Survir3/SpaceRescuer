@@ -14,7 +14,7 @@ public class SpeedMovementArtefact : Artefact
     {
         foreach (var item in multiplied)
         {
-            item.SetMultiplier(_multiplier);
+            item.SetMultiplier(Multiplier);
         }
 
         yield return new WaitForSeconds(_duration);    

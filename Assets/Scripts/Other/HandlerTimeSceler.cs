@@ -11,11 +11,11 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
     private List<INeededSwitchPlayMode> _interfaceTriggersGamePause;
     private bool _isGlobalPause = false;
 
-    public bool IsPause { get; private set; }
-    public bool IsGlobalPause => _isGlobalPause;
-
     public event UnityAction NeededPause;
     public event UnityAction NeededPlay;
+
+    public bool IsPause { get; private set; }
+    public bool IsGlobalPause => _isGlobalPause;
 
     private void OnValidate()
     {

@@ -17,15 +17,21 @@ public class LoaderScenies : MonoBehaviour
     private void OnDisable()
     {
         if (SceneManager.GetActiveScene().name == ConstantsString.ConectWhisSDKSceneName)
+        {
             _connecterYandex.IsConnect -= OnLoadMainMenu;
+        }
     }
 
     public void OnClickReloadSceneButton(bool isShowAd)
     {
         if (isShowAd)
+        {
             _adHandlerReward.ShowAd(_creatorLevelConfig.LevelConfig.OnSetRewardVideoAD, OnClickLoadGameButton);
+        }
         else
+        {
             OnClickLoadGameButton();
+        }
     }
 
     public void OnClickLoadGameButton()

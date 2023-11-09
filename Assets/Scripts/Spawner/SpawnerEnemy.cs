@@ -5,7 +5,12 @@ public class SpawnerEnemy : Spawner, ISceneLoadHandler<LevelConfig>
 {    
     private void Start()
     {
-        SpawnedToStart(_count);
+        SpawnedToStart(Count);
+    }
+
+    public void OnSceneLoaded(LevelConfig argument)
+    {
+        _count = argument.CountEnemy;
     }
 
     protected override void SpawnedToStart(int count)
@@ -15,10 +20,5 @@ public class SpawnerEnemy : Spawner, ISceneLoadHandler<LevelConfig>
             Vector3 newPosition = GetSpawnedPosition();
             ActivePrefab(prefab, newPosition);
         }
-    }
-
-    public void OnSceneLoaded(LevelConfig argument)
-    {
-        _count = argument.CountEnemy;
     }
 }

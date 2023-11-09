@@ -2,8 +2,8 @@ using UnityEngine;
 
 public abstract class Movement : MonoBehaviour, IMultiplied
 {
-    [SerializeField] protected float _speedMovement;
-    [SerializeField] protected float _speedRotation;
+    [SerializeField] protected float SpeedMovement;
+    [SerializeField] protected float SpeedRotation;
     [SerializeField] protected Rigidbody _rigidbody;
     [SerializeField] protected Transform _anchor;
     [SerializeField] protected Transform _lookAt;
@@ -36,10 +36,5 @@ public abstract class Movement : MonoBehaviour, IMultiplied
 
     protected virtual void Rotate()
     {
-    }
-
-    public void SetSpeedToStartLevel(float speed)
-    {
-        _speedMovement = speed;
     }
 }

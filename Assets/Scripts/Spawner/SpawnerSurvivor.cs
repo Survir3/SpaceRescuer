@@ -5,10 +5,10 @@ public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededS
 {
     public bool IsPause { get; private set; }
 
-    private int _countStartSpawner => _count / 2;
-
     public event UnityAction NeededPause;
     public event UnityAction NeededPlay;
+
+    private int _countStartSpawner => Count / 2;
 
     private void Start()
     {

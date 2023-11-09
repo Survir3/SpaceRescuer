@@ -13,12 +13,12 @@ public class Points : MonoBehaviour, IMultiplied, ISceneLoadHandler<LevelConfig>
     private int _currentMultiplier = 0;
     private Coroutine _timeComboPoints;
 
+    public event UnityAction<int> ChangeValue;
+    public event UnityAction<int> ChangeMultiplier;
+
     public int Value=> _value;
     public int CurrentMultiplier => _currentMultiplier;
     public float DurationSaveCombo => _durationSaveCombo;
-
-    public event UnityAction<int> ChangeValue;
-    public event UnityAction<int> ChangeMultiplier;
 
     private void Start()
     {
@@ -61,7 +61,6 @@ public class Points : MonoBehaviour, IMultiplied, ISceneLoadHandler<LevelConfig>
     public void SetDefaultMultiplier()
     {
         _currentMultiplier = _defaulMultiplier;
-
     }
 
     public void OnSceneLoaded(LevelConfig argument)

@@ -4,11 +4,9 @@ using UnityEngine;
 
 public abstract class Artefact : Item
 {
-    [SerializeField] protected int _multiplier;
+    [SerializeField] protected int Multiplier;
 
     private float _delayDisable=2;
-
-    public float Multiplier => _multiplier;
 
     public virtual void StartEffect(List<IMultiplied> multiplied)
     {

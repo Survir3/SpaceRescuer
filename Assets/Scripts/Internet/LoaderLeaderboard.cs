@@ -15,10 +15,10 @@ public class LoaderLeaderboard : MonoBehaviour
     private int _countLeaderPlayerInfo = 5;
     private bool _isLoaderCorrectLoad = false;
 
+    public event UnityAction<IReadOnlyList<LeaderPlayerInfo>> IsLoadFinish;
+
     public bool IsLoaderCorrectLoad => _isLoaderCorrectLoad;
     public IReadOnlyList<LeaderPlayerInfo> LeaderPlayerInfos => _leaderPlayersInfo;
-
-    public event UnityAction<IReadOnlyList<LeaderPlayerInfo>> IsLoadFinish;
 
     private void OnEnable()
     {

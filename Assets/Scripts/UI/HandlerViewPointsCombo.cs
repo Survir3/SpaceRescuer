@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class HandlerViewPointsCombo : MonoBehaviour
 {
-    [SerializeField] GameObject _pointsComboPanel;
-    [SerializeField] Player _player;
-    [SerializeField] SpawnerSurvivor _spawnerSurvivor;
+    [SerializeField] private GameObject _pointsComboPanel;
+    [SerializeField] private Player _player;
+    [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
 
     private void OnEnable()
     {

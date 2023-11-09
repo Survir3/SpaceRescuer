@@ -2,10 +2,10 @@
 
 public interface INeededSwitchPlayMode
 {
-    public bool IsPause { get; }
-
     public event UnityAction NeededPause;
     public event UnityAction NeededPlay;
+
+    public bool IsPause { get; }
 
     public void RequestPlay();
     public void RequestPause();

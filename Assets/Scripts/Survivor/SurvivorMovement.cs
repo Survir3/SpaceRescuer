@@ -12,6 +12,6 @@ public class SurvivorMovement : Movement
     public override void Move(Vector3 target)
     {
           Vector3 direction = target - transform.position;
-          _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement * _currentMultiplier * Time.fixedDeltaTime);
+          _rigidbody.MovePosition(_rigidbody.position + direction * SpeedMovement * _currentMultiplier * Time.fixedDeltaTime);
     }
 }

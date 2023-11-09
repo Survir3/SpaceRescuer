@@ -4,13 +4,13 @@ using UnityEngine.Events;
 
 public class HandlerApplicationInBackground : MonoBehaviour, INeededSwitchPlayMode, INeededSwitchSoundPlay
 {
-    public bool IsPause { get; private set; }
-    public bool IsOffSound { get; private set; }
-
     public event UnityAction NeededPause;
     public event UnityAction NeededPlay;
     public event UnityAction NeededOffSound;
     public event UnityAction NeededOnSound;
+
+    public bool IsPause { get; private set; }
+    public bool IsOffSound { get; private set; }
 
     private void OnEnable()
     {

@@ -18,8 +18,12 @@ public class SetterPriorityCinemachine : MonoBehaviour
     private void Start()
     {
         if (Device.IsMobile)
+        {
             _mobile.Priority = _activePriority;
+        }
         else
+        {
             _computer.Priority = _activePriority;
+        }
     }
 }

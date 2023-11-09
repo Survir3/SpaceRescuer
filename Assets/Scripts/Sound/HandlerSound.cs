@@ -54,6 +54,53 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
         SetStartSoundMode(_saverData.OffSound);
     }
 
+    public void OnClickButtonSound()
+    {
+        if (_isGlobalOffSound)
+        {
+            RequestOnSound();
+            TryOnSound();
+        }
+        else
+        {
+            RequestOffSound();
+        }
+    }
+
+    public void OnSound()
+    {
+        float onSound = 1f;
+        _isGlobalOffSound= false;
+
+        if (_currentCoroutine != null)
+        {
+            StopCoroutine(_currentCoroutine);
+        }
+
+        _currentCoroutine = StartCoroutine(ChangeVolumeTo(onSound));
+        ChangedModePlay.Invoke(_isGlobalOffSound);
+    }
+
+    public void OffSound()
+    {
+        _isGlobalOffSound = true;
+
+        AudioListener.volume = 0;
+        ChangedModePlay.Invoke(_isGlobalOffSound);
+    }
+
+    public void RequestOffSound()
+    {
+        IsOffSound = true;
+        NeededOffSound.Invoke();
+    }
+
+    public void RequestOnSound()
+    {
+        IsOffSound = false;
+        NeededOnSound.Invoke();
+    }
+
     private void AddListeners()
     {
         foreach (var sound in _interfaceSwitchSoundPlay)
@@ -106,50 +153,6 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
         }
     }
 
-    public void OnClickButtonSound()
-    {
-        if (_isGlobalOffSound)
-        {
-            RequestOnSound();
-            TryOnSound();
-        }
-        else
-        {
-            RequestOffSound();
-        }
-    }
-
-    public void OnSound()
-    {
-        float onSound = 1f;
-        _isGlobalOffSound= false;
-
-        if (_currentCoroutine != null)
-            StopCoroutine(_currentCoroutine);
-
-        _currentCoroutine = StartCoroutine(ChangeVolumeTo(onSound));
-        ChangedModePlay.Invoke(_isGlobalOffSound);
-    }
-
-    public void OffSound()
-    {
-        _isGlobalOffSound = true;
-
-        AudioListener.volume = 0;
-        ChangedModePlay.Invoke(_isGlobalOffSound);
-    }
-
-    public void RequestOffSound()
-    {
-        IsOffSound = true;
-        NeededOffSound.Invoke();
-    }
-
-    public void RequestOnSound()
-    {
-        IsOffSound = false;
-        NeededOnSound.Invoke();
-    }
 
     private IEnumerator ChangeVolumeTo(float value)
     {

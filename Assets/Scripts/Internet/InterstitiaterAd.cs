@@ -8,13 +8,13 @@ public class InterstitiaterAd : MonoBehaviour, INeededSwitchPlayMode, INeededSwi
 
     private int _multipleСountLoadSceneForAd=5;
 
-    public bool IsPause { get; private set; }
-    public bool IsOffSound { get; private set; }
-
     public event UnityAction NeededPause;
     public event UnityAction NeededPlay;
     public event UnityAction NeededOffSound;
     public event UnityAction NeededOnSound;
+
+    public bool IsPause { get; private set; }
+    public bool IsOffSound { get; private set; }
 
     private void Start()
     {

@@ -15,7 +15,7 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Lev
     private Quaternion _targetRotation;
     private ActionInput _onCorrectInputForDevice;
 
-    public float SpeedMovenemt => _speedMovement;
+    public float SpeedMovenemt => SpeedMovement;
 
     private void Awake()
     {
@@ -52,10 +52,19 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Lev
         Move();
         Rotate();
     }
+    public void SetValue(float value)
+    {
+        SpeedMovement = value;
+    }
+
+    public void OnSceneLoaded(LevelConfig argument)
+    {
+        SetValue(argument.SpeedMovement);
+    }
 
     public List<IMultiplied> GetAllMovementShake()
     {
-        var newList = new List<IMultiplied>();
+        List<IMultiplied> newList = new List<IMultiplied>();
         newList.Add(this);
         newList.AddRange(_handlerSurvivorMovements.MovementsSnake);
 
@@ -65,13 +74,13 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Lev
     protected override void Move()
     {
         Vector3 direction = transform.TransformDirection(Vector3.forward).normalized;
-        _rigidbody.MovePosition(_rigidbody.position + direction * _speedMovement * _currentMultiplier * Time.fixedDeltaTime);
+        _rigidbody.MovePosition(_rigidbody.position + direction * SpeedMovement * _currentMultiplier * Time.fixedDeltaTime);
     }
 
     protected override void Rotate()
     {
         _targetRotation=GetTargetRotation();
-        _rigidbody.rotation = Quaternion.Slerp(_rigidbody.rotation, _targetRotation, _speedRotation * Time.fixedDeltaTime);
+        _rigidbody.rotation = Quaternion.Slerp(_rigidbody.rotation, _targetRotation, SpeedRotation * Time.fixedDeltaTime);
     }
 
     private Quaternion GetTargetRotation()
@@ -102,15 +111,5 @@ public class MovementPlayer : Movement, IIncreaseForLevel, ISceneLoadHandler<Lev
     private float InputKeyboard(float value)
     {
         return value;
-    }
-
-    public void SetValue(float value)
-    {
-        _speedMovement = value;
-    }
-
-    public void OnSceneLoaded(LevelConfig argument)
-    {
-        SetValue(argument.SpeedMovement);
     }
 }

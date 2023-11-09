@@ -13,8 +13,8 @@ public class TimerToEndLevel : Timer, IIncreaseForLevel, ISceneLoadHandler<Level
 
     private void Start()
     {
-        _startValue = _value;
-        ShowValue(_value);
+        StartValue = Value;
+        ShowValue(Value);
     }
 
     private void OnEnable()
@@ -30,20 +30,24 @@ public class TimerToEndLevel : Timer, IIncreaseForLevel, ISceneLoadHandler<Level
         _spawnerSurvivor.IsAllAdded -= StopTimer;
         _player.IsDie += StopTimer;
     }
+    public void OnSceneLoaded(LevelConfig argument)
+    {
+        Value = argument.TotalTimeToLevel;
+    }
 
     public void SetValue(float value)
     {
-        _value= value;
+        Value= value;
     }
 
     public void AddValue(float value)
     {
-        _value+= value;
+        Value+= value;
     }
 
     private void ShowValue(float value)
     {
-        _time.text = ConvertToClock(_value);
+        _time.text = ConvertToClock(Value);
     }
 
     private string ConvertToClock(float value)
@@ -62,10 +66,5 @@ public class TimerToEndLevel : Timer, IIncreaseForLevel, ISceneLoadHandler<Level
     private void StopTimer()
     {
         StopCoroutine(_lastCoroutine);
-    }
-
-    public void OnSceneLoaded(LevelConfig argument)
-    {
-        _value = argument.TotalTimeToLevel;
     }
 }

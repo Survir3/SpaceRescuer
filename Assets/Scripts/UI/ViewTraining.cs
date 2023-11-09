@@ -54,7 +54,9 @@ public class ViewTraining : MonoBehaviour
     private void SetText(TMP_Text trainingText)
     {
         if (_currentText != null)
+        {
             _currentText.gameObject.SetActive(false);
+        }
 
         _currentText = trainingText;
         trainingText.gameObject.SetActive(true);
@@ -114,9 +116,13 @@ public class ViewTraining : MonoBehaviour
         IReadOnlyList<Sprite> inputIcon;
 
         if (Device.IsMobile)
+        {
             inputIcon = _trainingIcon.InputsTouch;
+        }
         else
+        {
             inputIcon = _trainingIcon.InputsKeyboard;
+        }
 
         return inputIcon;
     }

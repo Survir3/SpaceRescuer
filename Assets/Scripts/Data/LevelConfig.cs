@@ -15,14 +15,15 @@ public class LevelConfig
     private int _maxIncreaseCountSurvivorsToLevel = 5;
     private int _maxIncreaseCountEnemy = 5;
     private int _maxIncreaseCountArtefact = 2;
-    private float _maxIncreaseTimeToLevel = 60;
+    private float _maxIncreaseTimeToLevel = 30;
     private float _maxIncreaseSpeed = 0.3f;
 
     private int _maxCountSurvivorsToLevel = 30;
     private int _maxCountEnemy = 30;
     private int _maxCountArtefact = 10;
-    private float _maxTimeToLevel = 180;
     private float _maxSpeedMovement = 4;
+
+    private float _timeForSurvivor = 15;
 
     public void SetConfigForNextLevel()
     {
@@ -30,7 +31,7 @@ public class LevelConfig
         SetIncreaseCountSurvivorsToLevel();
         SetIncreaseCountEnemy();
         SetIncreaseCountArtefact();
-        SetIncreaseTimeToLevel();
+        SetIncreaseTimeToLevel(CountSurvivorsToLevel);
         SetIncreaseSpeedMovement();
     }
 
@@ -60,9 +61,9 @@ public class LevelConfig
         CountArtefact += Mathf.Clamp(Random.Range(0, _maxIncreaseCountArtefact), 0, _maxCountArtefact);
     }
 
-    private void SetIncreaseTimeToLevel()
+    private void SetIncreaseTimeToLevel(int countSurvivorToLevel)
     {
-        TimeToLevel += Mathf.Clamp(Random.Range(0, _maxIncreaseTimeToLevel), 0, _maxTimeToLevel) + TimeRewardForVideoAD;
+        TimeToLevel += countSurvivorToLevel* _timeForSurvivor + TimeRewardForVideoAD;
     }
 
     private void SetIncreaseSpeedMovement()

@@ -10,11 +10,11 @@ public class Training : MonoBehaviour, INeededSwitchPlayMode
 
     private int _firstAction = 1;
 
-    public bool IsPause { get; set; } = false;
-
     public event UnityAction<string> IsTraining;
     public event UnityAction NeededPause;
     public event UnityAction NeededPlay;
+
+    public bool IsPause { get; set; } = false;
 
     private void OnEnable()
     {
@@ -29,6 +29,17 @@ public class Training : MonoBehaviour, INeededSwitchPlayMode
         _saverData.FirstLoadedGame -= OnFirstLoadedGame;
         _timerStartLevel.StartGame -= OnStartGame;
     }
+    public void RequestPlay()
+    {
+        IsPause = false;
+        NeededPlay.Invoke();
+    }
+
+    public void RequestPause()
+    {
+        IsPause = true;
+        NeededPause.Invoke();
+    }    
 
     private void OnSavedData(Spawner spawner, string saveDataKey)
     {
@@ -64,21 +75,11 @@ public class Training : MonoBehaviour, INeededSwitchPlayMode
     private void TryDoTraining(string training, string saveDataKey)
     {
         if (PlayerPrefs.GetInt(saveDataKey) > _firstAction)
+        {
             return;
+        }
 
         IsTraining?.Invoke(training);
         RequestPause();
     }
-
-    public void RequestPlay()
-    {
-        IsPause = false;
-        NeededPlay.Invoke();
-    }
-
-    public void RequestPause()
-    {
-        IsPause = true;
-        NeededPause.Invoke();
-    }    
 }

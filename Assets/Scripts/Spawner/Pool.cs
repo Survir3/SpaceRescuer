@@ -15,7 +15,7 @@ public class Pool : MonoBehaviour
 
     protected void Init(List<GameObject> prefabs)
     {
-        for (int i = 0; i < _count; i++)
+        for (int i = 0; i < Count; i++)
         {
             int randomOrder = Random.Range(0, prefabs.Count);
             GameObject newObject = Instantiate(prefabs[randomOrder], _container);

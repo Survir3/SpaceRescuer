@@ -7,22 +7,29 @@ public class HandlerButtonExitGame : MonoBehaviour, INeededSwitchPlayMode, INeed
     [SerializeField] private GameObject _gameOverMenu;
 
     private GameObject _activeGameMenu;
-    public bool IsPause { get; private set; }
-    public bool IsOffSound { get; private set; }
 
     public event UnityAction NeededPause;
     public event UnityAction NeededPlay;
     public event UnityAction NeededOffSound;
     public event UnityAction NeededOnSound;
 
+    public bool IsPause { get; private set; }
+    public bool IsOffSound { get; private set; }
+
     public void OnClickOpenPanelButton()
     {
         if (_gameWinnerMenu.activeSelf)
+        {
             _activeGameMenu = _gameWinnerMenu;
+        }
         else if (_gameOverMenu.activeSelf)
+        {
             _activeGameMenu = _gameOverMenu;
+        }
         else
+        {
             _activeGameMenu = null;
+        }
 
         RequestPause();
         RequestOffSound();
@@ -36,7 +43,9 @@ public class HandlerButtonExitGame : MonoBehaviour, INeededSwitchPlayMode, INeed
         RequestPlay();
 
         if (_activeGameMenu != null)
+        { 
             _activeGameMenu.SetActive(true);
+        }
     }
 
     public void RequestPlay()

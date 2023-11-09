@@ -10,14 +10,15 @@ public class SaverData : MonoBehaviour
     [SerializeField] private SpawnerEnemy _spawnerEnemy;
     [SerializeField] private HandlerSound _sound;
 
+    public event UnityAction<Spawner, string> SavedData;
+    public event UnityAction<string> FirstLoadedGame;
+
     public int СountLoadGame { get; private set; }
     public int CountSpawnedSurvivor { get; private set; }
     public int CountSpawnedArtefact { get; private set; }
     public int CountSpawnedEnemy { get; private set; }
     public bool OffSound { get; private set; }
 
-    public event UnityAction<Spawner, string> SavedData;
-    public event UnityAction<string> FirstLoadedGame;
 
     private void Awake()
     {

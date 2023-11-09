@@ -6,9 +6,11 @@ public class ViewSurvivorAdd : MonoBehaviour
     [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
     [SerializeField] private TMP_Text _addSurvivors;
 
+    private int _startOrderSurvir = 0;
+
     private void Start()
     {
-        OnAdded(0);
+        OnAdded(_startOrderSurvir);
     }
 
     private void OnEnable()
