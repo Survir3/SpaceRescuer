@@ -8,24 +8,24 @@ public class ViewLeaderboard : MonoBehaviour
 
     private void OnEnable()
     {
-        _leaderboard.IsLoadFinish += ShowLeaderPlayer;
+        _leaderboard.IsLoadLeadersFinish += ShowLeaderEntries;
     }
 
     private void OnDisable()
     {
-        _leaderboard.IsLoadFinish -= ShowLeaderPlayer;
+        _leaderboard.IsLoadLeadersFinish -= ShowLeaderEntries;
     }
 
-    private void ShowLeaderPlayer(IReadOnlyList<LeaderPlayerInfo> leaderPlayerInfo)
+    private void ShowLeaderEntries(IReadOnlyList<LeaderPlayerInfo> leaderPlayerInfo)
     {
-        if (leaderPlayerInfo != null)
+        if (leaderPlayerInfo != null && _viewLeaders != null)
         {
-            for (int i = 0; i < _viewLeaders.Count; i++)
-            {
-                if (_viewLeaders[i] == null || leaderPlayerInfo[i] == null)
-                    return;
+            int minCountList = Mathf.Min(leaderPlayerInfo.Count, _viewLeaders.Count);
 
-                _viewLeaders[i].InitWithTexture(leaderPlayerInfo[i]);
+            for (int i = 0; i < minCountList; i++)
+            {
+                    _viewLeaders[i].InitWithTexture(leaderPlayerInfo[i]);
+                    _viewLeaders[i].gameObject.SetActive(true);
             }
         }
     }

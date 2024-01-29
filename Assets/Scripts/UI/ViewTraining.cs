@@ -48,7 +48,6 @@ public class ViewTraining : MonoBehaviour
 
         SetIcons(trainingText);
         _trainingPanel.SetActive(true);
-
     }
 
     private void SetText(TMP_Text trainingText)
@@ -64,8 +63,8 @@ public class ViewTraining : MonoBehaviour
 
     private void SetIcons(string trainingText)
     {
-        IReadOnlyList<Sprite> sprites = GetSpriteTraining(trainingText);  
-        
+        IReadOnlyList<Sprite> sprites = GetSpriteTraining(trainingText);
+
         ClearContaner();
         SetGridSize(trainingText);
 
@@ -77,6 +76,7 @@ public class ViewTraining : MonoBehaviour
             Image image = newGameObject.GetComponent<Image>();
             image.sprite = sprites[i];            
         }
+
     }
     private void ClearContaner()
     {
@@ -88,7 +88,7 @@ public class ViewTraining : MonoBehaviour
 
     private IReadOnlyList<Sprite> GetSpriteTraining(string trainingText)
     {
-        IReadOnlyList<Sprite> sprites = new List<Sprite>();       
+        IReadOnlyList<Sprite> sprites = new List<Sprite>();
 
         switch (trainingText)
         {
@@ -113,6 +113,7 @@ public class ViewTraining : MonoBehaviour
 
     private IReadOnlyList<Sprite> GetSpriteFirstLoad()
     {
+
         IReadOnlyList<Sprite> inputIcon;
 
         if (Device.IsMobile)

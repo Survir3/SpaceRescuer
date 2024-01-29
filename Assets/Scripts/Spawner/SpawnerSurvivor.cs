@@ -4,6 +4,8 @@ using UnityEngine.Events;
 
 public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededSwitchPlayMode
 {
+    [SerializeField] private Timer _timer;
+
     public bool IsPause { get; private set; }
 
     public event UnityAction NeededPause;
@@ -14,7 +16,7 @@ public class SpawnerSurvivor : Spawner, ISceneLoadHandler<LevelConfig>, INeededS
         int multiply = 3;
         int countStartSpawner = Count / multiply;
 
-        SpawnedToStart(countStartSpawner);
+        StartCoroutine(_timer.Countdown(SpawnedToStart, countStartSpawner));
     }
 
     private void OnEnable()

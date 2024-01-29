@@ -9,7 +9,7 @@ public class Points : MonoBehaviour, IMultiplied, ISceneLoadHandler<LevelConfig>
     [SerializeField] private int _diminutionMultiplier;
 
     private int _defaulMultiplier = 0;
-    public int _value;
+    private int _value;
     private int _currentMultiplier = 0;
     private Coroutine _timeComboPoints;
 
@@ -22,14 +22,14 @@ public class Points : MonoBehaviour, IMultiplied, ISceneLoadHandler<LevelConfig>
 
     private void Start()
     {
-        ChangeValue?.Invoke(_value);
+        ChangeValue.Invoke(_value);
     }
 
     public void Add(int value)
     {
         СollectCombo();
         _value += value * _currentMultiplier;
-        ChangeValue?.Invoke(_value);
+        ChangeValue.Invoke(_value);
     }
 
     public void SetMultiplier(int multiplier)
@@ -39,7 +39,7 @@ public class Points : MonoBehaviour, IMultiplied, ISceneLoadHandler<LevelConfig>
         else
             _currentMultiplier += Mathf.Clamp(multiplier - _diminutionMultiplier, 0, int.MaxValue);
 
-        ChangeMultiplier?.Invoke(_currentMultiplier);
+        ChangeMultiplier.Invoke(_currentMultiplier);
     }
 
     private void СollectCombo()
@@ -53,7 +53,7 @@ public class Points : MonoBehaviour, IMultiplied, ISceneLoadHandler<LevelConfig>
     private IEnumerator TimerCombo()
     {
         _currentMultiplier++;
-        ChangeMultiplier?.Invoke(_currentMultiplier);
+        ChangeMultiplier.Invoke(_currentMultiplier);
         yield return new WaitForSeconds(_durationSaveCombo);
         SetDefaultMultiplier();
     }

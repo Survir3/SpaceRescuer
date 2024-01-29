@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1931756414250247951
+--- !u!1 &1441734809493526600
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2676002676383190862}
-  - component: {fileID: 7107440795176533883}
+  - component: {fileID: 4212750364534399568}
+  - component: {fileID: 7597474296872983779}
   m_Layer: 0
-  m_Name: Are you sure_ Progress will be lost
+  m_Name: StartGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2676002676383190862
+--- !u!4 &4212750364534399568
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931756414250247951}
+  m_GameObject: {fileID: 1441734809493526600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,13 +31,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7107440795176533883
+--- !u!114 &7597474296872983779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931756414250247951}
+  m_GameObject: {fileID: 1441734809493526600}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
@@ -46,11 +46,11 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: Russian
-    Text: "\u0412\u044B \u0445\u043E\u0442\u0438\u0442\u0435 \u0432\u044B\u0439\u0442\u0438? "
+    Text: "\u041D\u0430\u0447\u0430\u0442\u044C \u0438\u0433\u0440\u0443"
     Object: {fileID: 0}
   - Language: English
-    Text: Do you want to get out?
+    Text: Start game
     Object: {fileID: 0}
   - Language: Turkish
-    Text: "D\u0131\u015Far\u0131 \xE7\u0131kmak istiyor musunuz?"
+    Text: "Oyuna ba\u015Fla"
     Object: {fileID: 0}

@@ -6,16 +6,18 @@ using UnityEngine.Events;
 
 public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
 {
+    public static bool IsGlobalPause { get; private set; }
+
+    public static event UnityAction<bool> ChangedGlobalPause;
+
     [SerializeField] private MonoBehaviour[] _monoBehaviourTriggersGamePause;
 
     private List<INeededSwitchPlayMode> _interfaceTriggersGamePause;
-    private bool _isGlobalPause = false;
 
     public event UnityAction NeededPause;
     public event UnityAction NeededPlay;
 
     public bool IsPause { get; private set; }
-    public bool IsGlobalPause => _isGlobalPause;
 
     private void OnValidate()
     {
@@ -65,10 +67,9 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
 
     public void OnClickPauseButton()
     {
-        if (_isGlobalPause)
+        if (IsGlobalPause)
         {
             RequestPlay();
-            TrySetPlay();
         }
         else
         {
@@ -110,12 +111,14 @@ public class HandlerTimeSceler : MonoBehaviour, INeededSwitchPlayMode
     private void SetPause()
     {
         Time.timeScale = 0;
-        _isGlobalPause = true;
+        IsGlobalPause = true;
+        ChangedGlobalPause?.Invoke(IsGlobalPause);
     }
 
     private void SetPlay()
     {
         Time.timeScale = 1;
-        _isGlobalPause = false;
+        IsGlobalPause = false;
+        ChangedGlobalPause?.Invoke(IsGlobalPause);
     }
 }

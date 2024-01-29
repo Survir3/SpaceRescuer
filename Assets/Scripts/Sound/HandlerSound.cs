@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,7 +11,6 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
 
     private List<INeededSwitchSoundPlay> _interfaceSwitchSoundPlay;
     private bool _isGlobalOffSound = false;
-    private Coroutine _currentCoroutine;
 
     public bool IsGlobalOffSound => _isGlobalOffSound;
     public bool IsOffSound { get ; private set; }
@@ -59,7 +56,6 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
         if (_isGlobalOffSound)
         {
             RequestOnSound();
-            TryOnSound();
         }
         else
         {
@@ -69,15 +65,9 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
 
     public void OnSound()
     {
-        float onSound = 1f;
         _isGlobalOffSound= false;
 
-        if (_currentCoroutine != null)
-        {
-            StopCoroutine(_currentCoroutine);
-        }
-
-        _currentCoroutine = StartCoroutine(ChangeVolumeTo(onSound));
+        AudioListener.volume = 1f;
         ChangedModePlay.Invoke(_isGlobalOffSound);
     }
 
@@ -85,7 +75,7 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
     {
         _isGlobalOffSound = true;
 
-        AudioListener.volume = 0;
+        AudioListener.volume = 0f;
         ChangedModePlay.Invoke(_isGlobalOffSound);
     }
 
@@ -140,9 +130,7 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
 
     private void SetStartSoundMode(bool isOffSound)
     {
-        _isGlobalOffSound = isOffSound;
-
-        if (_isGlobalOffSound)
+        if (isOffSound)
         {
             RequestOffSound();
         }
@@ -150,22 +138,6 @@ public class HandlerSound : MonoBehaviour, INeededSwitchSoundPlay
         {
             RequestOnSound();
             TryOnSound();
-        }
-    }
-
-
-    private IEnumerator ChangeVolumeTo(float value)
-    {
-        float toValue = AudioListener.volume - value;
-        float newValue;
-        float minValue = 0;
-        float maxValue = 1;
-
-        while (AudioListener.volume!=value)
-        {
-            yield return new WaitForFixedUpdate();
-            newValue = Mathf.Clamp(AudioListener.volume -= toValue * Time.fixedDeltaTime, minValue, maxValue);
-            AudioListener.volume = newValue;
         }
     }
 }

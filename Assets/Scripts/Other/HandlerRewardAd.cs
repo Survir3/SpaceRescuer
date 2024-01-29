@@ -18,7 +18,7 @@ public class HandlerRewardAd : MonoBehaviour, INeededSwitchPlayMode, INeededSwit
 
     public void ShowAd(Action onRewardedCallback = null, Action onCloseCallback = null, Action<string> onErrorCallback = null)
     {
-        Action OpenCallback= DisableInputSystem ;
+        Action OpenCallback= DisableInputSystem;
         OpenCallback += RequestOffSound;
         OpenCallback += RequestPause;
 

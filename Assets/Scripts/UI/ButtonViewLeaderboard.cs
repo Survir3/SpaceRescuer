@@ -4,6 +4,7 @@ using UnityEngine;
 public class ButtonViewLeaderboard : MonoBehaviour
 {
     [SerializeField] private GameObject _leaderboard;
+    [SerializeField] private GameObject _myRank;
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _authorization;
 
@@ -28,11 +29,13 @@ public class ButtonViewLeaderboard : MonoBehaviour
     {
         _leaderboard.SetActive(true);
         _mainMenu.SetActive(false);
+        _myRank.SetActive(false);
     }
 
     private void Close()
     {
         _leaderboard.SetActive(false);
         _mainMenu.SetActive(true);
+        _myRank.SetActive(true);
     }
 }

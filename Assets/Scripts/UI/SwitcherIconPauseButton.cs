@@ -9,18 +9,24 @@ public class SwitcherIconPauseButton : MonoBehaviour
 
     private void Awake()
     {
-        _play.enabled = _handlerTimeSceler.IsPause;
+        _play.enabled = HandlerTimeSceler.IsGlobalPause;
         _pause.enabled = !_play.enabled;
     }
 
-    public void EnableBackgroundButton()
-    {
-        if (_handlerTimeSceler.IsGlobalPause && _handlerTimeSceler.IsPause == false)
-        {
-            return;
-        }
 
-        _play.enabled = _handlerTimeSceler.IsPause;
+    private void OnEnable()
+    {
+        HandlerTimeSceler.ChangedGlobalPause += OnChangedGlobalPause;
+    }
+
+    private void OnDisable()
+    {
+        HandlerTimeSceler.ChangedGlobalPause -= OnChangedGlobalPause;
+    }
+
+    private void OnChangedGlobalPause(bool isPause)
+    {
+        _play.enabled = isPause;
         _pause.enabled = !_play.enabled;
     }
 }

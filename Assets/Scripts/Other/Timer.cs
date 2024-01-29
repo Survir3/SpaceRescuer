@@ -21,4 +21,14 @@ public class Timer : MonoBehaviour
 
         after?.Invoke();
     }
+
+    public IEnumerator Countdown(Action<int> after=null, int valueAfter = 0)
+    {
+        while (Value > 0)
+        {
+            Value -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        after?.Invoke(valueAfter);
+    }
 }

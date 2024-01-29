@@ -6,36 +6,27 @@ using UnityEngine.Events;
 
 public class LoaderLeaderboard : MonoBehaviour
 {
-    [SerializeField] private Player _player;
-    [SerializeField] private SpawnerSurvivor _spawnerSurvivor;
+    [SerializeField] private SaverData _saverData;
+    [SerializeField] private CreatorLevelConfig _creatorLevelConfig;
 
     private Texture2D _textureLeader;
-    private List<LeaderPlayerInfo> _leaderPlayersInfo = new List<LeaderPlayerInfo>();
+    private List<LeaderPlayerInfo> _leaderEntriesInfo = new List<LeaderPlayerInfo>();
     private bool _isCorrutineDownloadPhotoFinished = false;
-    private int _countLeaderPlayerInfo = 5;
-    private bool _isLoaderCorrectLoad = false;
 
-    public event UnityAction<IReadOnlyList<LeaderPlayerInfo>> IsLoadFinish;
+    public event UnityAction<IReadOnlyList<LeaderPlayerInfo>> IsLoadLeadersFinish;
+    public event UnityAction<int> IsLoadUserRank;
 
-    public bool IsLoaderCorrectLoad => _isLoaderCorrectLoad;
-    public IReadOnlyList<LeaderPlayerInfo> LeaderPlayerInfos => _leaderPlayersInfo;
+    public IReadOnlyList<LeaderPlayerInfo> LeaderEntriesInfo => _leaderEntriesInfo;
+    public int BestResult { get; private set; }
 
     private void OnEnable()
     {
-        if (_player != null && _spawnerSurvivor != null)
-        {
-            _player.IsDie += OnUpdateScore;
-            _spawnerSurvivor.IsAllAdded += OnUpdateScore;
-        }
+        _creatorLevelConfig.ChangeValuePoints += OnChangeValuePoints;
     }
 
     private void OnDisable()
     {
-        if (_player != null)
-        {
-            _spawnerSurvivor.IsAllAdded -= OnUpdateScore;
-            _player.IsDie -= OnUpdateScore;
-        }
+        _creatorLevelConfig.ChangeValuePoints -= OnChangeValuePoints;
     }
 
     private void Start()
@@ -47,44 +38,46 @@ public class LoaderLeaderboard : MonoBehaviour
     {
         if (PlayerAccount.IsAuthorized)
         {
-            Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersPlayersInfo, null, _countLeaderPlayerInfo);
+            Leaderboard.GetPlayerEntry(ConstantsString.Leaderboard, DownloadBestResult);
+            Leaderboard.GetEntries(ConstantsString.Leaderboard, StartSetLeadersEntriesInfo);
         }
     }
 
-    private void OnUpdateScore()
+    public void OnChangeValuePoints(int points)
     {
-#if UNITY_WEBGL && !UNITY_EDITOR
         if (PlayerAccount.IsAuthorized)
+        {
+            if(points > BestResult)
+            {
+                BestResult = points;
+            }
+
             Leaderboard.GetPlayerEntry(ConstantsString.Leaderboard, SetScore);
-#endif
+        }
     }
 
     private void SetScore(LeaderboardEntryResponse leaderboardEntry)
     {
-        if (leaderboardEntry == null)
-        {
-            Leaderboard.SetScore(ConstantsString.Leaderboard, _player.Points.Value);
-            return;
-        }
+        int minScore = 1;
 
-        if (leaderboardEntry.score < _player.Points.Value)
+        if (leaderboardEntry.score < BestResult && BestResult>= minScore)
         {
-            Leaderboard.SetScore(ConstantsString.Leaderboard, _player.Points.Value);
+            Leaderboard.SetScore(ConstantsString.Leaderboard, BestResult);
         }
     }
 
-    private void StartSetLeadersPlayersInfo(LeaderboardGetEntriesResponse entries)
+    private void StartSetLeadersEntriesInfo(LeaderboardGetEntriesResponse entries)
     {
-        StartCoroutine(SetLeadersPlayersInfo(entries));
+        StartCoroutine(SetLeadersEntriesInfo(entries.entries));
     }
 
-    private IEnumerator SetLeadersPlayersInfo(LeaderboardGetEntriesResponse entries)
+    private IEnumerator SetLeadersEntriesInfo(LeaderboardEntryResponse[] entry)
     {
-        for (int i = 0; i < entries.entries.Length; i++)
+        for (int i = 0; i < entry.Length; i++)
         {
-            int score = entries.entries[i].score;
-            string name = entries.entries[i].player.publicName;
-            string urlTexture = entries.entries[i].player.profilePicture;
+            int score = entry[i].score;
+            string name = entry[i].player.publicName;
+            string urlTexture = entry[i].player.profilePicture;
 
             StartCoroutine(DownloadPhoto(urlTexture));
 
@@ -100,18 +93,21 @@ public class LoaderLeaderboard : MonoBehaviour
 
             var newLeaderPlayerInfo = new LeaderPlayerInfo();
             newLeaderPlayerInfo.Init(name, score, _textureLeader);
-            _leaderPlayersInfo.Add(newLeaderPlayerInfo);
+            _leaderEntriesInfo.Add(newLeaderPlayerInfo);
             _textureLeader = null;
         }
 
-        _isLoaderCorrectLoad = true;
+        IsLoadLeadersFinish?.Invoke(LeaderEntriesInfo);
+    }
 
-        IsLoadFinish?.Invoke(LeaderPlayerInfos);
+    private void DownloadBestResult(LeaderboardEntryResponse entry)
+    {
+        BestResult = entry.score;
+        IsLoadUserRank?.Invoke(BestResult);
     }
 
     private IEnumerator DownloadPhoto(string url)
     {
-
         var remoteImage = new RemoteImage(url);
         remoteImage.Download();
 

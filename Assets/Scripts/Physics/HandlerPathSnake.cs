@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HandlerPathSnake : MonoBehaviour
 {
-    public static int MaxCountLastPoints = 45;
+    public readonly static int MaxCountLastPoints = 50;
 
     [SerializeField] private MovementPlayer _movementPlayer;
 
